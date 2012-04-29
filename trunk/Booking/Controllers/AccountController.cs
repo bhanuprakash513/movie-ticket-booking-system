@@ -6,7 +6,10 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 using MovieBooking.MVC.UI.Models;
-using MovieBooking.BLL.Entities;
+using MovieBooking.BLL.POCOModel;
+using Microsoft.Practices.EnterpriseLibrary.Common;
+using Microsoft.Practices.EnterpriseLibrary.Logging;
+using System.Collections.ObjectModel;
 
 namespace MovieBooking.MVC.UI.Controllers
 {
@@ -18,6 +21,7 @@ namespace MovieBooking.MVC.UI.Controllers
 
         public ActionResult LogOn()
         {
+            Logger.Write("public ActionResult LogOn()!");
             return View();
         }
 
@@ -27,6 +31,7 @@ namespace MovieBooking.MVC.UI.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
+            Logger.Write("public ActionResult LogOn(LogOnModel model, string returnUrl)!");
             if (ModelState.IsValid)
             {
                 if (Membership.ValidateUser(model.UserName, model.Password))
@@ -58,7 +63,7 @@ namespace MovieBooking.MVC.UI.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-
+            Logger.Write("public ActionResult LogOff()!");
             return RedirectToAction("Index", "Home");
         }
 
@@ -67,6 +72,7 @@ namespace MovieBooking.MVC.UI.Controllers
 
         public ActionResult Register()
         {
+            
             return View();
         }
 
@@ -76,18 +82,29 @@ namespace MovieBooking.MVC.UI.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
+            Logger.Write("public ActionResult Register(RegisterModel model)!");
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
                 MembershipCreateStatus createStatus;
                 MembershipUser _orgUser = Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-
+                DateTime dob;
+                DateTime.TryParseExact(model.DOB, new string[] { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" }, null, System.Globalization.DateTimeStyles.None, out dob);
+                
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                     //
-                    RegisteredUser _user = new RegisteredUser() { UserId = (Guid)_orgUser.ProviderUserKey, DOB = DateTime.Now, NRIC = "S1234567A" };
+                    mb_RegisteredUser _user = new mb_RegisteredUser() { UserId = (Guid)_orgUser.ProviderUserKey,
+                                                                        DOB = dob,
+                                                                        NRIC = model.NRIC,
+                                                                        BankName = model.BankName,
+                                                                        AccountNo = model.AccountNo,
+                                                                        Address = model.Address,
+                                                                        PostalCode = model.PostalCode };
                     _user.Insert();
+
+                    ReadOnlyCollection<RegisteredUsers_Ext> _users = mb_RegisteredUser.RegisteredUsers();
                     //
                     return RedirectToAction("Index", "Home");
                 }
@@ -95,6 +112,7 @@ namespace MovieBooking.MVC.UI.Controllers
                 {
                     ModelState.AddModelError("", ErrorCodeToString(createStatus));
                 }
+
             }
 
             // If we got this far, something failed, redisplay form

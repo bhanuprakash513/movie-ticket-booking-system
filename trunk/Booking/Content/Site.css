@@ -5,7 +5,7 @@ to use a different color start by replacing all instances of
 ----------------------------------------------------------*/
 body {
     background-color: #5c87b2;
-    font-size: .85em;
+    font-size: 0.9em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
@@ -194,7 +194,7 @@ input[type="text"],
 input[type="password"] {
     border: 1px solid #ccc;
     padding: 2px;
-    font-size: 1.2em;
+    font-size: 1.0em;
     color: #444;
     width: 200px;
 }
@@ -202,12 +202,12 @@ input[type="password"] {
 select {
     border: 1px solid #ccc;
     padding: 2px;
-    font-size: 1.2em;
+    font-size: 1.0em;
     color: #444;
 }
 
 input[type="submit"] {
-    font-size: 1.2em;
+    font-size: 1.0em;
     padding: 5px;
 }
 
@@ -253,7 +253,7 @@ div#title {
 }
 
 #logindisplay {
-    font-size: 1.1em;
+    font-size: 1.0em;
     display: block;
     text-align: right;
     margin: 10px;
