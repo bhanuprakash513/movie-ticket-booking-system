@@ -43,21 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MovieBooking.Model.Designer.cs">
+    <Compile Include="Model.Entities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MovieBooking.Model.edmx</DependentUpon>
+      <DependentUpon>Model.Entities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="App.Config" />
-    <EntityDeploy Include="MovieBooking.Model.edmx">
+    <EntityDeploy Include="Model.Entities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MovieBooking.Model.Designer.cs</LastGenOutput>
-      <CustomToolNamespace>MovieBooking.DAL.Entities</CustomToolNamespace>
+      <LastGenOutput>Model.Entities.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>MovieBooking.DAL.Model</CustomToolNamespace>
     </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\DataSources\MovieBooking.DAL.Entities.Entities.datasource" />
   </ItemGroup>
   <ItemGroup>

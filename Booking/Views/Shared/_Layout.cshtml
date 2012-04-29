@@ -18,12 +18,12 @@
             </div>
             <nav>
                 <ul id="menu">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    @Html.MvcSiteMap().Menu(false, true, true)
                 </ul>
             </nav>
         </header>
         <section id="main">
+            @Html.MvcSiteMap().SiteMapPath()
             @RenderBody()
         </section>
         <footer>

@@ -49,6 +49,34 @@ namespace MovieBooking.MVC.UI.Models
         public string UserName { get; set; }
 
         [Required]
+        [RegularExpression(@"^(g|s|G|S\d{7}[a-zA-Z])$", ErrorMessage = "Invalid NRIC! e.g. S1234567A")]
+        [StringLength(9, ErrorMessage = "NRIC must be 9 characters long. e.g. S1234567A", MinimumLength = 9)]
+        [Display(Name = "NRIC")]
+        public string NRIC { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "DOB")]
+        [RegularExpression(@"^([1-9]|0[1-9]|[12][0-9]|3[01])[- /.]([1-9]|0[1-9]|1[012])[- /.][0-9]{4}$", ErrorMessage = "Valid Formats are: 'dd/MM/yyyy', 'dd-MM-yyyy', 'dd.MM.yyyy'")]
+        [StringLength(11, ErrorMessage = "Invalid DOB!. Valid Formats are: 'dd/MM/yyyy', 'dd-MM-yyyy', 'dd.MM.yyyy'. ")]
+        public string DOB { get; set; }
+
+        [Display(Name = "Bank Name")]
+        public string BankName { get; set; }
+
+        [RegularExpression(@"(\d{3}-\d{6}-\d{1})$", ErrorMessage = "Invalid Account No!. e.g: '012-345678-9'.")]
+        [Display(Name = "Account No")]
+        [StringLength(12, ErrorMessage = "Account Numbers must be 12 characters long. e.g: '012-345678-9'. ", MinimumLength = 12)]
+        public string AccountNo { get; set; }
+
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
+        [RegularExpression(@"^\d+$", ErrorMessage="Invalid Postal Code.")]
+        [Display(Name = "Postal Code")]
+        [StringLength(6, ErrorMessage = "Postal Code must be 6 characters long.", MinimumLength = 6)]
+        public string PostalCode { get; set; }
+
+        [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "Email address")]
         public string Email { get; set; }
@@ -63,5 +91,6 @@ namespace MovieBooking.MVC.UI.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
     }
 }

@@ -21,13 +21,34 @@
         <fieldset>
             <legend>Account Information</legend>
 
+            <table>
+            <tr>
+            <td align="right">
             <div class="editor-label">
                 @Html.LabelFor(m => m.UserName)
             </div>
+            </td>
+            <td>
             <div class="editor-field">
                 @Html.TextBoxFor(m => m.UserName)
                 @Html.ValidationMessageFor(m => m.UserName)
             </div>
+            </td>
+            </tr>
+            <tr>
+            <td style="width:100px" align="right">
+            <div class="editor-label">
+                @Html.LabelFor(m => m.NRIC)
+            </div>
+            </td>
+            <td>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.NRIC)
+                @Html.ValidationMessageFor(m => m.NRIC)
+            </div>
+            </td>
+            </tr>
+            </table>
 
             <div class="editor-label">
                 @Html.LabelFor(m => m.Email)
@@ -51,6 +72,46 @@
             <div class="editor-field">
                 @Html.PasswordFor(m => m.ConfirmPassword)
                 @Html.ValidationMessageFor(m => m.ConfirmPassword)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.DOB)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.DOB)
+                @Html.ValidationMessageFor(m => m.DOB)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.BankName)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.BankName)
+                @Html.ValidationMessageFor(m => m.BankName)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.AccountNo)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.AccountNo)
+                @Html.ValidationMessageFor(m => m.AccountNo)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.Address)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.Address)
+                @Html.ValidationMessageFor(m => m.Address)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.PostalCode)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.PostalCode)
+                @Html.ValidationMessageFor(m => m.PostalCode)
             </div>
 
             <p>
