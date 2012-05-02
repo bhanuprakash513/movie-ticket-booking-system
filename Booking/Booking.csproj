@@ -176,6 +176,14 @@
       <Project>{384A95AA-9378-4646-9304-04AF5F2CCB43}</Project>
       <Name>BLL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Model.Entities\Model.Entities.csproj">
+      <Project>{8D1F95DD-EBF8-4259-B488-5AFB22450AD9}</Project>
+      <Name>Model.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SystemFramework\SystemFrameworks.csproj">
+      <Project>{E8E8810B-1F28-4A9C-A6E9-4285A07D8CE4}</Project>
+      <Name>SystemFrameworks</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />

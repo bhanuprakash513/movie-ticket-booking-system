@@ -49,7 +49,7 @@ namespace MovieBooking.MVC.UI.Models
         public string UserName { get; set; }
 
         [Required]
-        [RegularExpression(@"^(g|s|G|S\d{7}[a-zA-Z])$", ErrorMessage = "Invalid NRIC! e.g. S1234567A")]
+        [RegularExpression(@"^(s|t)[0-9]{7}[a-jz]{1}$", ErrorMessage = "Invalid NRIC! e.g. S1234567A")]
         [StringLength(9, ErrorMessage = "NRIC must be 9 characters long. e.g. S1234567A", MinimumLength = 9)]
         [Display(Name = "NRIC")]
         public string NRIC { get; set; }
