@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
-using MovieBooking.MVC.UI.Models;
-using MovieBooking.BLL.POCOModel;
-using Microsoft.Practices.EnterpriseLibrary.Common;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
-using System.Collections.ObjectModel;
+using MovieBooking.Model.Entities;
+using MovieBooking.MVC.UI.Models;
+using POCO = MovieBooking.BLL.POCOModel;
+using System.Globalization;
 
 namespace MovieBooking.MVC.UI.Controllers
 {
@@ -82,30 +80,15 @@ namespace MovieBooking.MVC.UI.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            Logger.Write("public ActionResult Register(RegisterModel model)!");
+            //Logger.Write("public ActionResult Register(RegisterModel model)!");
             if (ModelState.IsValid)
             {
                 // Attempt to register the user
-                MembershipCreateStatus createStatus;
-                MembershipUser _orgUser = Membership.CreateUser(model.UserName, model.Password, model.Email, null, null, true, null, out createStatus);
-                DateTime dob;
-                DateTime.TryParseExact(model.DOB, new string[] { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" }, null, System.Globalization.DateTimeStyles.None, out dob);
+                MembershipCreateStatus createStatus = this.RegisterMember(model);
                 
                 if (createStatus == MembershipCreateStatus.Success)
                 {
                     FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
-                    //
-                    mb_RegisteredUser _user = new mb_RegisteredUser() { UserId = (Guid)_orgUser.ProviderUserKey,
-                                                                        DOB = dob,
-                                                                        NRIC = model.NRIC,
-                                                                        BankName = model.BankName,
-                                                                        AccountNo = model.AccountNo,
-                                                                        Address = model.Address,
-                                                                        PostalCode = model.PostalCode };
-                    _user.Insert();
-
-                    ReadOnlyCollection<RegisteredUsers_Ext> _users = mb_RegisteredUser.RegisteredUsers();
-                    //
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -172,6 +155,46 @@ namespace MovieBooking.MVC.UI.Controllers
         {
             return View();
         }
+
+        #region customised repository methods
+
+        private MembershipCreateStatus RegisterMember(RegisterModel model)
+        {
+            // Attempt to register the user
+            MembershipCreateStatus createStatus = 0; //MembershipCreateStatus.UserRejected;
+            //
+            DateTime dob;
+            string[] dateFormats = new string[] { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" };
+            DateTime.TryParseExact(model.DOB, dateFormats, null, DateTimeStyles.None, out dob);
+            //
+            POCO.RegisteredUser _user = new POCO.RegisteredUser()
+            {
+                DOB = (dob == DateTime.MinValue) ? (DateTime?)null : dob,
+                NRIC = model.NRIC,
+                BankName = model.BankName,
+                AccountNo = model.AccountNo,
+                Address = model.Address,
+                PostalCode = model.PostalCode,
+                aspnet_Membership = new aspnet_Membership()
+                {
+                    Email = model.Email,
+                    Password = model.Password,
+                    aspnet_Users = new aspnet_Users() { UserName = model.UserName }
+                }
+            };
+
+            _user.InsertMember(ref createStatus);
+            List<mb_RegisteredUser> u = _user.GetRegisteredMembers().ToList();
+
+            //ReadOnlyCollection<POCO.SystemParameter> param =
+            //    (new POCO.SystemParameter()).GetSystemParameters("BookingStatus");
+
+            //ReadOnlyCollection<POCO.SystemParameter> param2 =
+            //    (new POCO.SystemParameter()).GetSystemParameters("BookingStatus");
+
+            return createStatus;
+        }
+        #endregion
 
         #region Status Codes
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
