@@ -1029,7 +1029,7 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MovieBooking.Model" ZoomLevel="94">
+      <Diagram Name="MovieBooking.Model" ZoomLevel="66">
         <EntityTypeShape EntityType="MovieBooking.Model.aspnet_Membership" Width="2.375" PointX="0.5" PointY="0.5" Height="5.4417122395833317" />
         <EntityTypeShape EntityType="MovieBooking.Model.aspnet_Users" Width="1.875" PointX="3.875" PointY="1.25" Height="2.5571907552083317" />
         <AssociationConnector Association="MovieBooking.Model.FK__aspnet_Me__UserI__15502E78" >
