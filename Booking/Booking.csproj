@@ -133,6 +133,7 @@
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.ascx" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.ascx" />
+    <Content Include="Views\Shared\video_film.png" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
