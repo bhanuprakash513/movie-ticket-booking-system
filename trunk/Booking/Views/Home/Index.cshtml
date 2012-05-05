@@ -1,11 +1,45 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-}
-
+}>
+<form style="background-image:url('../images/plain-brown.jpg');">
 <h2>@ViewBag.Message</h2>
 <p>
-    To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-    <button >
-    <img src="../Shared/video_film.png" />
-    </button>
+    @*To learn more about ASP.NET MVC visit <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.*@
 </p>
+<table width="900" style="background-color:transparent">
+<tr>
+@*<td><img  onclick="javascript:alert('New User');" src="../../images/Register.png" alt="New User" style="width="100px"; height="100px" /></td>
+<td></td>*@
+<td><img  onclick="javascript:alert('Trailer');" src="../../images/video_film.png" alt="Trailer" style="width:100px; height:100px" /></td>
+<td></td>
+<td><img onclick="javascript:alert('Buy Ticket');" src="../../images/tickets-icon.png" alt="Buy Tickets" style="width:100px; height:100px" /></td>
+<td></td>
+<td><img onclick="javascript:alert('Contact us');" src="../../images/people-icon.png" alt="Contact Us" style="width:100px; height:100px" /></td>
+</tr>
+<tr>
+@*<td><p >Member Registration</p></td>
+<td></td>*@
+<td><p style="font-weight:bold"> Movie Trailer</p></td>
+<td></td>
+<td><p style="font-weight:bold"> Buy Ticket</p></td>
+<td></td>
+<td><p style="font-weight:bold"> Contact Us </p></td>
+</tr>
+<tr> 
+<td><img onclick="javascript:alert('GiftVouchers');" src="../../images/Gift_box_icon.png" alt="Gift Vouchers" style="width:100px; height:100px" /></td>
+<td></td>
+<td><img onclick="javascript:alert('Movie List');" src="../../images/MovieIcon.png" alt="Movie" style="width:100px; height:100px" /></td>
+<td></td>
+<td><img onclick="javascript:alert('Booking History');" src="../../images/bookhistory.png" alt="History" style="width:100px; height:100px" /></td>
+</tr>
+<tr>
+<td><p style="font-weight:bold;"> Gift Vouchers</p></td>
+<td></td>
+<td><p style="font-weight:bold"> Now Showing</p></td>
+<td></td>
+<td><p style="font-weight:bold"> Booked History </p></td>
+</tr>
+</table>
+</form>
+
+
