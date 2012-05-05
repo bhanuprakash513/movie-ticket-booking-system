@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 using Microsoft.Practices.EnterpriseLibrary.Logging;
+using MovieBooking.BLL.Entities;
 using MovieBooking.Model.Entities;
 using MovieBooking.MVC.UI.Models;
-using POCO = MovieBooking.BLL.POCOModel;
-using System.Globalization;
 
 namespace MovieBooking.MVC.UI.Controllers
 {
@@ -167,7 +165,7 @@ namespace MovieBooking.MVC.UI.Controllers
             string[] dateFormats = new string[] { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" };
             DateTime.TryParseExact(model.DOB, dateFormats, null, DateTimeStyles.None, out dob);
             //
-            POCO.RegisteredUser _user = new POCO.RegisteredUser()
+            RegisteredUser _user = new RegisteredUser()
             {
                 DOB = (dob == DateTime.MinValue) ? (DateTime?)null : dob,
                 NRIC = model.NRIC,
@@ -184,7 +182,7 @@ namespace MovieBooking.MVC.UI.Controllers
             };
 
             _user.InsertMember(ref createStatus);
-            List<mb_RegisteredUser> u = _user.GetRegisteredMembers().ToList();
+            _user.GetRegisteredMembers();
 
             //ReadOnlyCollection<POCO.SystemParameter> param =
             //    (new POCO.SystemParameter()).GetSystemParameters("BookingStatus");
@@ -194,6 +192,7 @@ namespace MovieBooking.MVC.UI.Controllers
 
             return createStatus;
         }
+
         #endregion
 
         #region Status Codes
@@ -235,5 +234,15 @@ namespace MovieBooking.MVC.UI.Controllers
             }
         }
         #endregion
+
+        //private IEnumerable<mb_RegisteredUser> GetRegisteredMembers()
+        //{
+        //    //List<mb_RegisteredUser> u = _user.GetRegisteredMembers().ToList();
+        //}
+
+        private bool InsertMember(ref MembershipCreateStatus createStatus)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
