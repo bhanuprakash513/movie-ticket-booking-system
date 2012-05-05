@@ -11,22 +11,23 @@
     <div class="page">
         <header>
             <div id="title">
-                <h1>S06 Silver Village</h1>
+                <h1><img src="../../images/The_Avengers_Movie_Banner__Two_by_Marvel_Freshman.jpg"  width="800px" height="100px" />
+                <img src="../../images/iron_man_2_movie-normal.jpg" width="194px" height="100px"/></h1>
             </div>
             <div id="logindisplay">
                 @Html.Partial("_LogOnPartial")
             </div>
             <nav>
-                <ul id="menu">
+                <ul id="menu" >
                     @Html.MvcSiteMap().Menu(false, true, true)
                 </ul>
             </nav>
         </header>
-        <section id="main">
+        <section id="main" style="background-image:url('../images/plain-brown.jpg');">
             @Html.MvcSiteMap().SiteMapPath()
             @RenderBody()
         </section>
-        <footer>
+        <footer style="background-image:url('../images/plain-brown.jpg');">
         </footer>
     </div>
 </body>
