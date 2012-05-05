@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MovieBooking.DAL.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="MovieBooking.DAL.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="MovieBookingDALModelStoreContainer">
           <EntitySet Name="aspnet_Membership" EntityType="MovieBooking.DAL.Model.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Users" EntityType="MovieBooking.DAL.Model.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
@@ -122,6 +122,7 @@
           <Property Name="MovieID" Type="int" Nullable="false" />
           <Property Name="CastID" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="mb_MovieBooking">
           <Key>
@@ -359,8 +360,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+        <Function Name="p_mb_Ins_Movie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="moviename" Type="nvarchar" Mode="In" />
+          <Parameter Name="languageid" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="ratingid" Type="nvarchar" Mode="In" />
+          <Parameter Name="runningduration" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="p_mb_Ins_MovieSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="movieid" Type="int" Mode="In" />
+          <Parameter Name="theatreid" Type="int" Mode="In" />
+          <Parameter Name="hallid" Type="nvarchar" Mode="In" />
+          <Parameter Name="scheduledate" Type="datetime" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="p_mb_Ins_MovieSchedule_Item" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="moviescheduleid" Type="int" Mode="In" />
+          <Parameter Name="timeslotid" Type="nvarchar" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="p_mb_Ins_Theatre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="address" Type="nvarchar" Mode="In" />
+          <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+          <Parameter Name="phoneno" Type="nvarchar" Mode="In" />
+          <Parameter Name="faxno" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="website" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="p_mb_Upd_Movie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="moviename" Type="nvarchar" Mode="In" />
+          <Parameter Name="languageid" Type="nvarchar" Mode="In" />
+          <Parameter Name="description" Type="nvarchar" Mode="In" />
+          <Parameter Name="ratingid" Type="nvarchar" Mode="In" />
+          <Parameter Name="runningduration" Type="smallint" Mode="In" />
+        </Function>
+        <Function Name="p_mb_Upd_MovieSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="movieid" Type="int" Mode="In" />
+          <Parameter Name="theatreid" Type="int" Mode="In" />
+          <Parameter Name="hallid" Type="nvarchar" Mode="In" />
+          <Parameter Name="scheduledate" Type="datetime" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="p_mb_Upd_MovieSchedule_Item" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="moviescheduleid" Type="int" Mode="In" />
+          <Parameter Name="timeslotid" Type="nvarchar" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <Function Name="p_mb_Upd_Theatre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+          <Parameter Name="address" Type="nvarchar" Mode="In" />
+          <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+          <Parameter Name="phoneno" Type="nvarchar" Mode="In" />
+          <Parameter Name="faxno" Type="nvarchar" Mode="In" />
+          <Parameter Name="email" Type="nvarchar" Mode="In" />
+          <Parameter Name="website" Type="nvarchar" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MovieBooking.DAL.Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
@@ -474,9 +534,9 @@
           <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <Property Name="RatingID" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="RunningDuration" Type="Int16" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="mb_Movie_Item" Relationship="MovieBooking.DAL.Model.FK_mb_Movie_Item_mb_Movie" FromRole="mb_Movie" ToRole="mb_Movie_Item" />
           <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" FromRole="mb_Movie" ToRole="mb_MovieSchedule" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
         </EntityType>
         <EntityType Name="mb_Movie_Item">
           <Key>
@@ -534,11 +594,11 @@
           <Property Name="HallID" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="ScheduleDate" Type="DateTime" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="mb_Movie" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" FromRole="mb_MovieSchedule" ToRole="mb_Movie" />
           <NavigationProperty Name="mb_MovieBooking" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule" FromRole="mb_MovieSchedule" ToRole="mb_MovieBooking" />
           <NavigationProperty Name="mb_MovieSchedule_Item" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule" FromRole="mb_MovieSchedule" ToRole="mb_MovieSchedule_Item" />
           <NavigationProperty Name="mb_Theatre" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" FromRole="mb_MovieSchedule" ToRole="mb_Theatre" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
         </EntityType>
         <EntityType Name="mb_MovieSchedule_Item">
           <Key>
@@ -605,8 +665,8 @@
           <Property Name="FaxNo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="WebSite" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" FromRole="mb_Theatre" ToRole="mb_MovieSchedule" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__15502E78">
           <End Role="aspnet_Users" Type="MovieBooking.DAL.Model.aspnet_Users" Multiplicity="1" />
@@ -779,16 +839,16 @@
             <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_Movie"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_Movie"><MappingFragment StoreEntitySet="mb_Movie">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="MovieName" ColumnName="MovieName" />
             <ScalarProperty Name="LanguageID" ColumnName="LanguageID" />
             <ScalarProperty Name="Description" ColumnName="Description" />
             <ScalarProperty Name="RatingID" ColumnName="RatingID" />
             <ScalarProperty Name="RunningDuration" ColumnName="RunningDuration" />
-            <ScalarProperty Name="Active" ColumnName="Active" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_Movie_Item"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_Movie_Item"><MappingFragment StoreEntitySet="mb_Movie_Item">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="MovieID" ColumnName="MovieID" />
             <ScalarProperty Name="CastID" ColumnName="CastID" />
             <ScalarProperty Name="Description" ColumnName="Description" />
@@ -814,13 +874,13 @@
             <ScalarProperty Name="Remarks" ColumnName="Remarks" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_MovieSchedule"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_MovieSchedule"><MappingFragment StoreEntitySet="mb_MovieSchedule">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="MovieID" ColumnName="MovieID" />
             <ScalarProperty Name="TheatreID" ColumnName="TheatreID" />
             <ScalarProperty Name="HallID" ColumnName="HallID" />
             <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
             <ScalarProperty Name="Price" ColumnName="Price" />
-            <ScalarProperty Name="Active" ColumnName="Active" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_MovieSchedule_Item"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_MovieSchedule_Item"><MappingFragment StoreEntitySet="mb_MovieSchedule_Item">
             <ScalarProperty Name="ID" ColumnName="ID" />
@@ -860,7 +920,8 @@
             <ScalarProperty Name="Active" ColumnName="Active" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_Theatre"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_Theatre"><MappingFragment StoreEntitySet="mb_Theatre">
-            <ScalarProperty Name="ID" ColumnName="ID" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="Name" ColumnName="Name" />
             <ScalarProperty Name="Address" ColumnName="Address" />
             <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
@@ -868,8 +929,30 @@
             <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
             <ScalarProperty Name="Email" ColumnName="Email" />
             <ScalarProperty Name="WebSite" ColumnName="WebSite" />
-            <ScalarProperty Name="Active" ColumnName="Active" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          </MappingFragment></EntityTypeMapping>
+            <EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_Theatre">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="MovieBooking.DAL.Model.Store.p_mb_Ins_Theatre" >
+                  <ScalarProperty Name="WebSite" ParameterName="website" />
+                  <ScalarProperty Name="Email" ParameterName="email" />
+                  <ScalarProperty Name="FaxNo" ParameterName="faxno" />
+                  <ScalarProperty Name="PhoneNo" ParameterName="phoneno" />
+                  <ScalarProperty Name="PostalCode" ParameterName="postalcode" />
+                  <ScalarProperty Name="Address" ParameterName="address" />
+                  <ScalarProperty Name="Name" ParameterName="name" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="MovieBooking.DAL.Model.Store.p_mb_Upd_Theatre" >
+                  <ScalarProperty Name="ID" ParameterName="id" Version="Current" />
+                  <ScalarProperty Name="WebSite" ParameterName="website" Version="Current" />
+                  <ScalarProperty Name="Email" ParameterName="email" Version="Current" />
+                  <ScalarProperty Name="FaxNo" ParameterName="faxno" Version="Current" />
+                  <ScalarProperty Name="PhoneNo" ParameterName="phoneno" Version="Current" />
+                  <ScalarProperty Name="PostalCode" ParameterName="postalcode" Version="Current" />
+                  <ScalarProperty Name="Address" ParameterName="address" Version="Current" />
+                  <ScalarProperty Name="Name" ParameterName="name" Version="Current" />
+                </UpdateFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping></EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -895,7 +978,7 @@
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Membership" Width="1.5" PointX="3.75" PointY="11.875" Height="5.4417122395833335" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Users" Width="1.5" PointX="1.5" PointY="13.25" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie" Width="1.5" PointX="0.75" PointY="7.125" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie_Item" Width="1.5" PointX="3" PointY="7.625" Height="1.9802864583333344" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie_Item" Width="1.5" PointX="3" PointY="7.625" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking" Width="1.5" PointX="8.25" PointY="7" Height="3.1340950520833344" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking_Item" Width="1.5" PointX="10.5" PointY="4.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking_Trans" Width="1.5" PointX="10.5" PointY="6.75" Height="2.1725878906249987" IsExpanded="true" />
@@ -904,7 +987,7 @@
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Payment" Width="1.5" PointX="10.5" PointY="9.75" Height="3.1340950520833353" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_RegisteredUser" Width="1.5" PointX="6" PointY="13.125" Height="2.9417936197916692" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_SystemParameter" Width="1.5" PointX="0.75" PointY="0.75" Height="2.3648893229166674" IsExpanded="true" />
-        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Theatre" Width="1.5" PointX="3.75" PointY="3.125" Height="2.9417936197916674" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Theatre" Width="1.5" PointX="3.75" PointY="3.125" Height="2.9417936197916656" IsExpanded="true" />
         <AssociationConnector Association="MovieBooking.DAL.Model.FK__aspnet_Me__UserI__15502E78" ManuallyRouted="false">
           <ConnectorPoint PointX="3" PointY="14.528595377604166" />
           <ConnectorPoint PointX="3.75" PointY="14.528595377604166" />
@@ -914,8 +997,8 @@
           <ConnectorPoint PointX="6" PointY="14.595896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_Movie_Item_mb_Movie" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.6151432291666676" />
-          <ConnectorPoint PointX="3" PointY="8.6151432291666676" />
+          <ConnectorPoint PointX="2.25" PointY="8.6151432291666659" />
+          <ConnectorPoint PointX="3" PointY="8.6151432291666659" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="7.34375" />
@@ -929,8 +1012,8 @@
           <ConnectorPoint PointX="10.5" PointY="5.1439925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="8.5670475260416659" />
-          <ConnectorPoint PointX="8.25" PointY="8.5670475260416659" />
+          <ConnectorPoint PointX="7.5" PointY="8.4932782117315142" />
+          <ConnectorPoint PointX="8.25" PointY="8.4932782117315142" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_RegisteredUser" ManuallyRouted="false">
           <ConnectorPoint PointX="7.5" PointY="14.595896809895834" />
@@ -954,9 +1037,9 @@
           <ConnectorPoint PointX="8.25" PointY="17.865143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.90625" PointY="6.0667936197916674" />
-          <ConnectorPoint PointX="4.90625" PointY="9.9009407552083335" />
-          <ConnectorPoint PointX="6" PointY="9.9009407552083335" />
+          <ConnectorPoint PointX="4.90625" PointY="6.0667936197916656" />
+          <ConnectorPoint PointX="4.90625" PointY="9.9009407552083317" />
+          <ConnectorPoint PointX="6" PointY="9.9009407552083317" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
