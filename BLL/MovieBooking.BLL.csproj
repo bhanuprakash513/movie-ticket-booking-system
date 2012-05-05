@@ -53,8 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Movie.cs" />
+    <Compile Include="Entities\MovieBooking.cs" />
+    <Compile Include="Entities\MovieBooking_Item.cs" />
+    <Compile Include="Entities\MovieBooking_Trans.cs" />
+    <Compile Include="Entities\MovieSchedule.cs" />
+    <Compile Include="Entities\MovieSchedule_Item.cs" />
+    <Compile Include="Entities\Movie_Item.cs" />
     <Compile Include="Entities\RegisteredUser.cs" />
     <Compile Include="Entities\SystemParameter.cs" />
+    <Compile Include="Entities\Theatre.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
