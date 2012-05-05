@@ -172,9 +172,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BLL\BLL.csproj">
+    <ProjectReference Include="..\BLL\MovieBooking.BLL.csproj">
       <Project>{384A95AA-9378-4646-9304-04AF5F2CCB43}</Project>
-      <Name>BLL</Name>
+      <Name>MovieBooking.BLL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model.Entities\Model.Entities.csproj">
       <Project>{8D1F95DD-EBF8-4259-B488-5AFB22450AD9}</Project>

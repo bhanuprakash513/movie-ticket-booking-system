@@ -138,9 +138,9 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL\DAL.csproj">
+    <ProjectReference Include="..\DAL\MovieBooking.DAL.csproj">
       <Project>{18A5BCAA-B4D3-444D-95A3-ECC56A7DDD1F}</Project>
-      <Name>DAL</Name>
+      <Name>MovieBooking.DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
