@@ -10,8 +10,7 @@ namespace MovieBooking.MVC.UI.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Welcome to Silver Village!";
-
+           ViewBag.Message = "Welcome to Silver Village!";
             return View();
         }
 

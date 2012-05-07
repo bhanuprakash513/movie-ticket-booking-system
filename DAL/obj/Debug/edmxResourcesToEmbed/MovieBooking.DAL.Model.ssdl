@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MovieBooking.DAL.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="MovieBookingDALModelStoreContainer">
+    <EntitySet Name="aspnet_Membership" EntityType="MovieBooking.DAL.Model.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="aspnet_Users" EntityType="MovieBooking.DAL.Model.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_Movie" EntityType="MovieBooking.DAL.Model.Store.mb_Movie" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_Movie_Item" EntityType="MovieBooking.DAL.Model.Store.mb_Movie_Item" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_MovieBooking" EntityType="MovieBooking.DAL.Model.Store.mb_MovieBooking" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_MovieBooking_Item" EntityType="MovieBooking.DAL.Model.Store.mb_MovieBooking_Item" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_MovieBooking_Trans" EntityType="MovieBooking.DAL.Model.Store.mb_MovieBooking_Trans" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_MovieSchedule" EntityType="MovieBooking.DAL.Model.Store.mb_MovieSchedule" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_MovieSchedule_Item" EntityType="MovieBooking.DAL.Model.Store.mb_MovieSchedule_Item" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_Payment" EntityType="MovieBooking.DAL.Model.Store.mb_Payment" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_RegisteredUser" EntityType="MovieBooking.DAL.Model.Store.mb_RegisteredUser" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_SystemParameter" EntityType="MovieBooking.DAL.Model.Store.mb_SystemParameter" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="mb_Theatre" EntityType="MovieBooking.DAL.Model.Store.mb_Theatre" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK__aspnet_Me__UserI__15502E78" Association="MovieBooking.DAL.Model.Store.FK__aspnet_Me__UserI__15502E78">
+      <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_Movie_Item_mb_Movie" Association="MovieBooking.DAL.Model.Store.FK_mb_Movie_Item_mb_Movie">
+      <End Role="mb_Movie" EntitySet="mb_Movie" />
+      <End Role="mb_Movie_Item" EntitySet="mb_Movie_Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_MovieBooking_Item_mb_MovieBooking" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieBooking_Item_mb_MovieBooking">
+      <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
+      <End Role="mb_MovieBooking_Item" EntitySet="mb_MovieBooking_Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_MovieBooking_mb_MovieSchedule" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieBooking_mb_MovieSchedule">
+      <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+      <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_MovieBooking_mb_RegisteredUser" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieBooking_mb_RegisteredUser">
+      <End Role="mb_RegisteredUser" EntitySet="mb_RegisteredUser" />
+      <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_MovieBooking_Trans_mb_MovieBooking" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieBooking_Trans_mb_MovieBooking">
+      <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
+      <End Role="mb_MovieBooking_Trans" EntitySet="mb_MovieBooking_Trans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_MovieSchedule_Item_mb_MovieSchedule" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieSchedule_Item_mb_MovieSchedule">
+      <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+      <End Role="mb_MovieSchedule_Item" EntitySet="mb_MovieSchedule_Item" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_MovieSchedule_mb_Movie" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieSchedule_mb_Movie">
+      <End Role="mb_Movie" EntitySet="mb_Movie" />
+      <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_MovieSchedule_mb_Theatre" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieSchedule_mb_Theatre">
+      <End Role="mb_Theatre" EntitySet="mb_Theatre" />
+      <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+    </AssociationSet>
+    <AssociationSet Name="FK_mb_Payment_mb_MovieBooking" Association="MovieBooking.DAL.Model.Store.FK_mb_Payment_mb_MovieBooking">
+      <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
+      <End Role="mb_Payment" EntitySet="mb_Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MB_RegisteredUser_aspnet_Membership" Association="MovieBooking.DAL.Model.Store.FK_MB_RegisteredUser_aspnet_Membership">
+      <End Role="aspnet_Membership" EntitySet="aspnet_Membership" />
+      <End Role="mb_RegisteredUser" EntitySet="mb_RegisteredUser" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="aspnet_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="PasswordFormat" Type="int" Nullable="false" />
+    <Property Name="PasswordSalt" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="MobilePIN" Type="nvarchar" MaxLength="16" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="LoweredEmail" Type="nvarchar" MaxLength="256" />
+    <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+    <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+    <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+    <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+    <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+    <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+    <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+    <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" Nullable="false" />
+    <Property Name="Comment" Type="ntext" />
+  </EntityType>
+  <EntityType Name="aspnet_Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="LoweredUserName" Type="nvarchar" Nullable="false" MaxLength="256" />
+    <Property Name="MobileAlias" Type="nvarchar" MaxLength="16" />
+    <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+    <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mb_Movie">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MovieName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LanguageID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="RatingID" Type="nvarchar" MaxLength="10" />
+    <Property Name="RunningDuration" Type="smallint" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mb_Movie_Item">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MovieID" Type="int" Nullable="false" />
+    <Property Name="CastID" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="mb_MovieBooking">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="BookingRef" Type="nvarchar" MaxLength="50" />
+    <Property Name="MemberID" Type="uniqueidentifier" />
+    <Property Name="ScheduleID" Type="int" />
+    <Property Name="BookingDate" Type="datetime" />
+    <Property Name="StatusID" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="mb_MovieBooking_Item">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MovieBookingID" Type="int" />
+    <Property Name="SeatNo" Type="nvarchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="mb_MovieBooking_Trans">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MovieBookingID" Type="int" />
+    <Property Name="TransDate" Type="datetime" />
+    <Property Name="StatusID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Remarks" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="mb_MovieSchedule">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MovieID" Type="int" />
+    <Property Name="TheatreID" Type="int" />
+    <Property Name="HallID" Type="nvarchar" MaxLength="10" />
+    <Property Name="ScheduleDate" Type="datetime" />
+    <Property Name="Price" Type="money" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mb_MovieSchedule_Item">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MovieScheduleID" Type="int" />
+    <Property Name="TimeSlotID" Type="nvarchar" MaxLength="10" />
+    <Property Name="Price" Type="money" />
+  </EntityType>
+  <EntityType Name="mb_Payment">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="MovieBookingID" Type="int" Nullable="false" />
+    <Property Name="PaymentModeID" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="PaymentDate" Type="datetime" Nullable="false" />
+    <Property Name="CreditCardNo" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CardExpiry" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="CardHolderName" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="CCV" Type="nvarchar" Nullable="false" MaxLength="5" />
+    <Property Name="TotalAmount" Type="money" Nullable="false" />
+    <Property Name="GSTPercent" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mb_RegisteredUser">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="NRIC" Type="varchar" Nullable="false" MaxLength="10" />
+    <Property Name="DOB" Type="datetime" />
+    <Property Name="Address" Type="varchar" MaxLength="255" />
+    <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+    <Property Name="BankName" Type="varchar" MaxLength="50" />
+    <Property Name="AccountNo" Type="varchar" MaxLength="20" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mb_SystemParameter">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Category" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="ItemName" Type="nvarchar" Nullable="false" MaxLength="10" />
+    <Property Name="ItemValue" Type="nvarchar" MaxLength="50" />
+    <Property Name="SortOrder" Type="smallint" />
+    <Property Name="Remarks" Type="nvarchar" MaxLength="250" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="mb_Theatre">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" />
+    <Property Name="PostalCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="FaxNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="WebSite" Type="nvarchar" Nullable="false" MaxLength="50" />
+    <Property Name="Active" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__aspnet_Me__UserI__15502E78">
+    <End Role="aspnet_Users" Type="MovieBooking.DAL.Model.Store.aspnet_Users" Multiplicity="1" />
+    <End Role="aspnet_Membership" Type="MovieBooking.DAL.Model.Store.aspnet_Membership" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="aspnet_Membership">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_Movie_Item_mb_Movie">
+    <End Role="mb_Movie" Type="MovieBooking.DAL.Model.Store.mb_Movie" Multiplicity="1" />
+    <End Role="mb_Movie_Item" Type="MovieBooking.DAL.Model.Store.mb_Movie_Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_Movie">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_Movie_Item">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_MovieBooking_Item_mb_MovieBooking">
+    <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking" Multiplicity="0..1" />
+    <End Role="mb_MovieBooking_Item" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking_Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_MovieBooking">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_MovieBooking_Item">
+        <PropertyRef Name="MovieBookingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_MovieBooking_mb_MovieSchedule">
+    <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="0..1" />
+    <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_MovieSchedule">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_MovieBooking">
+        <PropertyRef Name="ScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_MovieBooking_mb_RegisteredUser">
+    <End Role="mb_RegisteredUser" Type="MovieBooking.DAL.Model.Store.mb_RegisteredUser" Multiplicity="0..1" />
+    <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_RegisteredUser">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="mb_MovieBooking">
+        <PropertyRef Name="MemberID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_MovieBooking_Trans_mb_MovieBooking">
+    <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking" Multiplicity="0..1" />
+    <End Role="mb_MovieBooking_Trans" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking_Trans" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_MovieBooking">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_MovieBooking_Trans">
+        <PropertyRef Name="MovieBookingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_MovieSchedule_Item_mb_MovieSchedule">
+    <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="0..1" />
+    <End Role="mb_MovieSchedule_Item" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule_Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_MovieSchedule">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_MovieSchedule_Item">
+        <PropertyRef Name="MovieScheduleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_MovieSchedule_mb_Movie">
+    <End Role="mb_Movie" Type="MovieBooking.DAL.Model.Store.mb_Movie" Multiplicity="0..1" />
+    <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_Movie">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_MovieSchedule">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_MovieSchedule_mb_Theatre">
+    <End Role="mb_Theatre" Type="MovieBooking.DAL.Model.Store.mb_Theatre" Multiplicity="0..1" />
+    <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_Theatre">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_MovieSchedule">
+        <PropertyRef Name="TheatreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_mb_Payment_mb_MovieBooking">
+    <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking" Multiplicity="1" />
+    <End Role="mb_Payment" Type="MovieBooking.DAL.Model.Store.mb_Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="mb_MovieBooking">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="mb_Payment">
+        <PropertyRef Name="MovieBookingID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MB_RegisteredUser_aspnet_Membership">
+    <End Role="aspnet_Membership" Type="MovieBooking.DAL.Model.Store.aspnet_Membership" Multiplicity="1" />
+    <End Role="mb_RegisteredUser" Type="MovieBooking.DAL.Model.Store.mb_RegisteredUser" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="aspnet_Membership">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="mb_RegisteredUser">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="p_mb_Ins_Movie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="moviename" Type="nvarchar" Mode="In" />
+    <Parameter Name="languageid" Type="nvarchar" Mode="In" />
+    <Parameter Name="description" Type="nvarchar" Mode="In" />
+    <Parameter Name="ratingid" Type="nvarchar" Mode="In" />
+    <Parameter Name="runningduration" Type="smallint" Mode="In" />
+  </Function>
+  <Function Name="p_mb_Ins_MovieSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="movieid" Type="int" Mode="In" />
+    <Parameter Name="theatreid" Type="int" Mode="In" />
+    <Parameter Name="hallid" Type="nvarchar" Mode="In" />
+    <Parameter Name="scheduledate" Type="datetime" Mode="In" />
+    <Parameter Name="price" Type="money" Mode="In" />
+  </Function>
+  <Function Name="p_mb_Ins_MovieSchedule_Item" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="moviescheduleid" Type="int" Mode="In" />
+    <Parameter Name="timeslotid" Type="nvarchar" Mode="In" />
+    <Parameter Name="price" Type="money" Mode="In" />
+  </Function>
+  <Function Name="p_mb_Ins_Theatre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="address" Type="nvarchar" Mode="In" />
+    <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+    <Parameter Name="phoneno" Type="nvarchar" Mode="In" />
+    <Parameter Name="faxno" Type="nvarchar" Mode="In" />
+    <Parameter Name="email" Type="nvarchar" Mode="In" />
+    <Parameter Name="website" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="p_mb_Upd_Movie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="moviename" Type="nvarchar" Mode="In" />
+    <Parameter Name="languageid" Type="nvarchar" Mode="In" />
+    <Parameter Name="description" Type="nvarchar" Mode="In" />
+    <Parameter Name="ratingid" Type="nvarchar" Mode="In" />
+    <Parameter Name="runningduration" Type="smallint" Mode="In" />
+  </Function>
+  <Function Name="p_mb_Upd_MovieSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="movieid" Type="int" Mode="In" />
+    <Parameter Name="theatreid" Type="int" Mode="In" />
+    <Parameter Name="hallid" Type="nvarchar" Mode="In" />
+    <Parameter Name="scheduledate" Type="datetime" Mode="In" />
+    <Parameter Name="price" Type="money" Mode="In" />
+  </Function>
+  <Function Name="p_mb_Upd_MovieSchedule_Item" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="moviescheduleid" Type="int" Mode="In" />
+    <Parameter Name="timeslotid" Type="nvarchar" Mode="In" />
+    <Parameter Name="price" Type="money" Mode="In" />
+  </Function>
+  <Function Name="p_mb_Upd_Theatre" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="name" Type="nvarchar" Mode="In" />
+    <Parameter Name="address" Type="nvarchar" Mode="In" />
+    <Parameter Name="postalcode" Type="nvarchar" Mode="In" />
+    <Parameter Name="phoneno" Type="nvarchar" Mode="In" />
+    <Parameter Name="faxno" Type="nvarchar" Mode="In" />
+    <Parameter Name="email" Type="nvarchar" Mode="In" />
+    <Parameter Name="website" Type="nvarchar" Mode="In" />
+  </Function>
+</Schema>

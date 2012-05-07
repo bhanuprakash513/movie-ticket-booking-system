@@ -1,0 +1,22 @@
+﻿@model IEnumerable<MovieBooking.BLL.Entities.Movie> 
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+Welcome to Silver Village
+
+<table>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.MovieName)
+        </td>
+  
+        </tr>
+        }
+
+        </table>

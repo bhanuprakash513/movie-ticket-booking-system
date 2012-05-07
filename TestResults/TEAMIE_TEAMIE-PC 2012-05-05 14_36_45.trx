@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="561a67b6-a9c6-4c37-a6d6-671b25b931cb" name="TEAMIE@TEAMIE-PC 2012-05-05 14:36:45" runUser="TEAMIE-PC\TEAMIE" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="16c7ffc6-7ed1-4767-970d-fded9dce14db">
+    <Deployment runDeploymentRoot="TEAMIE_TEAMIE-PC 2012-05-05 14_36_45">
+      <DeploymentItem filename="C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\Booking\bin\MovieBooking.MVC.UI.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-05-05T14:36:45.2261305+08:00" queuing="2012-05-05T14:36:59.3269370+08:00" start="2012-05-05T14:36:59.8399664+08:00" finish="2012-05-05T14:37:05.0912667+08:00" />
+  <ResultSummary outcome="Completed">
+    <Counters total="2" executed="2" passed="2" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="About" storage="c:\subu\mtech\dot.net\movie-ticket-booking-system\trunk\booking.tests\bin\debug\moviebooking.tests.dll" id="539a55d7-d88c-f3c7-be1a-3eac0a3a729d">
+      <Execution id="7b3ea16b-eb2f-4986-b747-b4d650cc3ad6" />
+      <TestMethod codeBase="C:/subu/Mtech/Dot.Net/movie-ticket-booking-system/trunk/Booking.Tests/bin/Debug/MovieBooking.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="MovieBooking.Tests.Controllers.HomeControllerTest, MovieBooking.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="About" />
+    </UnitTest>
+    <UnitTest name="Index" storage="c:\subu\mtech\dot.net\movie-ticket-booking-system\trunk\booking.tests\bin\debug\moviebooking.tests.dll" id="7c69bd98-4dd6-a3cb-846e-559f5c755288">
+      <Execution id="97bdfc09-c342-4dd2-97c4-c189a0942a07" />
+      <TestMethod codeBase="C:/subu/Mtech/Dot.Net/movie-ticket-booking-system/trunk/Booking.Tests/bin/Debug/MovieBooking.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="MovieBooking.Tests.Controllers.HomeControllerTest, MovieBooking.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Index" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="7c69bd98-4dd6-a3cb-846e-559f5c755288" executionId="97bdfc09-c342-4dd2-97c4-c189a0942a07" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="539a55d7-d88c-f3c7-be1a-3eac0a3a729d" executionId="7b3ea16b-eb2f-4986-b747-b4d650cc3ad6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="97bdfc09-c342-4dd2-97c4-c189a0942a07" testId="7c69bd98-4dd6-a3cb-846e-559f5c755288" testName="Index" computerName="TEAMIE-PC" duration="00:00:01.2744098" startTime="2012-05-05T14:37:00.5990098+08:00" endTime="2012-05-05T14:37:04.6622422+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97bdfc09-c342-4dd2-97c4-c189a0942a07">
+    </UnitTestResult>
+    <UnitTestResult executionId="7b3ea16b-eb2f-4986-b747-b4d650cc3ad6" testId="539a55d7-d88c-f3c7-be1a-3eac0a3a729d" testName="About" computerName="TEAMIE-PC" duration="00:00:00.0003198" startTime="2012-05-05T14:37:04.7312462+08:00" endTime="2012-05-05T14:37:04.7402467+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7b3ea16b-eb2f-4986-b747-b4d650cc3ad6">
+    </UnitTestResult>
+  </Results>
+</TestRun>

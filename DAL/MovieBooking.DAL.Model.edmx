@@ -122,7 +122,6 @@
           <Property Name="MovieID" Type="int" Nullable="false" />
           <Property Name="CastID" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
-          <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="mb_MovieBooking">
           <Key>

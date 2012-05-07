@@ -1,0 +1,301 @@
+----------------------------------------
+Timestamp: 5/5/2012 4:50:35 PM
+Message: HandlingInstanceID: cf9687fa-99a6-4d85-abfd-a3b9f36c6d6e
+An exception of type 'System.Data.EntityException' occurred and was caught.
+---------------------------------------------------------------------------
+05/05/2012 16:50:35
+Type : System.Data.EntityException, System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+Message : The underlying provider failed on Open.
+Source : System.Data.Entity
+Help link : 
+Data : System.Collections.ListDictionaryInternal
+TargetSite : Void OpenStoreConnectionIf(Boolean, System.Data.Common.DbConnection, System.Data.Common.DbConnection, System.String, System.String, Boolean ByRef)
+Stack Trace :    at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   at System.Data.EntityClient.EntityConnection.Open()
+   at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at MovieBooking.BLL.Entities.RegisteredUser.Insert() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 129
+   at MovieBooking.BLL.Entities.RegisteredUser.<InsertMember>b__0() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 88
+   at Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.Process[TResult](Func`1 action, TResult defaultResult, String policyName) in e:\Builds\EntLib\Latest\Source\Blocks\ExceptionHandling\Src\ExceptionHandling\ExceptionManagerImpl.cs:line 214
+
+Additional Info:
+
+MachineName : TEAMIE-PC
+TimeStamp : 5/5/2012 8:50:35 AM
+FullName : Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+AppDomainName : a3b4c87f-1-129806813216613570
+ThreadIdentity : 
+WindowsIdentity : TEAMIE-PC\TEAMIE
+	Inner Exception
+	---------------
+	Type : System.Data.SqlClient.SqlException, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+	Message : Cannot open database "MovieBooking" requested by the login. The login failed.
+Login failed for user 'TEAMIE-PC\TEAMIE'.
+	Source : .Net SqlClient Data Provider
+	Help link : 
+	Errors : System.Data.SqlClient.SqlErrorCollection
+	Class : 11
+	LineNumber : 65536
+	Number : 4060
+	Procedure : 
+	Server : .\SQLExpress
+	State : 1
+	ErrorCode : -2146232060
+	Data : System.Collections.ListDictionaryInternal
+	TargetSite : Void OnError(System.Data.SqlClient.SqlException, Boolean)
+	Stack Trace :    at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+	   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+	   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+	   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+	   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+	   at System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup)
+	   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+	   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+	   at System.Data.SqlClient.SqlConnection.Open()
+	   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+
+
+Category: Exception
+Priority: 0
+EventId: 100
+Severity: Error
+Title: Enterprise Library Exception Handling
+Activity ID: 00000000-0000-0000-0000-000000000000
+Machine: TEAMIE-PC
+App Domain: a3b4c87f-1-129806813216613570
+ProcessId: 1552
+Process Name: C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.exe
+Thread Name: 
+Win32 ThreadId:3968
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/5/2012 5:13:07 PM
+Message: HandlingInstanceID: f6ad6a67-4747-4736-a3d0-898ee8f1d162
+An exception of type 'System.Data.EntityException' occurred and was caught.
+---------------------------------------------------------------------------
+05/05/2012 17:13:07
+Type : System.Data.EntityException, System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+Message : The underlying provider failed on Open.
+Source : System.Data.Entity
+Help link : 
+Data : System.Collections.ListDictionaryInternal
+TargetSite : Void OpenStoreConnectionIf(Boolean, System.Data.Common.DbConnection, System.Data.Common.DbConnection, System.String, System.String, Boolean ByRef)
+Stack Trace :    at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   at System.Data.EntityClient.EntityConnection.Open()
+   at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at MovieBooking.BLL.Entities.RegisteredUser.Insert() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 129
+   at MovieBooking.BLL.Entities.RegisteredUser.<InsertMember>b__0() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 88
+   at Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.Process[TResult](Func`1 action, TResult defaultResult, String policyName) in e:\Builds\EntLib\Latest\Source\Blocks\ExceptionHandling\Src\ExceptionHandling\ExceptionManagerImpl.cs:line 214
+
+Additional Info:
+
+MachineName : TEAMIE-PC
+TimeStamp : 5/5/2012 9:13:07 AM
+FullName : Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+AppDomainName : a3b4c87f-2-129806827788297023
+ThreadIdentity : 
+WindowsIdentity : TEAMIE-PC\TEAMIE
+	Inner Exception
+	---------------
+	Type : System.Data.SqlClient.SqlException, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+	Message : Cannot open database "MovieBooking" requested by the login. The login failed.
+Login failed for user 'TEAMIE-PC\TEAMIE'.
+	Source : .Net SqlClient Data Provider
+	Help link : 
+	Errors : System.Data.SqlClient.SqlErrorCollection
+	Class : 11
+	LineNumber : 65536
+	Number : 4060
+	Procedure : 
+	Server : .\SQLExpress
+	State : 1
+	ErrorCode : -2146232060
+	Data : System.Collections.ListDictionaryInternal
+	TargetSite : Void OnError(System.Data.SqlClient.SqlException, Boolean)
+	Stack Trace :    at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+	   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+	   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+	   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+	   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+	   at System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup)
+	   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+	   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+	   at System.Data.SqlClient.SqlConnection.Open()
+	   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+
+
+Category: Exception
+Priority: 0
+EventId: 100
+Severity: Error
+Title: Enterprise Library Exception Handling
+Activity ID: 00000000-0000-0000-0000-000000000000
+Machine: TEAMIE-PC
+App Domain: a3b4c87f-2-129806827788297023
+ProcessId: 1552
+Process Name: C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.exe
+Thread Name: 
+Win32 ThreadId:6868
+Extended Properties: 
+----------------------------------------
+----------------------------------------
+Timestamp: 5/5/2012 5:14:14 PM
+Message: HandlingInstanceID: dc09aa6e-59d6-4b87-ab4b-db0436f400eb
+An exception of type 'System.Data.SqlClient.SqlException' occurred and was caught.
+----------------------------------------------------------------------------------
+05/05/2012 17:14:13
+Type : System.Data.SqlClient.SqlException, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+Message : Cannot open database "MovieBooking" requested by the login. The login failed.
+Login failed for user 'TEAMIE-PC\TEAMIE'.
+Source : .Net SqlClient Data Provider
+Help link : 
+Errors : System.Data.SqlClient.SqlErrorCollection
+Class : 11
+LineNumber : 65536
+Number : 4060
+Procedure : 
+Server : .\SQLEXPRESS
+State : 1
+ErrorCode : -2146232060
+Data : System.Collections.ListDictionaryInternal
+TargetSite : Void OnError(System.Data.SqlClient.SqlException, Boolean)
+Stack Trace :    at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnection owningConnection, DbConnectionPool pool, DbConnectionOptions options)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionPool.GetConnection(DbConnection owningObject)
+   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at System.Web.DataAccess.SqlConnectionHolder.Open(HttpContext context, Boolean revertImpersonate)
+   at System.Web.DataAccess.SqlConnectionHelper.GetConnection(String connectionString, Boolean revertImpersonation)
+   at System.Web.Security.SqlMembershipProvider.CreateUser(String username, String password, String email, String passwordQuestion, String passwordAnswer, Boolean isApproved, Object providerUserKey, MembershipCreateStatus& status)
+   at System.Web.Security.Membership.CreateUser(String username, String password, String email, String passwordQuestion, String passwordAnswer, Boolean isApproved, Object providerUserKey, MembershipCreateStatus& status)
+   at MovieBooking.BLL.Entities.RegisteredUser.Insert() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 109
+   at MovieBooking.BLL.Entities.RegisteredUser.<InsertMember>b__0() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 88
+   at Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.Process[TResult](Func`1 action, TResult defaultResult, String policyName) in e:\Builds\EntLib\Latest\Source\Blocks\ExceptionHandling\Src\ExceptionHandling\ExceptionManagerImpl.cs:line 214
+
+Additional Info:
+
+MachineName : TEAMIE-PC
+TimeStamp : 5/5/2012 9:14:14 AM
+FullName : Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+AppDomainName : a3b4c87f-3-129806828461815546
+ThreadIdentity : 
+WindowsIdentity : TEAMIE-PC\TEAMIE
+
+Category: Exception
+Priority: 0
+EventId: 100
+Severity: Error
+Title: Enterprise Library Exception Handling
+Activity ID: 00000000-0000-0000-0000-000000000000
+Machine: TEAMIE-PC
+App Domain: a3b4c87f-3-129806828461815546
+ProcessId: 1552
+Process Name: C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.exe
+Thread Name: 
+Win32 ThreadId:6176
+Extended Properties: HelpLink.ProdName - Microsoft SQL Server
+HelpLink.EvtSrc - MSSQLServer
+HelpLink.EvtID - 4060
+HelpLink.BaseHelpUrl - http://go.microsoft.com/fwlink
+HelpLink.LinkId - 20476
+
+----------------------------------------
+----------------------------------------
+Timestamp: 5/5/2012 5:31:33 PM
+Message: HandlingInstanceID: 2fac7df9-97a8-41a3-9987-c5486b57dc60
+An exception of type 'System.Data.EntityException' occurred and was caught.
+---------------------------------------------------------------------------
+05/05/2012 17:31:33
+Type : System.Data.EntityException, System.Data.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+Message : The underlying provider failed on Open.
+Source : System.Data.Entity
+Help link : 
+Data : System.Collections.ListDictionaryInternal
+TargetSite : Void OpenStoreConnectionIf(Boolean, System.Data.Common.DbConnection, System.Data.Common.DbConnection, System.String, System.String, Boolean ByRef)
+Stack Trace :    at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+   at System.Data.EntityClient.EntityConnection.Open()
+   at System.Data.Objects.ObjectContext.EnsureConnection()
+   at System.Data.Objects.ObjectContext.SaveChanges(SaveOptions options)
+   at System.Data.Objects.ObjectContext.SaveChanges()
+   at MovieBooking.BLL.Entities.RegisteredUser.Insert() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 129
+   at MovieBooking.BLL.Entities.RegisteredUser.<InsertMember>b__0() in C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\BLL\Entities\RegisteredUser.cs:line 88
+   at Microsoft.Practices.EnterpriseLibrary.ExceptionHandling.ExceptionManagerImpl.Process[TResult](Func`1 action, TResult defaultResult, String policyName) in e:\Builds\EntLib\Latest\Source\Blocks\ExceptionHandling\Src\ExceptionHandling\ExceptionManagerImpl.cs:line 214
+
+Additional Info:
+
+MachineName : TEAMIE-PC
+TimeStamp : 5/5/2012 9:31:33 AM
+FullName : Microsoft.Practices.EnterpriseLibrary.ExceptionHandling, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+AppDomainName : a3b4c87f-1-129806838336520347
+ThreadIdentity : 
+WindowsIdentity : TEAMIE-PC\TEAMIE
+	Inner Exception
+	---------------
+	Type : System.Data.SqlClient.SqlException, System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+	Message : Cannot open database "MovieBooking" requested by the login. The login failed.
+Login failed for user 'TEAMIE-PC\TEAMIE'.
+	Source : .Net SqlClient Data Provider
+	Help link : 
+	Errors : System.Data.SqlClient.SqlErrorCollection
+	Class : 11
+	LineNumber : 65536
+	Number : 4060
+	Procedure : 
+	Server : .\SQLExpress
+	State : 1
+	ErrorCode : -2146232060
+	Data : System.Collections.ListDictionaryInternal
+	TargetSite : Void OnError(System.Data.SqlClient.SqlException, Boolean)
+	Stack Trace :    at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+	   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+	   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, SqlConnection owningObject)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, Boolean redirectedUserInstance, SqlConnection owningObject, SqlConnectionString connectionOptions, TimeoutTimer timeout)
+	   at System.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(SqlConnection owningObject, TimeoutTimer timeout, SqlConnectionString connectionOptions, String newPassword, Boolean redirectedUserInstance)
+	   at System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, Object providerInfo, String newPassword, SqlConnection owningObject, Boolean redirectedUserInstance)
+	   at System.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection)
+	   at System.Data.ProviderBase.DbConnectionFactory.CreateNonPooledConnection(DbConnection owningConnection, DbConnectionPoolGroup poolGroup)
+	   at System.Data.ProviderBase.DbConnectionFactory.GetConnection(DbConnection owningConnection)
+	   at System.Data.ProviderBase.DbConnectionClosed.OpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory)
+	   at System.Data.SqlClient.SqlConnection.Open()
+	   at System.Data.EntityClient.EntityConnection.OpenStoreConnectionIf(Boolean openCondition, DbConnection storeConnectionToOpen, DbConnection originalConnection, String exceptionCode, String attemptedOperation, Boolean& closeStoreConnectionOnFailure)
+
+
+Category: Exception
+Priority: 0
+EventId: 100
+Severity: Error
+Title: Enterprise Library Exception Handling
+Activity ID: 00000000-0000-0000-0000-000000000000
+Machine: TEAMIE-PC
+App Domain: a3b4c87f-1-129806838336520347
+ProcessId: 6384
+Process Name: C:\Program Files (x86)\Common Files\Microsoft Shared\DevServer\10.0\WebDev.WebServer40.exe
+Thread Name: 
+Win32 ThreadId:4476
+Extended Properties: 
+----------------------------------------
