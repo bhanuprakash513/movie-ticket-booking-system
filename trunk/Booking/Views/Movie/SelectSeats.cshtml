@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "SelectSeats";
+}
+
+<h2>Choose seats</h2
+
+
+<div>
+
+
+
+
+<table>
+@for (int row = 0; row < 10; row++)
+{
+    <tr>
+    @for (int col = 0; col < 30; col++)
+    {
+        <td> 
+          
+   
+        
+        @if (col == 10 || col ==20 || col ==30)
+        {    
+          <img src=@Url.Content("~/images/seats/empty_space.gif") /> 
+        }
+        else
+        {
+         <img src=@Url.Content("~/images/seats/seat_available.gif") /> 
+
+        }
+
+             </td>
+    }
+
+     </tr>  
+    
+}
+</table>
+
+</div>
