@@ -28,7 +28,7 @@ namespace MovieBooking.UI.Maintenance.Theatre
                 PostalCode = this.TheatrePostalCode.Text.ToString(),
                 WebSite = this.TheatreWebSiteAddress.Text.ToString()
             };
-            theatre.InsertTheatre();
+            //theatre.InsertTheatre();
 
         }
     }
