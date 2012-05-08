@@ -6,6 +6,7 @@ using Microsoft.Practices.EnterpriseLibrary.Logging;
 using MovieBooking.BLL.Entities;
 using MovieBooking.Model.Entities;
 using MovieBooking.MVC.UI.Models;
+using System.Collections.Generic;
 
 namespace MovieBooking.MVC.UI.Controllers
 {
@@ -17,7 +18,7 @@ namespace MovieBooking.MVC.UI.Controllers
 
         public ActionResult LogOn()
         {
-            Logger.Write("public ActionResult LogOn()!");
+            //Logger.Write("public ActionResult LogOn()!");
             return View();
         }
 
@@ -27,7 +28,7 @@ namespace MovieBooking.MVC.UI.Controllers
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
         {
-            Logger.Write("public ActionResult LogOn(LogOnModel model, string returnUrl)!");
+            //Logger.Write("public ActionResult LogOn(LogOnModel model, string returnUrl)!");
             if (ModelState.IsValid)
             {
                 if (Membership.ValidateUser(model.UserName, model.Password))
@@ -59,7 +60,7 @@ namespace MovieBooking.MVC.UI.Controllers
         public ActionResult LogOff()
         {
             FormsAuthentication.SignOut();
-            Logger.Write("public ActionResult LogOff()!");
+            //Logger.Write("public ActionResult LogOff()!");
             return RedirectToAction("Index", "Home");
         }
 
@@ -68,7 +69,28 @@ namespace MovieBooking.MVC.UI.Controllers
 
         public ActionResult Register()
         {
+            //FindById
+            //RegisteredUserRepository userRep = new RegisteredUserRepository();
+            //System.Guid id = new Guid("0AE3AAEB-A8FC-43AC-B441-0E94C72CA9DB");
+            //RegisteredUser user = userRep.FindById(id);
+            //user.UserName = "Mansoor Test";
+            //user.DOB = DateTime.Now;
+            //user.BankName = "DBS";
+            //user.AccountNo = "123-456789-0";
+            //user.PostalCode = "009876";
+
+            //Update
+            //userRep.Update(user);
             
+            //FindAll
+            //IList<RegisteredUser> users = userRep.FindAll() as List<RegisteredUser>;
+            
+            //Caching
+            //SystemParameterRepository sysRepo = new SystemParameterRepository();
+            //IList<SystemParameter> param1 = sysRepo.GetSystemParameters("BookingStatus") as IList<SystemParameter>;
+            ////to test the cache
+            //IList<SystemParameter> param2 = sysRepo.GetSystemParameters("BookingStatus") as IList<SystemParameter>;
+
             return View();
         }
 
@@ -159,7 +181,7 @@ namespace MovieBooking.MVC.UI.Controllers
         private MembershipCreateStatus RegisterMember(RegisterModel model)
         {
             // Attempt to register the user
-            MembershipCreateStatus createStatus = 0; //MembershipCreateStatus.UserRejected;
+            MembershipCreateStatus createStatus = MembershipCreateStatus.UserRejected;
             //
             DateTime dob;
             string[] dateFormats = new string[] { "dd/MM/yyyy", "dd-MM-yyyy", "dd.MM.yyyy" };
@@ -181,14 +203,11 @@ namespace MovieBooking.MVC.UI.Controllers
                 }
             };
 
-            _user.InsertMember(ref createStatus);
-            _user.GetRegisteredMembers();
-
-            //ReadOnlyCollection<POCO.SystemParameter> param =
-            //    (new POCO.SystemParameter()).GetSystemParameters("BookingStatus");
-
-            //ReadOnlyCollection<POCO.SystemParameter> param2 =
-            //    (new POCO.SystemParameter()).GetSystemParameters("BookingStatus");
+            RegisteredUserRepository userRep = new RegisteredUserRepository();
+            int status = userRep.Insert(_user);
+            createStatus = (MembershipCreateStatus) Enum.Parse(typeof(MembershipCreateStatus), status.ToString());
+            if (createStatus != MembershipCreateStatus.Success)
+                ErrorCodeToString(createStatus);
 
             return createStatus;
         }
@@ -230,19 +249,11 @@ namespace MovieBooking.MVC.UI.Controllers
                     return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
 
                 default:
-                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator. " + Environment.NewLine +
+                        @"Refer to the Exception Log File ..\Log\Exception.log";
             }
         }
         #endregion
 
-        //private IEnumerable<mb_RegisteredUser> GetRegisteredMembers()
-        //{
-        //    //List<mb_RegisteredUser> u = _user.GetRegisteredMembers().ToList();
-        //}
-
-        private bool InsertMember(ref MembershipCreateStatus createStatus)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
