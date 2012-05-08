@@ -10,53 +10,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Transactions;
 using System.Web.Security;
-using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
-using Microsoft.Practices.EnterpriseLibrary.Validation;
-using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
-using MovieBooking.DAL;
-using MovieBooking.Model.Entities;
 using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using MovieBooking.DLL.Entities;
+using MovieBooking.Model.Entities;
+using System.Reflection;
 
 namespace MovieBooking.BLL.Entities
 {
-    public interface IRegisteredUser : IDisposable
+    
+    public partial class RegisteredUser : mb_RegisteredUser
     {
-        IEnumerable<mb_RegisteredUser> GetRegisteredMembers();
-        bool InsertMember(ref MembershipCreateStatus createStatus);
-    }
-
-    public partial class RegisteredUser : mb_RegisteredUser, IRegisteredUser, IDisposable
-    {
-        // Global variable to store the ExceptionManager instance. 
-        ExceptionManager exManager; 
-        
-        private MovieBookingEntitiesContext context = null;
-
-        #region dispose
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-            }
-            this.disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }        
-        #endregion
-
         #region Primitive Properties
 
         [NotNullValidator(MessageTemplate = "NRIC - Cannot be null!")]
@@ -74,112 +41,204 @@ namespace MovieBooking.BLL.Entities
             set;
         }
 
-        #endregion
-
-        #region Customised Methods
-
-        public bool InsertMember(ref MembershipCreateStatus createStatus)
+        public string UserName
         {
-            context = new MovieBookingEntitiesContext();
-            // Resolve the default ExceptionManager object from the container.
-            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
-            //this.DOB = null;
-            //this.NRIC = null;
-            createStatus = exManager.Process(() => Insert(), "MovieBookingExceptionType");
-            return (createStatus == MembershipCreateStatus.Success);
+            get;
+            set;
         }
 
-        private MembershipCreateStatus Insert()
+        public string Email
         {
-            MembershipCreateStatus crStatus = MembershipCreateStatus.UserRejected;
+            get;
+            set;
+        }
 
-            if (this.IsValid())
+        public RegisteredUser()
+        {
+        }
+
+        public RegisteredUser(mb_RegisteredUser mbUser)
+        {
+            //PropertyInfo[] propertyInfos = mbUser.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            //Get all public or private non-static properties declared in this class (no inherited properties) - that have a getter and setter.
+            //PropertyInfo[] propertyInfos = this.GetType().GetProperties(BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic).Where(p => p.GetGetMethod(true) != null && p.GetSetMethod(true) != null).ToArray();
+            //foreach (var propertyInfo in propertyInfos)
+            //{
+            //    //PropertyInfo source = this.GetType().GetProperty(p.Name, BindingFlags.Public | BindingFlags.Instance);
+            //    //p.SetValue (p, source.GetValue(mbUser, null), null);
+            //    var obj = propertyInfo.GetValue(mbUser, null);
+
+            //    propertyInfo.SetValue(this, obj, null);
+            //}
+            this.AccountNo = mbUser.AccountNo;
+            this.Address = mbUser.Address;
+            this.BankName = mbUser.BankName;
+            this.DOB = mbUser.DOB;
+            this.NRIC = mbUser.NRIC;
+            this.UserId = mbUser.UserId;
+            this.Active = mbUser.Active;
+            this.Email = mbUser.aspnet_Membership.Email;
+            this.UserName = mbUser.aspnet_Membership.aspnet_Users.UserName;
+        }
+
+        public void CopyTo(mb_RegisteredUser mbUser)
+        {
+            mbUser.AccountNo = this.AccountNo;
+            mbUser.Address = this.Address;
+            mbUser.BankName = this.BankName;
+            mbUser.DOB = this.DOB;
+            mbUser.NRIC = this.NRIC;
+            mbUser.Active = this.Active;
+            mbUser.aspnet_Membership.Email = this.Email;
+            mbUser.aspnet_Membership.aspnet_Users.UserName = this.UserName;
+        }
+        #endregion
+
+    }
+
+    public sealed class RegisteredUserRepository
+    {
+
+        // Global variable to store the ExceptionManager instance. 
+        ExceptionManager exManager;
+
+        #region Ctor
+        
+        public RegisteredUserRepository()
+        {
+            // Resolve the default ExceptionManager object from the container.
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+        }
+
+        #endregion
+ 
+        #region Methods
+
+        public RegisteredUser FindById(System.Guid id)
+        {
+            RegisteredUser _user = null;
+            try
             {
-
-                // Define a transaction scope for the operations.
-                TransactionOptions options = new TransactionOptions
+                using (IRepository<mb_RegisteredUser> mbRep = new MovieBookingRepository<mb_RegisteredUser>())
                 {
-                    IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
-                    Timeout = TransactionManager.DefaultTimeout
-                };
-
-                using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
-                {
-                    //Create the MembershipUser first using aspnet provider
-                    MembershipUser _orgUser = Membership.CreateUser(
-                        this.aspnet_Membership.aspnet_Users.UserName,
-                        this.aspnet_Membership.Password, this.aspnet_Membership.Email, null, null, true, null,
-                        out crStatus);
-
-                    //Create the Registered user
-                    if (crStatus == MembershipCreateStatus.Success)
-                    {
-                        var _user = new mb_RegisteredUser
-                        {
-                            UserId = (System.Guid)_orgUser.ProviderUserKey,
-                            DOB = this.DOB,
-                            NRIC = this.NRIC,
-                            BankName = this.BankName,
-                            AccountNo = this.AccountNo,
-                            Address = this.Address,
-                            PostalCode = this.PostalCode
-                        };
-
-                        context.mb_RegisteredUser.AddObject(_user);
-                        context.SaveChanges();
-                    }
-                    // Commit the Transaction
-                    scope.Complete();
+                    var mbUser = mbRep.First(u => u.UserId == id && u.Active == true);
+                    _user = new RegisteredUser(mbUser);
                 }
             }
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+
+            return _user as RegisteredUser;
+        }
+
+        public int Insert(RegisteredUser user)
+        {
+            int status = -1;
+            try
+            {
+                MembershipCreateStatus crStatus = InsertUser(user);
+                status = (int) crStatus;
+            }
+            catch(Exception ex) 
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+
+            return status;
+        }
+
+        public IEnumerable<RegisteredUser> FindAll()
+        {
+            List<RegisteredUser> _users = null;
+            try
+            {
+                using (IRepository<mb_RegisteredUser> mbRep = new MovieBookingRepository<mb_RegisteredUser>())
+                {
+                    var users = from us in mbRep.FetchAll()
+                                select new RegisteredUser(us);
+                    _users = users.ToList<RegisteredUser>();
+                }
+            }
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+
+            return _users;
+        }
+
+        public int Update(RegisteredUser _user)
+        {
+            int status = -1;
+            using (IRepository<mb_RegisteredUser> mbRep = new MovieBookingRepository<mb_RegisteredUser>())
+            {
+                var user = mbRep.First(u => u.UserId == _user.UserId);
+                _user.CopyTo(user);
+                //mbRep.Attach(user);
+                mbRep.SaveChanges();
+                status = 0;
+            }
+            return status;
+        }
+
+        #endregion
+
+        #region private methods
+
+        private MembershipCreateStatus InsertUser(RegisteredUser user)
+        {
+            MembershipCreateStatus crStatus = MembershipCreateStatus.UserRejected;
+            using (IRepository<mb_RegisteredUser> mbRep = new MovieBookingRepository<mb_RegisteredUser>())
+            {
+                if (mbRep.IsValid(user as mb_RegisteredUser))
+                {
+
+                    // Define a transaction scope for the operations.
+                    TransactionOptions options = new TransactionOptions
+                    {
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
+                        Timeout = TransactionManager.DefaultTimeout
+                    };
+
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
+                    {
+                        //Create the MembershipUser first using aspnet provider
+                        MembershipUser _orgUser = Membership.CreateUser(
+                            user.aspnet_Membership.aspnet_Users.UserName,
+                            user.aspnet_Membership.Password,
+                            user.aspnet_Membership.Email, null, null, true, null,
+                            out crStatus);
+
+                        //Create the Registered user
+                        if (crStatus == MembershipCreateStatus.Success)
+                        {
+                            var _user = new mb_RegisteredUser
+                            {
+                                UserId = (System.Guid)_orgUser.ProviderUserKey,
+                                DOB = user.DOB,
+                                NRIC = user.NRIC,
+                                BankName = user.BankName,
+                                AccountNo = user.AccountNo,
+                                Address = user.Address,
+                                PostalCode = user.PostalCode
+                            };
+                            mbRep.Add(_user);
+                            mbRep.SaveChanges();
+                        }
+                        // Commit the Transaction
+                        scope.Complete();
+                    }
+                }
+            }
+
             return crStatus;
         }
 
-        public IEnumerable<mb_RegisteredUser> GetRegisteredMembers()
-        {
-            //List<mb_ExtRegisteredUser> roUsers = new List<mb_ExtRegisteredUser>();
-            //using (DAL.Model.Entities ctx = new DAL.Model.Entities())
-            //{
-            //    var users = ctx.GetExtRegisteredUsers();
-            //    foreach (DAL.Model.mb_ExtRegisteredUser ru in users)
-            //        roUsers.Add(new mb_ExtRegisteredUser()
-            //        {
-            //            AccountNo = ru.AccountNo,
-            //            Active = ru.Active,
-            //            Address = ru.Address,
-            //            BankName = ru.BankName,
-            //            DOB = ru.DOB,
-            //            UserId = ru.UserId,
-            //            UserName = ru.UserName
-            //        });
-            //}
-            //return roUsers.AsReadOnly();
-            context = new MovieBookingEntitiesContext();
-            var users = context.mb_RegisteredUser;
-            return users.ToList();
-        }
-
-        private bool IsValid()
-        {
-            StringBuilder builder = new StringBuilder(string.Empty);
-            //Create a new validator using the ValidationFactory method
-            Validator pValidator = ValidationFactory.CreateValidator<RegisteredUser>();
-            ValidationResults results = pValidator.Validate(this); // new ValidationResults();
-            //validator.Validate(this, results);
-            if (!results.IsValid)
-            {
-                builder.Append("\t+Validation Error(s):\n");
-                foreach (ValidationResult result in results)
-                {
-                    builder.Append( String.Format("\t Message=> {0} (Key: {1}, Tag: {2}, Target: {3})\n", 
-                        result.Message, result.Key, result.Tag, result.Target.ToString() ));
-                }
-                throw new Exception(builder.ToString());
-            }
-            return results.IsValid;
-        }
-        
         #endregion
-
     }
 }

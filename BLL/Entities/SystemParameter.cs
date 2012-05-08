@@ -9,80 +9,75 @@
 
 using System;
 using System.Collections.Generic;
-using System.Data.Objects;
 using System.Linq;
 using Microsoft.Practices.EnterpriseLibrary.Caching;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using MovieBooking.DAL;
 using MovieBooking.Model.Entities;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using MovieBooking.DLL.Entities;
 
 namespace MovieBooking.BLL.Entities
 {
-    public interface ISystemParameter : IDisposable
+
+    public partial class SystemParameter : mb_SystemParameter
     {
-        IEnumerable<SystemParameter> GetSystemParameters(string category);
+        public SystemParameter() { }
+        public SystemParameter(mb_SystemParameter mbSP)
+        {
+            this.Active = mbSP.Active;
+            this.Category = mbSP.Category;
+            this.ID = mbSP.ID;
+            this.ItemName = mbSP.ItemName;
+            this.ItemValue = mbSP.ItemValue;
+            this.Remarks = mbSP.Remarks;
+            this.SortOrder = mbSP.SortOrder;
+        }
     }
 
-    public partial class SystemParameter : mb_SystemParameter, ISystemParameter, IDisposable
+    public class SystemParameterRepository
     {
-        private MovieBookingEntitiesContext context = null;
+        // Global variable to store the ExceptionManager instance. 
+        ExceptionManager exManager;
+        ICacheManager cache = null;
 
-        #region dispose
-        private bool disposed = false;
-
-        protected virtual void Dispose(bool disposing)
+        public SystemParameterRepository()
         {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    context.Dispose();
-                }
-            }
-            this.disposed = true;
+            cache = CacheFactory.GetCacheManager();
+            // Resolve the default ExceptionManager object from the container.
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
 
         public IEnumerable<SystemParameter> GetSystemParameters(string category)
         {
-            ICacheManager cache = CacheFactory.GetCacheManager();
-            string cacheName = string.Format("SystemParam-{0}", category);
-            List<SystemParameter> roParams = null;
-            context = new MovieBookingEntitiesContext();
+            IList<SystemParameter> roParams = null;
+            try
+            {
+                string cacheName = string.Format("SystemParam-{0}", category.Trim());
 
-            if (cache.Contains(cacheName))
-            {
-                roParams = cache.GetData(cacheName) as List<SystemParameter>;
-            }
-            else
-            {
-                roParams = context.mb_SystemParameter.Where(sp => sp.Category == category).Select(p => new SystemParameter()
-                                {ItemName = p.ItemName, ItemValue = p.ItemValue}).ToList();
-                          
-                /*
-                roParams = context.mb_SystemParameterGetSystemParams(category);
-                    foreach (mb_SystemParameter ps in ctx.GetSystemParams(category))
+                if (cache.Contains(cacheName))
+                {
+                    roParams = cache.GetData(cacheName) as List<SystemParameter>;
+                }
+                else
+                {
+                    using (IRepository<mb_SystemParameter> sysP = new MovieBookingRepository<mb_SystemParameter>())
                     {
-                        roParams.Add(new mb_SystemParameter()
-                        {
-                            Active = ps.Active,
-                            Category = ps.Category,
-                            ID = ps.ID,
-                            ItemName = ps.ItemName,
-                            ItemValue = ps.ItemValue,
-                            Remarks = ps.Remarks,
-                            SortOrder = ps.SortOrder
-                        });
+                        var sysps = from p in sysP.Find(sp => sp.Category == category && sp.Active == true)
+                                    select new SystemParameter(p);
+                        roParams = sysps.ToList<SystemParameter>();
                     }
-                */
-                cache.Add(cacheName, roParams);
+                    //Add it to the Cache                        
+                    cache.Add(cacheName, roParams);
+                }
             }
-            return roParams.AsEnumerable();
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+            return roParams;
         }
     }
+
 }
