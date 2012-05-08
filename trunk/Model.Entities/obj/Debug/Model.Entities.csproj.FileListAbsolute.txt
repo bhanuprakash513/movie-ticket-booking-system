@@ -1,5 +1,0 @@
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\Model.Entities\bin\Debug\MovieBooking.Model.Entities.dll
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\Model.Entities\bin\Debug\MovieBooking.Model.Entities.pdb
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\Model.Entities\obj\Debug\ResolveAssemblyReference.cache
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\Model.Entities\obj\Debug\MovieBooking.Model.Entities.dll
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\Model.Entities\obj\Debug\MovieBooking.Model.Entities.pdb

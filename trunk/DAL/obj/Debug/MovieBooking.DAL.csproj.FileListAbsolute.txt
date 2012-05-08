@@ -1,8 +1,0 @@
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\bin\Debug\MovieBooking.DAL.dll.config
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\bin\Debug\MovieBooking.DAL.dll
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\bin\Debug\MovieBooking.DAL.pdb
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\bin\Debug\MovieBooking.Model.Entities.dll
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\bin\Debug\MovieBooking.Model.Entities.pdb
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\obj\Debug\ResolveAssemblyReference.cache
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\obj\Debug\MovieBooking.DAL.dll
-C:\subu\Mtech\Dot.Net\movie-ticket-booking-system\trunk\DAL\obj\Debug\MovieBooking.DAL.pdb
