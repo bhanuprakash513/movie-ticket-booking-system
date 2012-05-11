@@ -17,6 +17,7 @@ namespace MovieBooking.UI.Maintenance.Theatre
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
+
             MovieBooking.BLL.Entities.Theatre theatre = new MovieBooking.BLL.Entities.Theatre()
             {
 
@@ -28,6 +29,8 @@ namespace MovieBooking.UI.Maintenance.Theatre
                 PostalCode = this.TheatrePostalCode.Text.ToString(),
                 WebSite = this.TheatreWebSiteAddress.Text.ToString()
             };
+            TheatreRepository theatRep = new TheatreRepository();
+            theatRep.Insert(theatre);
             //theatre.InsertTheatre();
 
         }
