@@ -20,7 +20,7 @@ namespace MovieBooking.UI.Maintenance.Theatre
 
             MovieBooking.BLL.Entities.Theatre theatre = new MovieBooking.BLL.Entities.Theatre()
             {
-
+          
                 Name = this.TheatreName.Text.ToString(),
                 Address = this.TheatreAddress.Text.ToString(),
                 Email = this.TheatreEmail.Text.ToString(),
@@ -29,10 +29,12 @@ namespace MovieBooking.UI.Maintenance.Theatre
                 PostalCode = this.TheatrePostalCode.Text.ToString(),
                 WebSite = this.TheatreWebSiteAddress.Text.ToString()
             };
-            TheatreRepository theatRep = new TheatreRepository();
-            theatRep.Insert(theatre);
+            TheatreRepository theatreRep = new TheatreRepository();
+            theatreRep.Insert(theatre);
+            ErrorMessage.Text = "Updated Successfully";
             //theatre.InsertTheatre();
-
         }
+
+        
     }
 }
