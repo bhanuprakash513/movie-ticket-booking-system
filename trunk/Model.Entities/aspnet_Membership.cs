@@ -21,9 +21,20 @@ namespace MovieBooking.Model.Entities
     
         public virtual System.Guid ApplicationId
         {
-            get;
-            set;
+            get { return _applicationId; }
+            set
+            {
+                if (_applicationId != value)
+                {
+                    if (aspnet_Applications != null && aspnet_Applications.ApplicationId != value)
+                    {
+                        aspnet_Applications = null;
+                    }
+                    _applicationId = value;
+                }
+            }
         }
+        private System.Guid _applicationId;
     
         public virtual System.Guid UserId
         {
@@ -188,6 +199,21 @@ namespace MovieBooking.Model.Entities
             }
         }
         private mb_RegisteredUser _mb_RegisteredUser;
+    
+        public virtual aspnet_Applications aspnet_Applications
+        {
+            get { return _aspnet_Applications; }
+            set
+            {
+                if (!ReferenceEquals(_aspnet_Applications, value))
+                {
+                    var previousValue = _aspnet_Applications;
+                    _aspnet_Applications = value;
+                    Fixupaspnet_Applications(previousValue);
+                }
+            }
+        }
+        private aspnet_Applications _aspnet_Applications;
 
         #endregion
         #region Association Fixup
@@ -219,6 +245,26 @@ namespace MovieBooking.Model.Entities
             if (mb_RegisteredUser != null)
             {
                 mb_RegisteredUser.aspnet_Membership = this;
+            }
+        }
+    
+        private void Fixupaspnet_Applications(aspnet_Applications previousValue)
+        {
+            if (previousValue != null && previousValue.aspnet_Membership.Contains(this))
+            {
+                previousValue.aspnet_Membership.Remove(this);
+            }
+    
+            if (aspnet_Applications != null)
+            {
+                if (!aspnet_Applications.aspnet_Membership.Contains(this))
+                {
+                    aspnet_Applications.aspnet_Membership.Add(this);
+                }
+                if (ApplicationId != aspnet_Applications.ApplicationId)
+                {
+                    ApplicationId = aspnet_Applications.ApplicationId;
+                }
             }
         }
 

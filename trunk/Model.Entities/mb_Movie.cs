@@ -60,6 +60,24 @@ namespace MovieBooking.Model.Entities
             get;
             set;
         }
+    
+        public virtual string ImageMoviePath
+        {
+            get;
+            set;
+        }
+    
+        public virtual string genre
+        {
+            get;
+            set;
+        }
+    
+        public virtual string CastDescription
+        {
+            get;
+            set;
+        }
 
         #endregion
         #region Navigation Properties

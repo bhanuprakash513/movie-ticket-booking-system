@@ -107,6 +107,38 @@ namespace MovieBooking.Model.Entities
             }
         }
         private ICollection<mb_MovieSchedule> _mb_MovieSchedule;
+    
+        public virtual ICollection<mb_Hall> mb_Hall
+        {
+            get
+            {
+                if (_mb_Hall == null)
+                {
+                    var newCollection = new FixupCollection<mb_Hall>();
+                    newCollection.CollectionChanged += Fixupmb_Hall;
+                    _mb_Hall = newCollection;
+                }
+                return _mb_Hall;
+            }
+            set
+            {
+                if (!ReferenceEquals(_mb_Hall, value))
+                {
+                    var previousValue = _mb_Hall as FixupCollection<mb_Hall>;
+                    if (previousValue != null)
+                    {
+                        previousValue.CollectionChanged -= Fixupmb_Hall;
+                    }
+                    _mb_Hall = value;
+                    var newValue = value as FixupCollection<mb_Hall>;
+                    if (newValue != null)
+                    {
+                        newValue.CollectionChanged += Fixupmb_Hall;
+                    }
+                }
+            }
+        }
+        private ICollection<mb_Hall> _mb_Hall;
 
         #endregion
         #region Association Fixup
@@ -124,6 +156,28 @@ namespace MovieBooking.Model.Entities
             if (e.OldItems != null)
             {
                 foreach (mb_MovieSchedule item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.mb_Theatre, this))
+                    {
+                        item.mb_Theatre = null;
+                    }
+                }
+            }
+        }
+    
+        private void Fixupmb_Hall(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (mb_Hall item in e.NewItems)
+                {
+                    item.mb_Theatre = this;
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (mb_Hall item in e.OldItems)
                 {
                     if (ReferenceEquals(item.mb_Theatre, this))
                     {

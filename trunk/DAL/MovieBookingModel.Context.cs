@@ -120,6 +120,66 @@ namespace MovieBooking.DAL
             get { return _mb_Theatre  ?? (_mb_Theatre = CreateObjectSet<mb_Theatre>("mb_Theatre")); }
         }
         private ObjectSet<mb_Theatre> _mb_Theatre;
+    
+        public ObjectSet<aspnet_Applications> aspnet_Applications
+        {
+            get { return _aspnet_Applications  ?? (_aspnet_Applications = CreateObjectSet<aspnet_Applications>("aspnet_Applications")); }
+        }
+        private ObjectSet<aspnet_Applications> _aspnet_Applications;
+    
+        public ObjectSet<aspnet_Paths> aspnet_Paths
+        {
+            get { return _aspnet_Paths  ?? (_aspnet_Paths = CreateObjectSet<aspnet_Paths>("aspnet_Paths")); }
+        }
+        private ObjectSet<aspnet_Paths> _aspnet_Paths;
+    
+        public ObjectSet<aspnet_PersonalizationAllUsers> aspnet_PersonalizationAllUsers
+        {
+            get { return _aspnet_PersonalizationAllUsers  ?? (_aspnet_PersonalizationAllUsers = CreateObjectSet<aspnet_PersonalizationAllUsers>("aspnet_PersonalizationAllUsers")); }
+        }
+        private ObjectSet<aspnet_PersonalizationAllUsers> _aspnet_PersonalizationAllUsers;
+    
+        public ObjectSet<aspnet_PersonalizationPerUser> aspnet_PersonalizationPerUser
+        {
+            get { return _aspnet_PersonalizationPerUser  ?? (_aspnet_PersonalizationPerUser = CreateObjectSet<aspnet_PersonalizationPerUser>("aspnet_PersonalizationPerUser")); }
+        }
+        private ObjectSet<aspnet_PersonalizationPerUser> _aspnet_PersonalizationPerUser;
+    
+        public ObjectSet<aspnet_Profile> aspnet_Profile
+        {
+            get { return _aspnet_Profile  ?? (_aspnet_Profile = CreateObjectSet<aspnet_Profile>("aspnet_Profile")); }
+        }
+        private ObjectSet<aspnet_Profile> _aspnet_Profile;
+    
+        public ObjectSet<aspnet_Roles> aspnet_Roles
+        {
+            get { return _aspnet_Roles  ?? (_aspnet_Roles = CreateObjectSet<aspnet_Roles>("aspnet_Roles")); }
+        }
+        private ObjectSet<aspnet_Roles> _aspnet_Roles;
+    
+        public ObjectSet<aspnet_SchemaVersions> aspnet_SchemaVersions
+        {
+            get { return _aspnet_SchemaVersions  ?? (_aspnet_SchemaVersions = CreateObjectSet<aspnet_SchemaVersions>("aspnet_SchemaVersions")); }
+        }
+        private ObjectSet<aspnet_SchemaVersions> _aspnet_SchemaVersions;
+    
+        public ObjectSet<aspnet_WebEvent_Events> aspnet_WebEvent_Events
+        {
+            get { return _aspnet_WebEvent_Events  ?? (_aspnet_WebEvent_Events = CreateObjectSet<aspnet_WebEvent_Events>("aspnet_WebEvent_Events")); }
+        }
+        private ObjectSet<aspnet_WebEvent_Events> _aspnet_WebEvent_Events;
+    
+        public ObjectSet<mb_Hall> mb_Hall
+        {
+            get { return _mb_Hall  ?? (_mb_Hall = CreateObjectSet<mb_Hall>("mb_Hall")); }
+        }
+        private ObjectSet<mb_Hall> _mb_Hall;
+    
+        public ObjectSet<sysdiagram> sysdiagrams
+        {
+            get { return _sysdiagrams  ?? (_sysdiagrams = CreateObjectSet<sysdiagram>("sysdiagrams")); }
+        }
+        private ObjectSet<sysdiagram> _sysdiagrams;
 
         #endregion
     }
