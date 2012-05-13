@@ -33,7 +33,6 @@ namespace MovieBooking.BLL.Entities
         }
         public void CopyTo(mb_Movie mbTh)
         {
-
             mbTh.ID = ID;
             mbTh.MovieName = MovieName;
             mbTh.LanguageID = LanguageID;
@@ -43,8 +42,7 @@ namespace MovieBooking.BLL.Entities
             mbTh.Active = Active;
             mbTh.genre = genre;
             mbTh.CastDescription = CastDescription;
-            mbTh.mb_Movie_Item = mb_Movie_Item;
-            mbTh.mb_MovieSchedule = mb_MovieSchedule;
+
         }
     }
     public class MovieRepository
@@ -71,6 +69,17 @@ namespace MovieBooking.BLL.Entities
             }
             return _movies.AsEnumerable<Movie>();
         }
+
+        public mb_Movie FindbyId(int Id)
+        {
+            mb_Movie th = new mb_Movie();
+            using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+            {
+                th = mbRep.Single(u => u.ID == Id) as mb_Movie;
+            }
+            return th;
+        }
+
 
         public int Insert(Movie movie)
         {
