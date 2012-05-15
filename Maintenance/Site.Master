@@ -36,6 +36,7 @@
                         <asp:MenuItem NavigateUrl="~/Theatre/AddTheatre.aspx" Text="Add Theatre"/>
                         <asp:MenuItem NavigateUrl="~/Movie/MovieMaintainence.aspx" Text="Movie"/>
                          <asp:MenuItem NavigateUrl="~/Movie/MovieUpdate.aspx" Text="Movie update"/>
+                         <asp:MenuItem NavigateUrl="~/Movie/MovieScheduleAdd.aspx" Text="Movie Schedule Update"/>
                     </Items>
                 </asp:Menu>
             </div>
