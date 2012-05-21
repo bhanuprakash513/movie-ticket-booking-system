@@ -1,0 +1,20 @@
+﻿@model IEnumerable<MovieBooking.BLL.Entities.Booking> 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<table>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookingRef)
+        </td>
+  
+        </tr>
+        }
+
+        </table>

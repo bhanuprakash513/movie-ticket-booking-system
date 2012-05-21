@@ -3,75 +3,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Search</h2>
+<div class="hero-unit">
+  <h1>Golden Village</h1>
+  <p>Books tickets easily as u would have never imagined</p>
+  <p>
+  </p>
+</div>
 
+<div class="well">
+<div class="page-header">
+<h1>
+    Search</h1>
+    </div>
+@using (Html.BeginForm())
+{
+    <table style="width: 100%;">
+        <tr>
+            <td>
+                Select Theatre
+            </td>
+            <td>
+                @Html.DropDownList("theatre_select", (IEnumerable<SelectListItem>)ViewBag.theatreList)
+                @*<select id="theatre_select" name="theatre_select">
+                
+                  @foreach (var theatre in @ViewBag.theatreList)
+                  {
+                     <option> @theatre.Name </option>
+                  }
+                *@
+                
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Select Movie
+            </td>
+            <td>
+                @Html.DropDownList("movie_select", (IEnumerable<SelectListItem>)ViewBag.movieList)
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Choose a Day
+            </td>
+            <td>
+                @Html.TextBox("day_select", "22/02/2012", new { @class = "date" })
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <input type="submit" value="Go" class='btn btn-primary large'  />
+            </td>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+    </table>
+}
 
-<table style="width: 100%;">
-    <tr>
-        <td>
-            Select Cinema
-        </td>
-        <td>
-            <select id="cinema-select">
-            <option> GV Katong </option>
-            <option> GV Katong </option>
-            <option> GV Katong </option>
-            <option> GV Katong </option>
-            <option> GV Katong </option>
-            <option> GV Katong </option>
-        </select>
-        </td>
-        <td>
-            &nbsp;
-        </td>
-        
-    </tr>
-    <tr>
-        <td>
-            Select Movie
-        </td>
-        <td>
-             <select id="movie-select">
-            <option> The Avengers </option>
-            <option> Lockout</option>
-            <option> BattleShip </option>
-            <option> OKOK </option>
-            <option> Shivaji - The Boss Part 2 </option>
-            <option> Enthiran - The Robot </option>
-        </select>
-        </td>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Choose a Day
-        </td>
-        <td>
-             <select id="day-select">
-            <option> 08-05-2012 </option>
-            <option> 09-05-2012 </option>
-            <option> 10-05-2012 </option>
-            <option> 11-05-2012 </option>
-        </select>
-        </td>
-        <td>
-            &nbsp;
-        </td>
-    </tr>
-
-    <tr>
-       <td>
-         &nbsp;
-       </td>
-
-        <td>
-           <a href='#' class='btn btn-primary large'> Go </a>
-        </td>
-
-        <td>
-        &nbsp;
-        </td>
-    </tr>
-</table>
+</div>

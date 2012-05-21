@@ -1,41 +1,103 @@
 ﻿@{
     ViewBag.Title = "SelectSeats";
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.seat').click(function () {
+            if ($(this).hasClass('seat-available')) {
+                $(this).attr('src', '/images/seats/seat_selected.gif');
+            }
+            if ($(this).hasClass('seat-selected')) {
+                $(this).attr('src', '/images/seats/seat_available.gif');
+            }
+            $(this).toggleClass('seat-available');
+            $(this).toggleClass('seat-selected');
 
-<h2>Choose seats</h2
+            refresh_selected_seats($(this).attr('name'), $(this));
+
+        });
+
+        function refresh_selected_seats(seat_no, seat) {
+            var seats = new Array();
+            var i = 0;
+            $('.seat-selected').each(function () {
+                seats[i++] = $(this).attr('name');
+            });
+
+            var total = i;
+            var hidden_element = $('.selected-hidden');
+            hidden_element.html('');
+            hidden_element.append("<input type='hidden' name='selected-total' value='" + total + "'>");
+            if (seats.length > 0) {
+
+                var i = 0;
+               
+                for (i=0; i< seats.length; i++) {
+                     hidden_element.append("<input type='hidden' name='seats[" + i + "]' value='" + seats[i] + "'>");
+                }
+            }
 
 
-<div>
-
-
-
-
-<table>
-@for (int row = 0; row < 10; row++)
-{
-    <tr>
-    @for (int col = 0; col < 30; col++)
-    {
-        <td> 
-          
-   
-        
-        @if (col == 10 || col ==20 || col ==30)
-        {    
-          <img src=@Url.Content("~/images/seats/empty_space.gif") /> 
+            //            if (seat.hasClass('seat-selected')) {
+            //                console.log(seat_no);
+            //                var selected = $('#selected-seats');
+            //                var selected_seats = selected.val();
+            //                selected.val(selected_seats + ' ' + seat_no);
+            //            }
         }
-        else
-        {
-         <img src=@Url.Content("~/images/seats/seat_available.gif") /> 
 
-        }
-
-             </td>
-    }
-
-     </tr>  
-    
-}
-</table>
-
+    });
+</script>
+<div class="page-header">
+  <h1>Choose seats</h1>
 </div>
+    
+@using (Html.BeginForm())
+{
+
+
+    <table cellspacing="1" cellpadding="4" border="0">
+        @for (char row = 'A'; row < 'L'; row++)
+        {
+            <tr>
+                @for (int col = 0; col < 30; col++)
+                {
+                    <td valign="top" nowrap>
+                       @if (col == 0)
+                       {
+                             @row 
+                       }
+                      
+                        @if (col == 10 || col == 20 || col == 30)
+                        {    
+                            <img src=@Url.Content("~/images/seats/empty_space.gif") /> 
+                        }
+                        else
+                        {
+                            <img src=@Url.Content("~/images/seats/seat_available.gif") class="seat seat-available" name=@row-@col /> 
+
+                        }
+                    </td>
+                }
+            </tr>  
+    
+        }
+    </table>
+    <div class='selected-hidden'>
+      
+    </div>
+    
+   <div class='clearfix'> </div>
+    
+    <p>
+    </p>
+    <p>
+    </p>
+    
+
+         <div class='clearfix'> </div>
+    
+      <input type="submit" value="Book" class='btn btn-primary large' />
+ 
+
+}
