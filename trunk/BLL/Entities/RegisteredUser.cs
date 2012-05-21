@@ -89,8 +89,9 @@ namespace MovieBooking.BLL.Entities
             mbUser.DOB = this.DOB;
             mbUser.NRIC = this.NRIC;
             mbUser.Active = this.Active;
-            mbUser.aspnet_Membership.Email = this.Email;
-            mbUser.aspnet_Membership.aspnet_Users.UserName = this.UserName;
+            mbUser.UserId = this.UserId;
+            //mbUser.aspnet_Membership.Email = this.Email;
+            //mbUser.aspnet_Membership.aspnet_Users.UserName = this.UserName;
         }
         #endregion
 
@@ -107,7 +108,7 @@ namespace MovieBooking.BLL.Entities
         public RegisteredUserRepository()
         {
             // Resolve the default ExceptionManager object from the container.
-            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         #endregion
@@ -238,6 +239,8 @@ namespace MovieBooking.BLL.Entities
 
             return crStatus;
         }
+
+
 
         #endregion
     }

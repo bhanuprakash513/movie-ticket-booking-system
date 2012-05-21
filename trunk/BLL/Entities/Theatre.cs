@@ -60,7 +60,19 @@ namespace MovieBooking.BLL.Entities
         {
             cache = CacheFactory.GetCacheManager();
             // Resolve the default ExceptionManager object from the container.
-            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+        }
+
+        public Theatre FindById(int id)
+        {
+            Theatre _theatre = null;
+            using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+            {
+               var th = from t in mbRep.FetchAll().Where(c => c.ID.Equals(id))
+                         select new Theatre(t);
+               _theatre = th.FirstOrDefault();
+            }
+            return _theatre;
         }
 
         public IEnumerable<Theatre> FindAll()
@@ -82,6 +94,7 @@ namespace MovieBooking.BLL.Entities
             using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
             {
                 mbRep.Add(th);
+                
                 mbRep.SaveChanges();
             }
             return th.ID;            
