@@ -61,12 +61,6 @@ namespace MovieBooking.Model.Entities
             set;
         }
     
-        public virtual string ImageMoviePath
-        {
-            get;
-            set;
-        }
-    
         public virtual string genre
         {
             get;
@@ -74,6 +68,12 @@ namespace MovieBooking.Model.Entities
         }
     
         public virtual string CastDescription
+        {
+            get;
+            set;
+        }
+    
+        public virtual string ImageMoviePath
         {
             get;
             set;
