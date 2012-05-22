@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{384A95AA-9378-4646-9304-04AF5F2CCB43}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MovieBooking.BLL</RootNamespace>
     <AssemblyName>MovieBooking.BLL</AssemblyName>
@@ -65,6 +65,7 @@
     <Compile Include="Entities\MovieSchedule.cs" />
     <Compile Include="Entities\MovieSchedule_Item.cs" />
     <Compile Include="Entities\Movie_Item.cs" />
+    <Compile Include="Entities\Payment.cs" />
     <Compile Include="Entities\RegisteredUser.cs" />
     <Compile Include="Entities\SystemParameter.cs" />
     <Compile Include="Entities\Theatre.cs" />

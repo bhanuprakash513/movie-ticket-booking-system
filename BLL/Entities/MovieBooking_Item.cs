@@ -52,42 +52,56 @@ namespace MovieBooking.BLL.Entities
         public List<BookingItem> GetMovieBookingItems(Booking booking)
         {
             List<BookingItem> bookingItems = null;
-
-            using (IRepository<mb_MovieBooking_Item> mbRep = new MovieBookingRepository<mb_MovieBooking_Item>())
+            try
             {
-                var ts = from t in mbRep.FetchAll().Where(c => c.MovieBookingID.Equals(booking.ID))
-                         select new BookingItem(t);
-                bookingItems = ts.ToList();
-            }
+                using (IRepository<mb_MovieBooking_Item> mbRep = new MovieBookingRepository<mb_MovieBooking_Item>())
+                {
+                    var ts = from t in mbRep.FetchAll().Where(c => c.MovieBookingID.Equals(booking.ID))
+                             select new BookingItem(t);
+                    bookingItems = ts.ToList();
+                }
 
-            return bookingItems;
+                return bookingItems;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while getting Movie Booking Items " + ex.Message);
+            }
         }
 
         public void InsertMovieBookingItems(Booking booking, List<BookingItem> items)
         {
-            using (IRepository<mb_MovieBooking_Item> mbRep = new MovieBookingRepository<mb_MovieBooking_Item>())
+            try
             {
-                // Define a transaction scope for the operations.
-                TransactionOptions options = new TransactionOptions
+                using (IRepository<mb_MovieBooking_Item> mbRep = new MovieBookingRepository<mb_MovieBooking_Item>())
                 {
-                    IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
-                    Timeout = TransactionManager.DefaultTimeout
-                };
-
-                using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
-                {
-
-                    foreach (BookingItem item in items)
+                    // Define a transaction scope for the operations.
+                    TransactionOptions options = new TransactionOptions
                     {
-                        mb_MovieBooking_Item _item = new mb_MovieBooking_Item();
-                        _item.MovieBookingID = booking.ID;
-                        _item.SeatNo = item.SeatNo;
-                        mbRep.Add(item);
-                    }
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
+                        Timeout = TransactionManager.DefaultTimeout
+                    };
 
-                    mbRep.SaveChanges();
-                    scope.Complete();
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
+                    {
+
+                        foreach (BookingItem item in items)
+                        {
+                            mb_MovieBooking_Item _item = new mb_MovieBooking_Item();
+                            _item.MovieBookingID = booking.ID;
+                            _item.SeatNo = item.SeatNo;
+                            mbRep.Add(item);
+                        }
+
+                        mbRep.SaveChanges();
+                        scope.Complete();
+                    }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while creating booking " + ex.Message);
             }
 
         }
