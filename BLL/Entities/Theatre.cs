@@ -58,7 +58,7 @@ namespace MovieBooking.BLL.Entities
 
         public TheatreRepository()
         {
-            cache = CacheFactory.GetCacheManager();
+            //cache = CacheFactory.GetCacheManager();
             // Resolve the default ExceptionManager object from the container.
             //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
@@ -85,20 +85,14 @@ namespace MovieBooking.BLL.Entities
         public IEnumerable<Theatre> FindAll()
         {
             IList<Theatre> _theatres = null;
-            try
-            {
-                using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+            using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
                 {
                     var ts = from t in mbRep.FetchAll()
                              select new Theatre(t);
                     _theatres = ts.ToList<Theatre>();
                 }
                 return _theatres.AsEnumerable<Theatre>();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Error while getting theatre " + ex.Message);
-            }
+            
         }
 
         public int Insert(Theatre theatre)

@@ -29,6 +29,7 @@ namespace MovieBooking.BLL.Entities
             CastDescription = MovieDet.CastDescription;            
             mb_Movie_Item = MovieDet.mb_Movie_Item;
             mb_MovieSchedule = MovieDet.mb_MovieSchedule;
+            ImageMoviePath = MovieDet.ImageMoviePath;
             
         }
         public void CopyTo(mb_Movie mbTh)
@@ -42,6 +43,7 @@ namespace MovieBooking.BLL.Entities
             mbTh.Active = Active;
             mbTh.genre = genre;
             mbTh.CastDescription = CastDescription;
+            mbTh.ImageMoviePath = ImageMoviePath;
 
         }
     }
@@ -53,9 +55,9 @@ namespace MovieBooking.BLL.Entities
 
         public MovieRepository()
         {
-            cache = CacheFactory.GetCacheManager();
-            // Resolve the default ExceptionManager object from the container.
-            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            //cache = CacheFactory.GetCacheManager();
+            //// Resolve the default ExceptionManager object from the container.
+            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         public IEnumerable<Movie> FindAll()
