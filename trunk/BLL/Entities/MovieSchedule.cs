@@ -59,79 +59,104 @@ namespace MovieBooking.BLL.Entities
         public List<MovieSchedule> GetScheduleForMovie(Movie movie)
         {
             List<MovieSchedule> schedules = null;
-
-            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            try
             {
-                var ts = from t in mbRep.FetchAll().Where(c => c.MovieID.Equals(movie.ID))
-                         select new MovieSchedule(t);
-                schedules = ts.ToList();
-                MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
-
-                foreach (MovieSchedule schedule in schedules)
+                using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
                 {
-                    schedule.items = itemRepo.GetMovieScheduleItem(schedule);
-                }
-            }
+                    var ts = from t in mbRep.FetchAll().Where(c => c.MovieID.Equals(movie.ID))
+                             select new MovieSchedule(t);
+                    schedules = ts.ToList();
+                    MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
 
-            return schedules;
+                    foreach (MovieSchedule schedule in schedules)
+                    {
+                        schedule.items = itemRepo.GetMovieScheduleItem(schedule);
+                    }
+                }
+
+                return schedules;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retrieving schedule for movie " + ex.Message);
+            }
         }
 
         public List<MovieSchedule> GetScheduleForMovie(int movie_id, int theatre_id)
         {
             List<MovieSchedule> schedules = null;
-
-            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            try
             {
-                var ts = from t in mbRep.FetchAll().Where(c => c.MovieID.Equals(movie_id) && c.TheatreID.Equals(theatre_id))
-                         select new MovieSchedule(t);
-                schedules = ts.ToList();
-                MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
-
-                foreach (MovieSchedule schedule in schedules)
+                using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
                 {
-                    schedule.items = itemRepo.GetMovieScheduleItem(schedule);
-                }
-            }
+                    var ts = from t in mbRep.FetchAll().Where(c => c.MovieID.Equals(movie_id) && c.TheatreID.Equals(theatre_id))
+                             select new MovieSchedule(t);
+                    schedules = ts.ToList();
+                    MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
 
-            return schedules;
+                    foreach (MovieSchedule schedule in schedules)
+                    {
+                        schedule.items = itemRepo.GetMovieScheduleItem(schedule);
+                    }
+                }
+
+                return schedules;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while getting schedule for movie " + ex.Message);
+            }
         }
 
         public List<MovieSchedule> GetScheduleForMovie(int movie_id, int theatre_id, DateTime date)
         {
             List<MovieSchedule> schedules = null;
-            
 
-            if (date < DateTime.Now)
+            try
             {
+                if (date < DateTime.Now)
+                {
+                    return schedules;
+                }
+                using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+                {
+                    var ts = from t in mbRep.FetchAll().Where(c => c.MovieID.Equals(movie_id) && c.TheatreID.Equals(theatre_id) && c.ScheduleDate.Equals(date))
+                             select new MovieSchedule(t);
+                    schedules = ts.ToList();
+                    MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
+                    HallRepository hallRepo = new HallRepository();
+
+                    foreach (MovieSchedule schedule in schedules)
+                    {
+                        schedule.items = itemRepo.GetMovieScheduleItem(schedule);
+                        schedule.hall = hallRepo.GetHall(Int32.Parse(schedule.HallID));
+                    }
+                }
                 return schedules;
             }
-            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            catch (Exception ex)
             {
-                var ts = from t in mbRep.FetchAll().Where(c => c.MovieID.Equals(movie_id) && c.TheatreID.Equals(theatre_id) && c.ScheduleDate.Equals(date))
-                         select new MovieSchedule(t);
-                schedules = ts.ToList();
-                MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
-                HallRepository hallRepo = new HallRepository();
-
-                foreach (MovieSchedule schedule in schedules)
-                {
-                    schedule.items = itemRepo.GetMovieScheduleItem(schedule);
-                    schedule.hall = hallRepo.GetHall(Int32.Parse(schedule.HallID));
-                }
+                throw new Exception("Error occured while getting schedule for Movie " + ex.Message);
             }
-            return schedules;
         }
 
         public MovieSchedule GetSchedule(int id)
         {
             MovieSchedule schedule = null;
-            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            try
             {
-                var ts = from t in mbRep.FetchAll().Where(c => c.ID.Equals(id))
-                         select new MovieSchedule(t);
-                schedule = ts.FirstOrDefault();
+                using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+                {
+                    var ts = from t in mbRep.FetchAll().Where(c => c.ID.Equals(id))
+                             select new MovieSchedule(t);
+                    schedule = ts.FirstOrDefault();
+                }
+                return schedule;
             }
-            return schedule;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while getting Movie schedule " + ex.Message);
+            }
         }
     }
 

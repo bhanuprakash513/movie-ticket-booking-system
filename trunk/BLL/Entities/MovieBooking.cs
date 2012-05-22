@@ -13,9 +13,7 @@ namespace MovieBooking.BLL.Entities
 {
     public partial class Booking : mb_MovieBooking
     {
-        public List<BookingItem> bookingItems;
-
-        
+        public List<BookingItem> bookingItems;        
 
         public Booking(mb_MovieBooking _mb_booking)
         {
@@ -37,10 +35,7 @@ namespace MovieBooking.BLL.Entities
     {
         List<Booking> GetMovieBookings();
         List<Booking> GetMovieBookingsForCustomer(Guid memberId);
-        Booking CreateBooking(Movie movie, RegisteredUser user, MovieSchedule schedule, List<BookingItem> items );
-
-
-        
+        Booking CreateBooking(Movie movie, RegisteredUser user, MovieSchedule schedule, List<BookingItem> items );        
     }
 
     public class BookingRepository : IBookingRepository
@@ -55,94 +50,115 @@ namespace MovieBooking.BLL.Entities
         public List<Booking> GetMovieBookings()
         {
             List<Booking> bookingList = null;
-       
-            using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+
+            try
             {
-                var ts = from t in mbRep.FetchAll()
-                         select new Booking(t);                
-                bookingList = ts.ToList();
+                using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+                {
+                    var ts = from t in mbRep.FetchAll()
+                             select new Booking(t);
+                    bookingList = ts.ToList();
 
-                BookingItemRepository itemRepo = new BookingItemRepository();
+                    BookingItemRepository itemRepo = new BookingItemRepository();
 
-                foreach(Booking booking in bookingList){
-                    List<BookingItem> bookingItems = itemRepo.GetMovieBookingItems(booking);
-                    booking.bookingItems = bookingItems;
+                    foreach (Booking booking in bookingList)
+                    {
+                        List<BookingItem> bookingItems = itemRepo.GetMovieBookingItems(booking);
+                        booking.bookingItems = bookingItems;
+                    }
                 }
+                return bookingList;
             }
-            return bookingList;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while getting Movie Bookings " + ex.Message);
+            }
         }
 
         public List<Booking> GetMovieBookingsForCustomer(Guid MemberId)
         {
             List<Booking> bookingList = null;
 
-            using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+            try
             {
-                
-                var ts = from t in mbRep.FetchAll().Where(b => b.MemberID.Equals(MemberId))
-                          select new Booking(t);                        
-
-                bookingList = ts.ToList();
-
-                BookingItemRepository itemRepo = new BookingItemRepository();
-
-                foreach (Booking booking in bookingList)
+                using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
                 {
-                    List<BookingItem> bookingItems = itemRepo.GetMovieBookingItems(booking);
-                    booking.bookingItems = bookingItems;
+
+                    var ts = from t in mbRep.FetchAll().Where(b => b.MemberID.Equals(MemberId))
+                             select new Booking(t);
+
+                    bookingList = ts.ToList();
+
+                    BookingItemRepository itemRepo = new BookingItemRepository();
+
+                    foreach (Booking booking in bookingList)
+                    {
+                        List<BookingItem> bookingItems = itemRepo.GetMovieBookingItems(booking);
+                        booking.bookingItems = bookingItems;
+                    }
                 }
+                return bookingList;
             }
-            return bookingList;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while getting Movie Bookings for customer " + ex.Message);
+            }
         }
 
 
         public Booking CreateBooking(Movie movie, RegisteredUser user, MovieSchedule schedule, List<BookingItem> items)
         {
-                         using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+            try{
+                using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+                {
+                    // Define a transaction scope for the operations.
+                    TransactionOptions options = new TransactionOptions
+                    {
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
+                        Timeout = TransactionManager.DefaultTimeout
+                    };
+
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
+                    {
+                        mb_MovieBooking booking = new mb_MovieBooking();
+
+                        List<mb_MovieBooking_Item> _booking_items = new List<mb_MovieBooking_Item>();
+                        //Set booking items in booking
+                        foreach (BookingItem _item in items)
                         {
-                            // Define a transaction scope for the operations.
-                            TransactionOptions options = new TransactionOptions
-                            {
-                                IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
-                                Timeout = TransactionManager.DefaultTimeout
-                            };
-
-                            using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
-                            {
-                            mb_MovieBooking booking = new mb_MovieBooking();
-
-                            List<mb_MovieBooking_Item> _booking_items = new List<mb_MovieBooking_Item>();
-                            //Set booking items in booking
-                            foreach (BookingItem _item in items)
-                            {
-                                mb_MovieBooking_Item item = new mb_MovieBooking_Item();
-                                _item.CopyTo(item);
-                                _booking_items.Add(item);
-                            }
-                            booking.mb_MovieBooking_Item = _booking_items;
-
-                            //Schedule foreign key
-                            mb_MovieSchedule _schedule = new mb_MovieSchedule();
-                            schedule.CopyTo(_schedule);
-                            booking.ScheduleID = _schedule.ID;
-
-                            //Registered user foreign key
-                            mb_RegisteredUser _user = new mb_RegisteredUser();
-                            user.CopyTo(_user);
-                            booking.MemberID = _user.UserId;
-                            
-                            booking.BookingDate = DateTime.Now;
-                            
-                            booking.BookingRef = "1223";
-                            booking.StatusID = "1";
-
-
-                            mbRep.Add(booking);
-                            mbRep.SaveChanges();
-                            scope.Complete();
-                            return new Booking(booking);
+                            mb_MovieBooking_Item item = new mb_MovieBooking_Item();
+                            _item.CopyTo(item);
+                            _booking_items.Add(item);
                         }
+                        booking.mb_MovieBooking_Item = _booking_items;
 
+                        //Schedule foreign key
+                        mb_MovieSchedule _schedule = new mb_MovieSchedule();
+                        schedule.CopyTo(_schedule);
+                        booking.ScheduleID = _schedule.ID;
+
+                        //Registered user foreign key
+                        mb_RegisteredUser _user = new mb_RegisteredUser();
+                        user.CopyTo(_user);
+                        booking.MemberID = _user.UserId;
+
+                        booking.BookingDate = DateTime.Now;
+
+                        booking.BookingRef = "1223";
+                        booking.StatusID = "1";
+
+
+                        mbRep.Add(booking);
+                        mbRep.SaveChanges();
+                        scope.Complete();
+                        return new Booking(booking);
+                    }
+
+                }
+            }catch(Exception ex){
+
+                    throw new Exception("Error occured while creating new Booking " + ex.Message);
+                }
 
             }
         }

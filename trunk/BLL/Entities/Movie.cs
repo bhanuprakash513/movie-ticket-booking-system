@@ -60,49 +60,77 @@ namespace MovieBooking.BLL.Entities
 
         public IEnumerable<Movie> FindAll()
         {
-            IList<Movie> _movies = null;
-            using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+            try
             {
-                var ts = from t in mbRep.FetchAll()
-                         select new Movie(t);
-                _movies = ts.ToList<Movie>();
+                IList<Movie> _movies = null;
+                using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+                {
+                    var ts = from t in mbRep.FetchAll()
+                             select new Movie(t);
+                    _movies = ts.ToList<Movie>();
+                }
+                return _movies.AsEnumerable<Movie>();
             }
-            return _movies.AsEnumerable<Movie>();
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retreiving Movie " + ex.Message);
+            }
         }
 
         public mb_Movie FindbyId(int Id)
         {
-            mb_Movie th = new mb_Movie();
-            using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+            try
             {
-                th = mbRep.Single(u => u.ID == Id) as mb_Movie;
+                mb_Movie th = new mb_Movie();
+                using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+                {
+                    th = mbRep.Single(u => u.ID == Id) as mb_Movie;
+                }
+                return th;
             }
-            return th;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retreiving Movie " + ex.Message);
+            }
         }
 
 
         public int Insert(Movie movie)
         {
-            mb_Movie th = new mb_Movie();
-            movie.CopyTo(th);
-            using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+            try
             {
-                mbRep.Add(th);
-                mbRep.SaveChanges();
+                mb_Movie th = new mb_Movie();
+                movie.CopyTo(th);
+                using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+                {
+                    mbRep.Add(th);
+                    mbRep.SaveChanges();
+                }
+                return th.ID;
             }
-            return th.ID;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while inserting new movie" + ex.Message);
+            }
         }
 
         public int Update(Movie movie)
         {
-            mb_Movie th = new mb_Movie();
-            using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+            try
             {
-                th = mbRep.First(u => u.ID == movie.ID) as mb_Movie;
-                movie.CopyTo(th);
-                mbRep.SaveChanges();
+                mb_Movie th = new mb_Movie();
+                using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+                {
+                    th = mbRep.First(u => u.ID == movie.ID) as mb_Movie;
+                    movie.CopyTo(th);
+                    mbRep.SaveChanges();
+                }
+                return th.ID;
             }
-            return th.ID;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while updating movie" + ex.Message);
+            }
         }
 
         public bool Delete()

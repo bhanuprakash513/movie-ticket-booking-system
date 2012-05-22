@@ -66,50 +66,78 @@ namespace MovieBooking.BLL.Entities
         public Theatre FindById(int id)
         {
             Theatre _theatre = null;
-            using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+            try
             {
-               var th = from t in mbRep.FetchAll().Where(c => c.ID.Equals(id))
-                         select new Theatre(t);
-               _theatre = th.FirstOrDefault();
+                using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+                {
+                    var th = from t in mbRep.FetchAll().Where(c => c.ID.Equals(id))
+                             select new Theatre(t);
+                    _theatre = th.FirstOrDefault();
+                }
+                return _theatre;
             }
-            return _theatre;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while getting Theatre " + ex.Message);
+            }
         }
 
         public IEnumerable<Theatre> FindAll()
         {
             IList<Theatre> _theatres = null;
-            using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+            try
             {
-                var ts = from t in mbRep.FetchAll()
-                    select new Theatre(t);
-                _theatres = ts.ToList<Theatre>();
+                using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+                {
+                    var ts = from t in mbRep.FetchAll()
+                             select new Theatre(t);
+                    _theatres = ts.ToList<Theatre>();
+                }
+                return _theatres.AsEnumerable<Theatre>();
             }
-            return _theatres.AsEnumerable<Theatre>();
+            catch (Exception ex)
+            {
+                throw new Exception("Error while getting theatre " + ex.Message);
+            }
         }
 
         public int Insert(Theatre theatre)
         {
             mb_Theatre th = new mb_Theatre();
-            theatre.CopyTo(th);
-            using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+            try
             {
-                mbRep.Add(th);
-                
-                mbRep.SaveChanges();
+                theatre.CopyTo(th);
+                using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+                {
+                    mbRep.Add(th);
+
+                    mbRep.SaveChanges();
+                }
+                return th.ID;
             }
-            return th.ID;            
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while creating new Theatre " + ex.Message);
+            }
         }
 
         public int Update(Theatre theatre)
         {
             mb_Theatre th = new mb_Theatre();
-            using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+            try
             {
-                th = mbRep.First(u => u.ID == theatre.ID) as mb_Theatre;
-                theatre.CopyTo(th);
-                mbRep.SaveChanges();
+                using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
+                {
+                    th = mbRep.First(u => u.ID == theatre.ID) as mb_Theatre;
+                    theatre.CopyTo(th);
+                    mbRep.SaveChanges();
+                }
+                return th.ID;
             }
-            return th.ID;
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while udpdating theatre " + ex.Message);
+            }
         }
 
         public bool Delete()
