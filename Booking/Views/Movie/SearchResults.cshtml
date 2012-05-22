@@ -6,14 +6,22 @@
 <h1>
     SearchResults</h1>
     </div>
-@if (ViewBag.theatre != null)
+
+<div class="well">
+  <h1>@ViewBag.movie.MovieName</h1>
+  <p> <img src=@ViewBag.movie.ImageMoviePath alt=@ViewBag.movie.MovieName width='150px' height='200px'></p>
+  <p>
+  </p>
+</div>
+
+@*@if (ViewBag.theatre != null)
 {
     @ViewBag.theatre.Name
-}
-@if (ViewBag.movie != null)
+}*@
+@*@if (ViewBag.movie != null)
 {
     @ViewBag.movie.MovieName
-}
+}*@
 @if (ViewBag.scheduleList == null)
 {
     <div>
