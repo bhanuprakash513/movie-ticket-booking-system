@@ -287,8 +287,8 @@
           <Property Name="RunningDuration" Type="smallint" />
           <Property Name="Active" Type="bit" Nullable="false" />
           <Property Name="genre" Type="nvarchar" MaxLength="25" />
-          <Property Name="CastDescription" Type="nvarchar(max)" />
-          <Property Name="ImageMoviePath" Type="nvarchar(max)" />
+          <Property Name="CastDescription" Type="nvarchar" MaxLength="50" />
+          <Property Name="ImageMoviePath" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="mb_Movie_Item">
           <Key>
@@ -1841,7 +1841,7 @@
             <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_Movie"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_Movie"><MappingFragment StoreEntitySet="mb_Movie">
-            <ScalarProperty Name="ImageMoviePath" ColumnName="ImageMoviePath" />
+                <ScalarProperty Name="ImageMoviePath" ColumnName="ImageMoviePath" />
                 <ScalarProperty Name="CastDescription" ColumnName="CastDescription" />
                 <ScalarProperty Name="genre" ColumnName="genre" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
@@ -2127,7 +2127,7 @@
       <Diagram Name="MovieBooking.DAL.Model" ZoomLevel="81">
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Membership" Width="1.5" PointX="3.75" PointY="11.875" Height="5.4417122395833335" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Users" Width="1.5" PointX="1.5" PointY="13.25" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie" Width="1.5" PointX="0.75" PointY="7.125" Height="3.3263964843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie" Width="1.5" PointX="0.75" PointY="7.125" Height="2.9070849609374996" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie_Item" Width="1.5" PointX="3" PointY="7.625" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking" Width="1.5" PointX="8.25" PointY="7" Height="3.1340950520833344" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking_Item" Width="1.5" PointX="10.5" PointY="4.25" Height="1.7879850260416674" IsExpanded="true" />
@@ -2147,8 +2147,8 @@
           <ConnectorPoint PointX="6" PointY="14.595896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_Movie_Item_mb_Movie" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.6151432291666659" />
-          <ConnectorPoint PointX="3" PointY="8.6151432291666659" />
+          <ConnectorPoint PointX="2.25" PointY="8.5033268229166659" />
+          <ConnectorPoint PointX="3" PointY="8.5033268229166659" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" ManuallyRouted="false">
           <ConnectorPoint PointX="2.25" PointY="7.34375" />
@@ -2187,9 +2187,9 @@
           <ConnectorPoint PointX="8.25" PointY="17.865143229166666" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.90625" PointY="6.2590950520833326" />
-          <ConnectorPoint PointX="4.90625" PointY="9.9009407552083317" />
-          <ConnectorPoint PointX="6" PointY="9.9009407552083317" />
+          <ConnectorPoint PointX="4.90625" PointY="5.8677376302083326" />
+          <ConnectorPoint PointX="4.90625" PointY="9.5934456380208317" />
+          <ConnectorPoint PointX="6" PointY="9.5934456380208317" />
         </AssociationConnector>
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Applications" Width="1.5" PointX="0.75" PointY="14.375" Height="2.5571907552083388" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Paths" Width="1.5" PointX="6" PointY="22.5" Height="2.3648893229166674" />
