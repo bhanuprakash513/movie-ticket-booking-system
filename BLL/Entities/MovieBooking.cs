@@ -162,6 +162,5 @@ namespace MovieBooking.BLL.Entities
 
             }
         }
-    
-    }
+
 }
