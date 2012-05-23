@@ -10,7 +10,7 @@
 namespace MovieBooking.UI.Maintenance.Schedule {
     
     
-    public partial class MovieScheduleAdd {
+    public partial class MovieScheduleUpdate {
         
         /// <summary>
         /// lblMovName control.
@@ -22,13 +22,13 @@ namespace MovieBooking.UI.Maintenance.Schedule {
         protected global::System.Web.UI.WebControls.Label lblMovName;
         
         /// <summary>
-        /// ComboMovName control.
+        /// DropDownList1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ComboMovName;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
         /// MovieNameEntity control.
@@ -49,13 +49,13 @@ namespace MovieBooking.UI.Maintenance.Schedule {
         protected global::System.Web.UI.WebControls.Label LblTheatreName;
         
         /// <summary>
-        /// ComboTheatreName control.
+        /// DropDownList2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ComboTheatreName;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
         
         /// <summary>
         /// TheatreNameEntity control.
@@ -76,13 +76,13 @@ namespace MovieBooking.UI.Maintenance.Schedule {
         protected global::System.Web.UI.WebControls.Label LblHallNAme;
         
         /// <summary>
-        /// CombohallName control.
+        /// DropDownList3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CombohallName;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList3;
         
         /// <summary>
         /// HallNameEntity control.
@@ -175,51 +175,6 @@ namespace MovieBooking.UI.Maintenance.Schedule {
         protected global::System.Web.UI.WebControls.Calendar Calendar2;
         
         /// <summary>
-        /// LblTimeSlot control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LblTimeSlot;
-        
-        /// <summary>
-        /// Combotime1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Combotime1;
-        
-        /// <summary>
-        /// Combotime2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Combotime2;
-        
-        /// <summary>
-        /// Combotime3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Combotime3;
-        
-        /// <summary>
-        /// Combotime4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList Combotime4;
-        
-        /// <summary>
         /// LblPrice control.
         /// </summary>
         /// <remarks>
@@ -227,15 +182,6 @@ namespace MovieBooking.UI.Maintenance.Schedule {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LblPrice;
-        
-        /// <summary>
-        /// TxtPrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TxtPrice;
         
         /// <summary>
         /// LblActive control.
@@ -247,21 +193,30 @@ namespace MovieBooking.UI.Maintenance.Schedule {
         protected global::System.Web.UI.WebControls.Label LblActive;
         
         /// <summary>
-        /// ComboActive control.
+        /// DropDownList4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ComboActive;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList4;
         
         /// <summary>
-        /// Btncreate control.
+        /// Btnupdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Btncreate;
+        protected global::System.Web.UI.WebControls.Button Btnupdate;
+        
+        /// <summary>
+        /// Btndelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Btndelete;
     }
 }
