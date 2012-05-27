@@ -27,9 +27,10 @@ namespace MovieBooking.BLL.Entities
             genre = MovieDet.genre;
             Active = MovieDet.Active;
             CastDescription = MovieDet.CastDescription;            
-            mb_Movie_Item = MovieDet.mb_Movie_Item;
-            mb_MovieSchedule = MovieDet.mb_MovieSchedule;
+            //mb_Movie_Item = MovieDet.mb_Movie_Item;
+            //mb_MovieSchedule = MovieDet.mb_MovieSchedule;
             ImageMoviePath = MovieDet.ImageMoviePath;
+            trailer_url = MovieDet.trailer_url;
             
         }
         public void CopyTo(mb_Movie mbTh)
@@ -44,6 +45,7 @@ namespace MovieBooking.BLL.Entities
             mbTh.genre = genre;
             mbTh.CastDescription = CastDescription;
             mbTh.ImageMoviePath = ImageMoviePath;
+            mbTh.trailer_url = trailer_url;
 
         }
     }
