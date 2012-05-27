@@ -50,6 +50,7 @@ namespace MovieBooking.UI.Maintenance.Schedule
             };
             MovieScheduleRepository newMovie = new MovieScheduleRepository();
             newMovie.Insert(movie);
+        
         }
 
         protected void TextBox1_TextChanged(object sender, EventArgs e)
