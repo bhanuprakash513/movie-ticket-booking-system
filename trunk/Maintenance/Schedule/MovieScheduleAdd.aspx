@@ -39,7 +39,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<div class="accountInfo">
+    <div class="accountInfo">
     <fieldset class="register">
         <legend>Movie Schedule -> Add</legend>
     <table class="style1">
@@ -83,7 +83,7 @@
             </td>
             <td class="style15">
                 <asp:DropDownList ID="CombohallName" runat="server" 
-                    DataSourceID="HallNameEntity" DataTextField="HallName" DataValueField="ID">
+                    >
                 </asp:DropDownList>
             </td>
             <td class="style11">
