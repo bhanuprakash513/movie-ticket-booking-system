@@ -7,7 +7,7 @@
         }
         .style2
         {
-            width: 227px;
+            width: 341px;
         }
         .style3
         {
@@ -20,7 +20,7 @@
         }
         .style5
         {
-            width: 227px;
+            width: 341px;
             height: 26px;
         }
         .style6
@@ -110,10 +110,8 @@
 <span class="failureNotification">
                 <asp:DropDownList ID="CastCombo2" runat="server">
                     <asp:ListItem>Director</asp:ListItem>
-                    <asp:ListItem>Stars</asp:ListItem>
-                    <asp:ListItem>Screenplay</asp:ListItem>
                 </asp:DropDownList>
-                <asp:TextBox ID="txtCast1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCast1" runat="server" style="margin-left: 38px"></asp:TextBox>
 </span>
             </td>
             <td>
@@ -133,11 +131,9 @@
 
 <span class="failureNotification">
                 <asp:DropDownList ID="CastCombo1" runat="server">
-                    <asp:ListItem>Director</asp:ListItem>
                     <asp:ListItem>Stars</asp:ListItem>
-                    <asp:ListItem>Screenplay</asp:ListItem>
                 </asp:DropDownList>
-                <asp:TextBox ID="txtCast2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCast2" runat="server" style="margin-left: 51px"></asp:TextBox>
 </span>
             </td>
             <td>
@@ -157,11 +153,9 @@
 
 <span class="failureNotification">
                 <asp:DropDownList ID="CastCombo3" runat="server">
-                    <asp:ListItem>Director</asp:ListItem>
-                    <asp:ListItem Value="Stars"></asp:ListItem>
                     <asp:ListItem>Screenplay</asp:ListItem>
                 </asp:DropDownList>
-                <asp:TextBox ID="txtCast3" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCast3" runat="server" style="margin-left: 16px"></asp:TextBox>
 </span>
             </td>
             <td>
@@ -299,17 +293,10 @@
         <tr>
             <td class="style3">
 
-<span class="failureNotification">
-                <asp:Label ID="lblImage" runat="server" Font-Bold="True" Font-Size="Medium" 
-                    ForeColor="Black" Text="Image "></asp:Label>
-</span>
-            </td>
+                &nbsp;</td>
             <td class="style2">
 
-<span class="failureNotification">
-                <asp:FileUpload ID="ImageFileUpload" runat="server" BorderStyle="Groove" />
-</span>
-            </td>
+                &nbsp;</td>
             <td>
                 &nbsp;</td>
             <td>

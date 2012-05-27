@@ -7,7 +7,7 @@
         }
         .style2
         {
-            width: 227px;
+            width: 291px;
         }
         .style3
         {
@@ -20,7 +20,7 @@
         }
         .style5
         {
-            width: 227px;
+            width: 291px;
             height: 26px;
         }
         .style6
@@ -34,7 +34,7 @@
         }
         .style8
         {
-            width: 227px;
+            width: 291px;
             height: 85px;
         }
         .style9
@@ -48,7 +48,7 @@
         }
         .style11
         {
-            width: 227px;
+            width: 291px;
             height: 29px;
         }
         .style12
@@ -151,7 +151,7 @@
                     <asp:ListItem>Stars</asp:ListItem>
                     <asp:ListItem>Screenplay</asp:ListItem>
                 </asp:DropDownList>
-                <asp:TextBox ID="txtCast1" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCast1" runat="server" style="margin-left: 29px"></asp:TextBox>
 </span>
             </td>
             <td>
@@ -171,7 +171,7 @@
                     <asp:ListItem>Stars</asp:ListItem>
                     <asp:ListItem>Screenplay</asp:ListItem>
                 </asp:DropDownList>
-                <asp:TextBox ID="txtCast2" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCast2" runat="server" style="margin-left: 29px"></asp:TextBox>
 </span>
             </td>
             <td class="style12">
@@ -191,7 +191,7 @@
                     <asp:ListItem Value="Stars"></asp:ListItem>
                     <asp:ListItem>Screenplay</asp:ListItem>
                 </asp:DropDownList>
-                <asp:TextBox ID="txtCast3" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtCast3" runat="server" style="margin-left: 29px"></asp:TextBox>
 </span>
             </td>
             <td>
@@ -338,7 +338,8 @@
 <span class="failureNotification">
                 <asp:Button ID="BtnUpdate" runat="server" Text="Update" 
                     onclick="BtnUpdate_Click" />
-                <asp:Button ID="BtnDelete" runat="server" Text="Delete" />
+                <asp:Button ID="BtnDelete" runat="server" Text="Delete" 
+                    onclick="BtnDelete_Click" style="margin-left: 31px" />
 </span>
             </td>
             <td>
