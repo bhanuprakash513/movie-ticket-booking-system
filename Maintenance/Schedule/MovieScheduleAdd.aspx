@@ -49,14 +49,11 @@
             </td>
             <td class="style15">
                 <asp:DropDownList ID="ComboMovName" runat="server" 
-                    DataSourceID="MovieNameEntity" DataTextField="MovieName" 
+                    DataSourceID="ObsMovie" DataTextField="MovieName" 
                     DataValueField="ID">
                 </asp:DropDownList>
-                <asp:EntityDataSource ID="MovieNameEntity" runat="server" 
-                    ConnectionString="name=MovieBookingEntitiesContext" 
-                    DefaultContainerName="MovieBookingEntitiesContext" EnableFlattening="False" 
-                    EntitySetName="mb_Movie" Select="it.[ID], it.[MovieName]">
-                </asp:EntityDataSource>
+                <asp:ObjectDataSource ID="ObsMovie" runat="server" SelectMethod="FindAll" 
+                    TypeName="MovieBooking.BLL.Entities.MovieRepository"></asp:ObjectDataSource>
             </td>
             <td class="style11">
                 &nbsp;</td>
@@ -69,14 +66,11 @@
             </td>
             <td class="style15">
                 <asp:DropDownList ID="ComboTheatreName" runat="server" 
-                    DataSourceID="TheatreNameEntity" DataTextField="Name" DataValueField="ID">
+                    DataSourceID="obsTheatre" DataTextField="Name" DataValueField="ID">
                 </asp:DropDownList>
-                <asp:EntityDataSource ID="TheatreNameEntity" runat="server" 
-                    ConnectionString="name=MovieBookingEntitiesContext" 
-                    DefaultContainerName="MovieBookingEntitiesContext" EnableFlattening="False" 
-                    EntitySetName="mb_Theatre" EntityTypeFilter="mb_Theatre" 
-                    Select="it.[ID], it.[Name]">
-                </asp:EntityDataSource>
+                <asp:ObjectDataSource ID="obsTheatre" runat="server" SelectMethod="FindAll" 
+                    TypeName="MovieBooking.BLL.Entities.TheatreRepository">
+                </asp:ObjectDataSource>
             </td>
             <td class="style11">
                 &nbsp;</td>
@@ -91,12 +85,6 @@
                 <asp:DropDownList ID="CombohallName" runat="server" 
                     DataSourceID="HallNameEntity" DataTextField="HallName" DataValueField="ID">
                 </asp:DropDownList>
-                <asp:EntityDataSource ID="HallNameEntity" runat="server" 
-                    ConnectionString="name=MovieBookingEntitiesContext" 
-                    DefaultContainerName="MovieBookingEntitiesContext" EnableFlattening="False" 
-                    EntitySetName="mb_Hall" EntityTypeFilter="mb_Hall" 
-                    Select="it.[ID], it.[HallName]">
-                </asp:EntityDataSource>
             </td>
             <td class="style11">
                 &nbsp;</td>
