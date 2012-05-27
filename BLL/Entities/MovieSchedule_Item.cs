@@ -22,6 +22,7 @@ namespace MovieBooking.BLL.Entities
     public interface IMovieSchedule_ItemRepository
     {
         List<MovieSchedule_Item> GetMovieScheduleItem(MovieSchedule schedule);
+        MovieSchedule_Item GetMovieScheduleItem(int schedule_id);
     }
 
     public class MovieScheduleItemRepository : IMovieSchedule_ItemRepository
@@ -40,6 +41,26 @@ namespace MovieBooking.BLL.Entities
                 }
 
                 return items;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while getting Movie Schedule Item " + ex.Message);
+            }
+        }
+
+        public MovieSchedule_Item  GetMovieScheduleItem(int scheduleItemId)
+        {
+            MovieSchedule_Item item = null;
+            try
+            {
+                using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+                {
+                    var ts = from t in mbRep.FetchAll().Where(c => c.ID.Equals(scheduleItemId))
+                             select new MovieSchedule_Item(t);
+                    return ts.FirstOrDefault();
+                }
+
+                return item;
             }
             catch (Exception ex)
             {

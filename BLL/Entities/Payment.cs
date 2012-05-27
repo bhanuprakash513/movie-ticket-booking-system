@@ -14,11 +14,25 @@ namespace MovieBooking.BLL.Entities
 
     public partial class Payment : mb_Payment
     {
-        public int ID { get; private set; }
+        public int ID { get; set; }
 
         #region ctor and copyTo methods
 
         public Payment() { }
+
+        public Payment(int movieBookingID, string paymentMode, DateTime paymentDate, string creditCardNum, string creditCardExpiry, string cardName, string ccv, float totalPayment, float gst)
+        {
+            this.MovieBookingID = movieBookingID;
+            this.PaymentModeID = paymentMode;
+            this.PaymentDate = PaymentDate;
+            this.CreditCardNo = creditCardNum.ToString();
+            this.CardExpiry = creditCardExpiry;
+            this.CardHolderName = cardName;
+            this.CCV = ccv;
+            this.TotalAmount = Decimal.Parse(totalPayment.ToString());
+            this.GSTPercent = gst;
+        }
+
         public Payment(mb_Payment mbPm)
         {
             ID = mbPm.ID;
@@ -95,7 +109,7 @@ namespace MovieBooking.BLL.Entities
         //    return _theatres.AsEnumerable<Theatre>();
         //}
 
-        public int CreatePayment(int movieBookingID, string paymentModeID, DateTime paymentDate, string cardNo, string cardExpiry, string cardHolderName, string ccv, decimal totalAmount, float gst)
+        public Payment CreatePayment(int movieBookingID, string paymentModeID, DateTime paymentDate, string cardNo, string cardExpiry, string cardHolderName, string ccv, decimal totalAmount, float gst)
         {
             Payment pm = new Payment();
             pm.MovieBookingID = movieBookingID;
@@ -114,11 +128,13 @@ namespace MovieBooking.BLL.Entities
                 int status = -1;
                 using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
                 {
-                    mbRep.Add(mbPm);
-                    mbRep.SaveChanges();
-                    status = mbPm.ID;
+                        mbRep.Add(mbPm);
+                        mbRep.SaveChanges();
+                        status = mbPm.ID;
+                        pm.ID = mbPm.ID;
+                        
                 }
-                return status;
+                return pm;
             }
             catch (Exception ex)
             {
