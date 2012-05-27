@@ -1,0 +1,130 @@
+﻿@{
+    ViewBag.Title = "PrintTicket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var booking = ViewBag.booking as MovieBooking.BLL.Entities.Booking;
+    var movie = ViewBag.movie as MovieBooking.Model.Entities.mb_Movie;
+    var theatre = ViewBag.theatre as MovieBooking.Model.Entities.mb_Theatre;
+    var hall = ViewBag.hall as MovieBooking.Model.Entities.mb_Hall;
+    var seats = ViewBag.seats as List<MovieBooking.BLL.Entities.BookingItem>;
+
+    var seat_string = " ";
+}
+<div class="page-header">
+    <h1>
+        Ticket Confirmation</h1>
+</div>
+<div class='well'>
+    <table class='table'>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Booking ID
+                </td>
+                <td>
+                    @booking.ID
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Movie :
+                </td>
+                <td>
+                    @movie.MovieName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Theatre :
+                </td>
+                <td>
+                    @theatre.Name
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Hall :
+                </td>
+                <td>
+                    @hall.HallName
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Seats :
+                </td>
+                <td>
+                    @foreach (var item in seats)
+                    {
+                        seat_string += @item.SeatNo + ",";
+                    }
+                    @seat_string
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <a class='btn btn-primary large'>Print Ticket </a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Terms & Conditions
+                </td>
+                <td>
+                    <p>
+                        You agree that your use of this Website and the purchase of any movie ticket, goods
+                        or services will be governed by these terms and conditions ("Terms of Use").
+                    </p>
+                    <p>
+                        If Village suffers or incurs any loss or damage in connection with any breach of
+                        these Terms of Use you agree to indemnify Village for those losses and damages.
+                    </p>
+                    <p>
+                         Movie tickets purchased via this Website can be collected:  <br />
+                        
+                        (a) by the credit card holder presenting the card used for the transaction at the Ticket Box. <br />
+                        (b) by inserting the credit card used for the transaction at the ticket collection ATM
+                        (available at selected cinemas). <br />
+                        (c) by printing the ticket at home and presenting
+                        the print out at the ticket tearing point to gain admission to the selected movie
+                        session. The unique barcode on the ticket can only be used once. This service is
+                        only available at selected cinemas. <br />
+                        
+                         Movie tickets purchased via this Website
+                        are non-refundable and are not available for exchange, unless required by law.  <br />
+                        
+                        A $1 booking fee per ticket will apply to Traditional and Cinema Europa tickets
+                        purchased via this Website. A $5 booking fee per ticket will apply to Gold Class
+                        tickets purchased via this Website. <br />
+                        
+                        
+                        Where allocated seating applies to a session
+                        you have the choice of choosing your own seat on the Website. Otherwise seat allocation
+                        for movie tickets purchased via this Website is on a "best available" basis and
+                        is carried out by a prescribed computer program. By purchasing movie tickets via
+                        this Website you agree that: <br />
+                        
+                        (a) you will accept the seat allocated by Village to
+                        each ticket purchased; and <br />
+                        (b) Village has made no warranties or representations
+                        to you that you will be seated in a particular seat, row or section of the relevant
+                        cinema. <br />
+                        
+                        You agree that Village may at its discretion, refuse to sell movie tickets
+                        to you or withdraw any movie tickets from sale via this Website.  <br />
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

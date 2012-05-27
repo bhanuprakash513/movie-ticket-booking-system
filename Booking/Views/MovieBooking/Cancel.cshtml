@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Cancel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-header">
+    <h1>
+       Cancel
+    </h1>
+</div>
+
+<div class="row well">
+Are you sure you want to cancel the booking. No refund will be provided. 
+<div class="clearfix"> </div>
+
+<div> 
+<a href="@Url.Action("CancelSuccess","MovieBooking")" class="btn btn-success"> OK </a>
+<a href="@Url.Action("CancelFailure","MovieBooking")" class="btn btn-danger"> Cancel </a>
+
+</div>
+
+
+</div>
+

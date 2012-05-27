@@ -1,0 +1,127 @@
+﻿@using System.Web.Mvc.Razor;
+@{
+    
+    ViewBag.Title = "Get";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var bookings = ViewBag.bookings as List<MovieBooking.BLL.Entities.Booking>;
+    string movieName = "";
+    string theatreName = "";
+    string hallName = "";
+    string status = "";
+    int count = 0;
+}
+
+
+@if (!Request.IsAuthenticated)
+{
+    Html.RenderAction("LogOn","Account");
+    return;
+}
+
+<div class="page-header">
+    <h1>
+        Bookings
+    </h1>
+</div>
+
+<table class='table-striped table-bordered'>
+    <thead>
+        <tr>
+            <th>
+                Booking ID
+            </th>
+            <th>
+                Movie
+            </th>
+            <th>
+                Theatre
+            </th>
+            <th>
+                Hall
+            </th>
+            <th>
+                Booking Date
+            </th>
+            <th>
+                Num of Seats
+            </th>
+
+            <th> 
+               Status
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (@bookings == null)
+       {
+          var sel = "No bookings found";
+            @sel
+       }
+       else
+       {
+
+        foreach (var booking in @bookings)
+        {
+            if (@booking == null)
+            {
+                continue;
+            }
+
+              movieName = "";
+              theatreName = "";
+              hallName = "";
+              count = 0;
+              status = "";
+                 
+                 if(@booking.movie != null && @booking.theatre != null && @booking.hall != null && @booking.bookingItems != null){
+                     
+                     movieName = @booking.movie.MovieName;
+                     theatreName =   @booking.theatre.Name;
+                     hallName = @booking.hall.HallName;
+                     count  = @booking.bookingItems.Count;
+                     status = (@booking.StatusID == "1") ? "Booked" : "Cancelled";
+                     
+                 }else{
+                   continue;   
+                 }
+                 
+            <tr>
+                <td>
+                    @booking.ID
+                </td>
+                <td>
+                    @movieName
+                </td>
+                <td>
+                    @theatreName
+                </td>
+                <td>
+                    @hallName
+                </td>
+                <td>
+                    @booking.BookingDate
+                </td>
+                <td>
+                   @count
+                </td>
+                <td>
+                 
+                 @status
+                </td>
+
+                <td>
+                    @Html.ActionLink("Cancel", "Cancel", new { id = @booking.ID }, new { @class ="btn btn-danger"} );
+                
+
+             
+            
+                </td>
+            </tr>
+        }
+
+        }
+    </tbody>
+</table>
