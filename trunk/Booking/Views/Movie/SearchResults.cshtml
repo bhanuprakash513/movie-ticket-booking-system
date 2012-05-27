@@ -8,8 +8,9 @@
     </div>
 
 <div class="well">
-  <h1>@ViewBag.movie.MovieName</h1>
+      <h1>@ViewBag.movie.MovieName</h1>
   <p> <img src=@ViewBag.movie.ImageMoviePath alt=@ViewBag.movie.MovieName width='150px' height='200px'></p>
+  <a class='btn btn-primary large fancybox-media' href=@ViewBag.movie.trailer_url> Watch Trailer </a>
   <p>
   </p>
 </div>
@@ -63,7 +64,7 @@
                     {
                         <div>  
                      
-                        @Html.ActionLink((string)@item.TimeSlotID, "SelectSeats", new { id = @item.ID})
+                        @Html.ActionLink((string)@item.TimeSlotID, "SelectSeats", new { id = @item.ID, date = @ViewBag.day_select})
                      
                         </div>
                     }
@@ -77,3 +78,15 @@
     
 }
 </table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.fancybox-media').fancybox({
+            openEffect: 'none',
+            closeEffect: 'none',
+            helpers: {
+                media: {}
+            }
+        });
+    });
+</script>

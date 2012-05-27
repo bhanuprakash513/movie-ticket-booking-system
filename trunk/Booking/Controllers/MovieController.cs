@@ -84,6 +84,7 @@ namespace MovieBooking.MVC.UI.Controllers
             TempData["scheduleList"] = schedules;
             TempData["theatre"] = theatre;
             TempData["movie"] = movie;
+            TempData["day_select"] = day_select;
             return RedirectToAction("SearchResults");
         }
 
@@ -93,11 +94,19 @@ namespace MovieBooking.MVC.UI.Controllers
            List<MovieSchedule> scheduleList = TempData["scheduleList"] as List<MovieSchedule>;
            mb_Movie movie = TempData["movie"] as mb_Movie;
            Theatre theatre = TempData["theatre"] as Theatre;
+           string day_select = TempData["day_select"].ToString();
+           if (movie != null && theatre != null)
+           {
+               ViewBag.movie = movie;
+               ViewBag.theatre = theatre;
+           }
+
             if ( scheduleList != null && movie != null && theatre !=null)
             {
                 ViewBag.movie = movie;
                 ViewBag.theatre = theatre;
                 ViewBag.scheduleList = scheduleList;
+                ViewBag.day_select = day_select;
                 Dictionary<string, List<MovieSchedule>> schedulesByHall = new Dictionary<string, List<MovieSchedule>>();
                     
             foreach (MovieSchedule schedule in scheduleList)
@@ -122,17 +131,23 @@ namespace MovieBooking.MVC.UI.Controllers
         }
 
 
-        public ActionResult SelectSeats(string id)
+        public ActionResult SelectSeats(string id, string date)
         {
             TempData["schedule_id"] = id;
+            TempData["day_select"] = date;
+            ViewBag.day_select = date;
+            BookingRepository repo = new BookingRepository();
+            List<BookingItem> items = repo.GetMovieBookingsForSchedule(Int32.Parse(id));
+            ViewBag.selected_seats = items;
             return View();
         }
 
         [HttpPost]
-        public String SelectSeats()
+        public ActionResult SelectSeats()
         {
-            String schedule_id = TempData["schedule_id"].ToString();
+            int schedule_id = Int32.Parse(TempData["schedule_id"].ToString());
             String total_seats = Request["selected-total"];
+            DateTime day_select = DateTime.Parse(Request["day_select"].ToString());
             int selected_num_seats = 0;
             if (total_seats != null)
             {
@@ -146,8 +161,96 @@ namespace MovieBooking.MVC.UI.Controllers
                 selected_seats.Add(seat);
             }
 
-            return selected_seats.ToString();
+            string creditCardNum = Request["credit-card-num"].ToString();
+            string creditCardExpiry = Request["credit-card-expiry"].ToString();
+            string nameAsInCard = Request["credit-card-name"].ToString();
+            string cvv = Request["credit-card-cvv"].ToString();
+            //string totalPayment = Request["total-price"].ToString();
+            string total = Request["selected-total"].ToString();
+            string price = Request["price-per-ticket"].ToString();
+            
+            string gst = "7.00";
+
+            Payment payment = new Payment();
+            payment.PaymentModeID = "CreditCard"; // Can not be more than 10 characters
+            payment.CreditCardNo = creditCardNum;
+            payment.CardExpiry = creditCardExpiry;
+            payment.CardHolderName = nameAsInCard;
+            payment.PaymentDate = DateTime.Now;
+            payment.TotalAmount = Decimal.Parse(total) * Decimal.Parse(price);
+            payment.GSTPercent = float.Parse(gst);
+            payment.CCV = cvv;
+
+
+            BookingRepository bookingRepo = new BookingRepository();
+            RegisteredUserRepository repo3 = new RegisteredUserRepository();
+            RegisteredUser user = repo3.FindById(new Guid("0AE3AAEB-A8FC-43AC-B441-0E94C72CA9DB"));
+            Booking booking = bookingRepo.CreateBooking(schedule_id, selected_seats, payment, user);
+
+            TempData["booking"] = booking;
+            return RedirectToAction("PrintTicket");
+
+            //return selected_seats.ToString() + " " + creditCardNum.ToString() + " " + creditCardExpiry + " " + nameAsInCard + " " +
+            //       cvv + " " + day_select + schedule_id;
             //return View();
+        }
+
+        public ActionResult PrintTicket()
+        {
+            Booking booking = TempData["booking"] as Booking;
+            if(booking != null){
+                ViewBag.booking = booking;
+
+                MovieScheduleItemRepository scheduleItemRepo = new MovieScheduleItemRepository();
+                MovieSchedule_Item item =  scheduleItemRepo.GetMovieScheduleItem(Int32.Parse(booking.ScheduleID.ToString()));
+
+                if (item != null)
+                {
+                    MovieScheduleRepository scheduleRepo = new MovieScheduleRepository();
+                    MovieSchedule schedule = scheduleRepo.GetSchedule(Int32.Parse(item.MovieScheduleID.ToString()));
+
+                    if (schedule != null)
+                    {
+
+                        ViewBag.movie = null;
+                        ViewBag.theatre = null;
+                        ViewBag.hall = null;
+                        ViewBag.seats = null;
+
+                        MovieRepository movieRepo = new MovieRepository();
+                        mb_Movie movie = movieRepo.FindbyId(Int32.Parse(schedule.MovieID.ToString()));
+
+                        if (movie != null)
+                        {
+                            ViewBag.movie = movie;
+                        }
+
+                        TheatreRepository theatreRepo = new TheatreRepository();
+                        mb_Theatre theatre = theatreRepo.FindById(Int32.Parse(schedule.TheatreID.ToString()));
+
+                        if (theatre != null)
+                        {
+                            ViewBag.theatre = theatre;
+                        }
+
+                        HallRepository hallRepo = new HallRepository();
+                        mb_Hall hall = hallRepo.GetHall(Int32.Parse(schedule.HallID));
+
+                        if (theatre != null)
+                        {
+                            ViewBag.hall = hall;
+                        }
+
+                        if (booking.bookingItems != null)
+                        {
+                            ViewBag.seats = booking.bookingItems;
+                        }
+                    }
+
+                }
+                return View();
+            }
+            return View();
         }
 
     }
