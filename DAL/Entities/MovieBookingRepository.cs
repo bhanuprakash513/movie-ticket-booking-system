@@ -7,6 +7,17 @@ using System.Text;
 using Microsoft.Practices.EnterpriseLibrary.Validation;
 using MovieBooking.DAL;
 
+/* -----------------------------------------------------------------
+ * REVISION HISTORY
+ * -----------------------------------------------------------------
+ * DATE           AUTHOR          REVISION		DESCRIPTION
+ * 20 May 2012    Mansoor M I     0.1			Intial version
+ * 													
+ * 																									
+ * 													
+ * 
+ */
+
 namespace MovieBooking.DLL.Entities
 {
 

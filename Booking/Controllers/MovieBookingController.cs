@@ -105,9 +105,26 @@ namespace MovieBooking.MVC.UI.Controllers
 
         public ActionResult CancelFailure()
         {
+            //Tests to consume net.Tcp binding services
+            //using (PaymentService.PaymentServiceClient client = new PaymentService.PaymentServiceClient())
+            //{
+            //    PaymentService.Payment pay = new PaymentService.Payment();
+            //    pay.CardExpiry = "2015/05";
+            //    pay.CardHolderName = "CardHolderName";
+            //    pay.CCV = "1234";
+            //    pay.CreditCardNo = "1234-5678-9012-3456";
+            //    pay.GSTPercent = 7.5;
+            //    pay.MovieBookingID = 1;
+            //    pay.PaymentDate = DateTime.Now;
+            //    pay.PaymentModeID = "01";
+            //    pay.TotalAmount = 100.75m;
 
+            //    int id = client.Insert(pay);
+            //}
 
             return RedirectToAction("Get", "MovieBooking");
         }
+
+
     }
 }
