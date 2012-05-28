@@ -247,9 +247,9 @@ namespace MovieBooking.BLL.Entities
                         _booking.ScheduleID = schedule_id;
 
                         //Registered user foreign key
-                        mb_RegisteredUser _user = new mb_RegisteredUser();
-                        user.CopyTo(_user);
-                        _booking.MemberID = _user.UserId;
+                        //mb_RegisteredUser _user = new mb_RegisteredUser();
+                        //user.CopyTo(_user);
+                        _booking.MemberID = user.UserId;
 
                         _booking.BookingDate = DateTime.Now;
                         _booking.BookingRef = "1223";
