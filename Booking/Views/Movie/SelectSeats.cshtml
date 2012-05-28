@@ -1,8 +1,11 @@
-﻿@{
+﻿@model MovieBooking.MVC.UI.Models.PaymentModel
+
+@{
     ViewBag.Title = "SelectSeats";
     Layout = "~/Views/Shared/_Layout.cshtml";
     
-    var day_select = ViewBag.day_select;   
+    var day_select = ViewBag.day_select;
+    var schedule_id = ViewBag.schedule_id;
     var selected_seats = ViewBag.selected_seats as List<MovieBooking.BLL.Entities.BookingItem>;
     bool selected = false;
     var seat_name = "";
@@ -79,6 +82,7 @@
 {
 
     <input type='hidden' name='day_select' value=@day_select />
+    <input type='hidden' name='schedule_id' value=@schedule_id />
     
    
  
@@ -88,7 +92,7 @@
             <tr>
                 @for (int col = 0; col < 30; col++)
                 {
-                     seat_name = @row + "-" + @col;
+                    seat_name = @row + "-" + @col;
                                                       
                     <td valign="top" nowrap>
                        @if (col == 0)
@@ -102,13 +106,15 @@
                         }
                         else
                         {
-                              selected = false;
-                            foreach(var seat in @selected_seats){ 
-                                  
-                               if(@seat.SeatNo.ToString().Equals(@seat_name)){
-                                     selected = true;
-                                 }
-                              }
+                            selected = false;
+                            foreach (var seat in @selected_seats)
+                            {
+
+                                if (@seat.SeatNo.ToString().Equals(@seat_name))
+                                {
+                                    selected = true;
+                                }
+                            }
 
                             if (@selected.Equals(false))
                             {
@@ -134,11 +140,46 @@
     <p>
     </p>
     
+    
+    
     <div class='well'>
-       Credit Card Number :  <input type="text" name='credit-card-num' /> <br />
+
+             <div class="editor-label">
+                @Html.LabelFor(m => m.CreditCardNum)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.CreditCardNum)
+                @Html.ValidationMessageFor(m => m.CreditCardNum)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(m => m.CreditCardExpiry)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.CreditCardExpiry)
+                @Html.ValidationMessageFor(m => m.CreditCardExpiry)
+            </div>
+
+             <div class="editor-label">
+                @Html.LabelFor(m => m.CreditCardName)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.CreditCardName)
+                @Html.ValidationMessageFor(m => m.CreditCardName)
+            </div>
+
+             <div class="editor-label">
+                @Html.LabelFor(m => m.CreditCardName)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.CVV)
+                @Html.ValidationMessageFor(m => m.CVV)
+            </div>
+
+   @*    Credit Card Number :  <input type="text" name='credit-card-num' /> <br />
        Expiry Date (MM/YY) : <input type="text" name='credit-card-expiry' /> <br />
        Name as in Card : <input type="text" name='credit-card-name' /> <br />
-       CVV : <input type="text" name='credit-card-cvv' /> <br />
+       CVV : <input type="text" name='credit-card-cvv' /> <br />*@
        Selected Seats : <input type="text" name='selected-seats' id='selected-seats-tb' readonly/> <br />
        Total Price : <input type="text" name='total-price' id='total-price-tb' disabled/> <br />    
        <input type="hidden" name='price-per-ticket' id='price-per-ticket' value='10' />

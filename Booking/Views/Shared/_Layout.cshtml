@@ -2,8 +2,8 @@
     
     string userName = "";
     string otherLink = "";
+    string registerLink = "";
 }
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,51 +31,54 @@
                 <div class="nav-collapse">
                     <ul class="nav">
                         <li class="active"><a class="brand pull-left" href="#">Golden Village</a> </li>
-                        <li><a href="/"><i class="icon-home"></i> Home </a></li>
-                        <li><a href="#"><i class="icon-film"></i> Movies </a></li>
-                        <li><a href="#"><i class="icon-film"></i> Cinemas </a> </li>
-                        <li><a href="#"><i class="icon-music"></i> Promotions </a> </li>
-
-                         <li class="dropdown" id="menu1"><a class="dropdown-toggle" data-toggle="dropdown"
-                            href="#"> <i class="icon-shopping-cart"></i>  Buy Tickets <b class="caret"></b></a>
+                        <li><a href="/"><i class="icon-home"></i>Home </a></li>
+                        <li><a href="#"><i class="icon-film"></i>Movies </a></li>
+                        <li><a href="#"><i class="icon-film"></i>Cinemas </a></li>
+                        <li><a href="#"><i class="icon-music"></i>Promotions </a></li>
+                        <li class="dropdown" id="menu1"><a class="dropdown-toggle" data-toggle="dropdown"
+                            href="#"><i class="icon-shopping-cart"></i>Buy Tickets <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 <li><a href="@Url.Action("Search", "Movie")">Buy </a></li>
-                                <li><a href="@Url.Action("Get", "MovieBooking")"> Previous bookings </a></li>
+                                <li><a href="@Url.Action("Get", "MovieBooking")">Previous bookings </a></li>
                             </ul>
                         </li>
-                        
-
                         <li class="dropdown" id="menu2"><a class="dropdown-toggle" data-toggle="dropdown"
-                            href="#"> <i class="icon-film"></i> Admin <b class="caret"></b></a>
+                            href="#"><i class="icon-film"></i>Admin <b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                            
-                                <li><a href="#"> <i class="icon-thumbs-up"></i>  Movie Maintenance</a></li>
-                                <li><a href="#"> <i class="icon-thumbs-up"></i> Hall Maintenance </a></li>
-                                <li><a href="#"> <i class="icon-thumbs-up"></i> Theatre Maintenance </a></li>
-            
+                                <li><a href="#"><i class="icon-thumbs-up"></i>Movie Maintenance</a></li>
+                                <li><a href="#"><i class="icon-thumbs-up"></i>Hall Maintenance </a></li>
+                                <li><a href="#"><i class="icon-thumbs-up"></i>Theatre Maintenance </a></li>
                             </ul>
                         </li>
-
-                        
-                            @if (Request.IsAuthenticated)
-                            {
-                                userName = (Request.IsAuthenticated) ? @User.Identity.Name : "User";
-                                otherLink = "LogOff";
-
-                            }
-                            else
-                            {
-                                userName = "User";
-                                otherLink = "LogOn";
-                            }
-
+                        @{
+                            userName = (Request.IsAuthenticated) ? @User.Identity.Name : "User";
+                        }
                         <li class="dropdown" id="menu3"><a class="dropdown-toggle" data-toggle="dropdown"
+                            href="#"><i class="icon-user"></i>@userName <b class="caret"></b></a>
+                            <ul class="dropdown-menu pull-right">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    userName = (Request.IsAuthenticated) ? @User.Identity.Name : "User";
+                                    <li><a href="@Url.Action("ChangePassword", "Account")"><i class="icon-wrench"></i>Change
+                                        Password </a></li>
+                                    <li><a href="@Url.Action("LogOff", "Account")"><i class="icon-off"></i>LogOff </a>
+                                    </li>
+                                                                           
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Register", "Account")">Register </a></li>
+                                    <li><a href="@Url.Action("LogOn", "Account")">LogOn </a></li>
+                                }
+                            </ul>
+                        </li>
+                        @*     <li class="dropdown" id="menu3"><a class="dropdown-toggle" data-toggle="dropdown"
                             href="#"> <i class="icon-user"></i> @userName <b class="caret"></b></a>
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="@Url.Action(@otherLink, "Account")"> @otherLink </a></li>
                                 <!-- <li><a href="@Url.Action("LogOff", "Account")"> <i class="icon-off"></i> LogOff </a></li> -->
                             </ul>
-                        </li>
+                        </li>*@
                     </ul>
                 </div>
             </div>
@@ -84,6 +87,7 @@
     <div class="container-fluid">
         <div class="row-fluid">
             <div class="span2">
+                
             </div>
             <div class="span8">
                 <div class='clearfix'>
