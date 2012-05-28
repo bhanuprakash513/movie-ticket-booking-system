@@ -4,7 +4,10 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login </h2>
+<div class="page-header">
+<h1>
+    LogOn</h1>
+    </div>
 <p>
     Please enter your user name and password. @Html.ActionLink("Register", "Register") if you don't have an account.
 </p>
@@ -14,8 +17,9 @@
 
 @Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
 
+
 @using (Html.BeginForm()) {
-    <div>
+    <div class="well">
         <fieldset>
             <legend>Account Information</legend>
 

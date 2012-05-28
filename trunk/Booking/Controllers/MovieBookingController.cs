@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MovieBooking.BLL.Entities;
 using MovieBooking.Model.Entities;
+using System.Web.Security;
 
 namespace MovieBooking.MVC.UI.Controllers
 {
@@ -27,7 +28,19 @@ namespace MovieBooking.MVC.UI.Controllers
         {
             BookingRepository bookingRepo = new BookingRepository();
             //RegisteredUser user = repo3.FindById(new Guid("0AE3AAEB-A8FC-43AC-B441-0E94C72CA9DB"));
-            List<Booking> bookings = bookingRepo.GetMovieBookingsForCustomer(new Guid("0AE3AAEB-A8FC-43AC-B441-0E94C72CA9DB"));
+
+            String userName = User.Identity.Name;
+            MembershipUserCollection collection = Membership.FindUsersByName(userName);
+
+            MembershipUser user =  Membership.GetUser(true);
+
+            if (user == null)
+            {
+                return RedirectToAction("LogOn", "Account");
+            }
+            
+
+            List<Booking> bookings = bookingRepo.GetMovieBookingsForCustomer(new Guid(user.ProviderUserKey.ToString()));
             foreach (Booking booking in bookings)
             {
                 MovieScheduleItemRepository scheduleItemRepo = new MovieScheduleItemRepository();
