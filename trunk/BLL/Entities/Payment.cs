@@ -1,38 +1,51 @@
 ﻿using System;
-using System.Linq;
-using System.Transactions;
-using System.Collections.Generic;
-using MovieBooking.DAL;
+//using Microsoft.Practices.EnterpriseLibrary.Caching;
+//using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using MovieBooking.DLL.Entities;
 using MovieBooking.Model.Entities;
-using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
-using Microsoft.Practices.EnterpriseLibrary.Caching;
-using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+
+/* -----------------------------------------------------------------
+ * REVISION HISTORY
+ * -----------------------------------------------------------------
+ * DATE           AUTHOR          REVISION		DESCRIPTION
+ * 20 May 2012    Mansoor M I     0.1			Intial version
+ * 													
+ * 																									
+ * 													
+ * 
+ */
 
 namespace MovieBooking.BLL.Entities
 {
-
-    public partial class Payment : mb_Payment
+    [DataContract]
+    public class Payment : mb_Payment
     {
-        public int ID { get; set; }
+        [DataMember]
+        public new int ID { get; private set; }
+        [DataMember]
+        public override int MovieBookingID { get; set; }
+        [DataMember]
+        public override string PaymentModeID { get; set; }
+        [DataMember]
+        public override System.DateTime PaymentDate { get; set; }
+        [DataMember]
+        public override string CreditCardNo { get; set; }
+        [DataMember]
+        public override string CardExpiry { get; set; }
+        [DataMember]
+        public override string CardHolderName { get; set; }
+        [DataMember]
+        public override string CCV { get; set; }
+        [DataMember]
+        public override decimal TotalAmount { get; set; }
+        [DataMember]
+        public override double GSTPercent { get; set; }
 
         #region ctor and copyTo methods
 
         public Payment() { }
-
-        public Payment(int movieBookingID, string paymentMode, DateTime paymentDate, string creditCardNum, string creditCardExpiry, string cardName, string ccv, float totalPayment, float gst)
-        {
-            this.MovieBookingID = movieBookingID;
-            this.PaymentModeID = paymentMode;
-            this.PaymentDate = PaymentDate;
-            this.CreditCardNo = creditCardNum.ToString();
-            this.CardExpiry = creditCardExpiry;
-            this.CardHolderName = cardName;
-            this.CCV = ccv;
-            this.TotalAmount = Decimal.Parse(totalPayment.ToString());
-            this.GSTPercent = gst;
-        }
-
         public Payment(mb_Payment mbPm)
         {
             ID = mbPm.ID;
@@ -64,19 +77,11 @@ namespace MovieBooking.BLL.Entities
         #endregion
     }
 
-    public interface IPaymentRepository
-    {
-        //List<Payment GetPaymentForCustomer(Guid memberID);
-        //Payment GetPayment(int id);
-        int CreatePayment(int movieBookingID, string paymentModeID, DateTime paymentDate, string cardNo, string cardExpiry, string cardHolderName, string ccv, float money, float gst);
-
-    }
-
     public class PaymentRepository
     {
         // Global variable to store the ExceptionManager instance. 
-        ExceptionManager exManager;
-        ICacheManager cache = null;
+        //ExceptionManager exManager;
+        //ICacheManager cache = null;
 
         public PaymentRepository()
         {
@@ -85,78 +90,45 @@ namespace MovieBooking.BLL.Entities
             //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
-        //public Theatre FindById(int id)
-        //{
-        //    Theatre _theatre = null;
-        //    using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
-        //    {
-        //        var th = from t in mbRep.FetchAll().Where(c => c.ID.Equals(id))
-        //                 select new Theatre(t);
-        //        _theatre = th.FirstOrDefault();
-        //    }
-        //    return _theatre;
-        //}
-
-        //public IEnumerable<Theatre> FindAll()
-        //{
-        //    IList<Theatre> _theatres = null;
-        //    using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
-        //    {
-        //        var ts = from t in mbRep.FetchAll()
-        //                 select new Theatre(t);
-        //        _theatres = ts.ToList<Theatre>();
-        //    }
-        //    return _theatres.AsEnumerable<Theatre>();
-        //}
-
-        public Payment CreatePayment(int movieBookingID, string paymentModeID, DateTime paymentDate, string cardNo, string cardExpiry, string cardHolderName, string ccv, decimal totalAmount, float gst)
+        public Payment FindById(int id)
         {
-            Payment pm = new Payment();
-            pm.MovieBookingID = movieBookingID;
-            pm.PaymentModeID = paymentModeID;
-            pm.PaymentDate = paymentDate;
-            pm.CreditCardNo = cardNo;
-            pm.CardExpiry = cardExpiry;
-            pm.CardHolderName = cardHolderName;
-            pm.CCV = ccv;
-            pm.TotalAmount = totalAmount;
-            pm.GSTPercent = gst;
-            try
+            Payment _payment = null;
+            using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
             {
-                mb_Payment mbPm = new mb_Payment();
-                pm.CopyTo(mbPm);
-                int status = -1;
-                using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
-                {
-                        mbRep.Add(mbPm);
-                        mbRep.SaveChanges();
-                        status = mbPm.ID;
-                        pm.ID = mbPm.ID;
-                        
-                }
-                return pm;
+                var pt = mbRep.First(p => p.ID.Equals(id));
+                _payment = new Payment(pt);
             }
-            catch (Exception ex)
-            {
-                throw new Exception("Error occured while payment is done " + ex.Message);
-            }
+            return _payment;
         }
 
-        //public int Update(Theatre theatre)
-        //{
-        //    mb_Theatre th = new mb_Theatre();
-        //    using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
-        //    {
-        //        th = mbRep.First(u => u.ID == theatre.ID) as mb_Theatre;
-        //        theatre.CopyTo(th);
-        //        mbRep.SaveChanges();
-        //    }
-        //    return th.ID;
-        //}
+        public int Insert(Payment payment)
+        {
+            int status = -1;
+            mb_Payment mb_pt = new mb_Payment();
+            payment.CopyTo(mb_pt);
 
-        //public bool Delete()
-        //{
-        //    throw new NotImplementedException();
-        //}
+            using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
+            {
+                mbRep.Add(mb_pt);
+                mbRep.SaveChanges();
+                status = mb_pt.ID;
+            }
+
+            return status;
+        }
+
+        public bool Update(Payment payment)
+        {
+            int status = -1;
+            using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
+            {
+                var mb_pt = mbRep.First(p => p.ID == payment.ID);
+                payment.CopyTo(mb_pt);
+                mbRep.SaveChanges();
+                status = 0;
+            }
+            return (status == 0);
+        }
+
     }
 }

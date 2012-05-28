@@ -19,6 +19,17 @@ using MovieBooking.DLL.Entities;
 using MovieBooking.Model.Entities;
 using System.Reflection;
 
+/* -----------------------------------------------------------------
+ * REVISION HISTORY
+ * -----------------------------------------------------------------
+ * DATE           AUTHOR          REVISION		DESCRIPTION
+ * 20 May 2012    Mansoor M I     0.1			Intial version
+ * 													
+ * 																									
+ * 													
+ * 
+ */
+
 namespace MovieBooking.BLL.Entities
 {
     

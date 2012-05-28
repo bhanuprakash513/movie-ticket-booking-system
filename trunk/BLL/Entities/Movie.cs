@@ -30,7 +30,7 @@ namespace MovieBooking.BLL.Entities
             //mb_Movie_Item = MovieDet.mb_Movie_Item;
             //mb_MovieSchedule = MovieDet.mb_MovieSchedule;
             ImageMoviePath = MovieDet.ImageMoviePath;
-            trailer_url = MovieDet.trailer_url;
+            //trailer_url = MovieDet.trailer_url;
             
         }
         public void CopyTo(mb_Movie mbTh)
@@ -45,7 +45,7 @@ namespace MovieBooking.BLL.Entities
             mbTh.genre = genre;
             mbTh.CastDescription = CastDescription;
             mbTh.ImageMoviePath = ImageMoviePath;
-            mbTh.trailer_url = trailer_url;
+            //mbTh.trailer_url = trailer_url;
 
         }
     }

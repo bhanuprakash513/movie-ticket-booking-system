@@ -147,11 +147,11 @@ namespace MovieBooking.UI.Maintenance.Movie
 
             };
             MovieRepository newMovie = new MovieRepository();
-            bool ret=newMovie.Delete(movie);
-            if (ret)
-            {
-                ClearFields();
-            }
+            //bool ret=newMovie.Delete(movie);
+            //if (ret)
+            //{
+            //    ClearFields();
+            //}
         }
 
       

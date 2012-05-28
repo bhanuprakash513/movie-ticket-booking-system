@@ -48,59 +48,59 @@ namespace MovieBooking.UI.Maintenance.Movie
                 LangID = 4;
             }
 
-            MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
-            {
-                MovieName = this.TxtMovName.Text.ToString(),
-                Description = this.txtmovDesc.Text.ToString(),
-                RatingID = this.RatingCombo.SelectedValue.ToString(),
-                LanguageID = LangID.ToString(),
-                RunningDuration = Convert.ToInt16(this.txtDuration.Text),
-                Active = Act,
-                genre = this.GenreCombo.SelectedValue.ToString(),
-                CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
-                (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
+           // MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
+           // {
+           //     MovieName = this.TxtMovName.Text.ToString(),
+           //     Description = this.txtmovDesc.Text.ToString(),
+           //     RatingID = this.RatingCombo.SelectedValue.ToString(),
+           //     LanguageID = LangID.ToString(),
+           //     RunningDuration = Convert.ToInt16(this.txtDuration.Text),
+           //     Active = Act,
+           //     genre = this.GenreCombo.SelectedValue.ToString(),
+           //     CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
+           //     (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
 
-            };
-            MovieRepository newMovie = new MovieRepository();
-            MovieItemRepository newMovieItem = new MovieItemRepository();
-            newMovie.Insert(movie);
-            int MovieID = newMovie.FindIdbyName(movie.MovieName);
-            MovieBooking.BLL.Entities.Movie_Item movieItem;
-            MovieBooking.BLL.Entities.Movie_Item movieItem1;
-            MovieBooking.BLL.Entities.Movie_Item movieItem2;
+           // };
+           // MovieRepository newMovie = new MovieRepository();
+           // MovieItemRepository newMovieItem = new MovieItemRepository();
+           // newMovie.Insert(movie);
+           // int MovieID = newMovie.FindIdbyName(movie.MovieName);
+           // MovieBooking.BLL.Entities.Movie_Item movieItem;
+           // MovieBooking.BLL.Entities.Movie_Item movieItem1;
+           // MovieBooking.BLL.Entities.Movie_Item movieItem2;
 
-            movieItem = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                MovieID = MovieID,
-                CastID = 0.ToString(),
-                CastName = this.CastCombo2.SelectedValue,
-                Description = this.txtCast1.Text
-            };
-            newMovieItem.Insert(movieItem);
-
-
-            movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                MovieID = MovieID,
-                CastID = 1.ToString(),
-                CastName = this.CastCombo1.SelectedValue,
-                Description = this.txtCast2.Text
+           // movieItem = new MovieBooking.BLL.Entities.Movie_Item()
+           // {
+           //     MovieID = MovieID,
+           //     CastID = 0.ToString(),
+           //     CastName = this.CastCombo2.SelectedValue,
+           //     Description = this.txtCast1.Text
+           // };
+           // newMovieItem.Insert(movieItem);
 
 
-            };
-            newMovieItem.Insert(movieItem1);
+           // movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
+           // {
+           //     MovieID = MovieID,
+           //     CastID = 1.ToString(),
+           //     CastName = this.CastCombo1.SelectedValue,
+           //     Description = this.txtCast2.Text
 
 
-            movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
-           {
-               MovieID = MovieID,
-               CastID = 2.ToString(),
-               CastName = this.CastCombo3.SelectedValue,
-               Description = this.txtCast3.Text
+           // };
+           // newMovieItem.Insert(movieItem1);
 
 
-           };
-            newMovieItem.Insert(movieItem2);
+           // movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
+           //{
+           //    MovieID = MovieID,
+           //    CastID = 2.ToString(),
+           //    CastName = this.CastCombo3.SelectedValue,
+           //    Description = this.txtCast3.Text
+
+
+           //};
+           // newMovieItem.Insert(movieItem2);
 
 
 
