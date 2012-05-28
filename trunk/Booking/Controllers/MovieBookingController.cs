@@ -29,8 +29,8 @@ namespace MovieBooking.MVC.UI.Controllers
             BookingRepository bookingRepo = new BookingRepository();
             //RegisteredUser user = repo3.FindById(new Guid("0AE3AAEB-A8FC-43AC-B441-0E94C72CA9DB"));
 
-            String userName = User.Identity.Name;
-            MembershipUserCollection collection = Membership.FindUsersByName(userName);
+            //String userName = User.Identity.Name;
+            //MembershipUserCollection collection = Membership.FindUsersByName(userName);
 
             MembershipUser user =  Membership.GetUser(true);
 

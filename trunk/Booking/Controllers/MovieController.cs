@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using MovieBooking.BLL.Entities;
 using MovieBooking.Model.Entities;
 using System.Web.Security;
+using MovieBooking.MVC.UI.Models;
 
 namespace MovieBooking.MVC.UI.Controllers
 {
@@ -135,6 +136,7 @@ namespace MovieBooking.MVC.UI.Controllers
         public ActionResult SelectSeats(string id, string date)
         {
             TempData["schedule_id"] = id;
+            ViewBag.schedule_id = id;
             TempData["day_select"] = date;
             ViewBag.day_select = date;
             BookingRepository repo = new BookingRepository();
@@ -144,60 +146,85 @@ namespace MovieBooking.MVC.UI.Controllers
         }
 
         [HttpPost]
-        public ActionResult SelectSeats()
+        public ActionResult SelectSeats(PaymentModel model)
         {
-            int schedule_id = Int32.Parse(TempData["schedule_id"].ToString());
-            String total_seats = Request["selected-total"];
-            DateTime day_select = DateTime.Parse(Request["day_select"].ToString());
-            int selected_num_seats = 0;
-            if (total_seats != null)
+            if (ModelState.IsValid)
             {
-                selected_num_seats = Int32.Parse(total_seats);
+                int schedule_id = Int32.Parse(Request["schedule_id"].ToString());
+                String total_seats = Request["selected-total"];
+                DateTime day_select = DateTime.Parse(Request["day_select"].ToString());
+                int selected_num_seats = 0;
+                if (total_seats != null)
+                {
+                    selected_num_seats = Int32.Parse(total_seats);
+                }
+
+                if (selected_num_seats > 0)
+                {
+
+                    List<string> selected_seats = new List<string>();
+                    for (int i = 0; i < selected_num_seats; i++)
+                    {
+                        String seat = Request["seats[" + i + "]"];
+                        selected_seats.Add(seat);
+                    }
+
+                    string creditCardNum = model.CreditCardNum.ToString();
+                    string creditCardExpiry = model.CreditCardExpiry.ToString();
+                    string nameAsInCard = model.CreditCardName.ToString();
+                    string cvv = model.CVV.ToString();
+                    //string totalPayment = Request["total-price"].ToString();
+                    string total = Request["selected-total"].ToString();
+                    string price = Request["price-per-ticket"].ToString();
+
+                    string gst = "7.00";
+
+                    Payment payment = new Payment();
+                    payment.PaymentModeID = "CreditCard"; // Can not be more than 10 characters
+                    payment.CreditCardNo = creditCardNum;
+                    payment.CardExpiry = creditCardExpiry;
+                    payment.CardHolderName = nameAsInCard;
+                    payment.PaymentDate = DateTime.Now;
+                    payment.TotalAmount = Decimal.Parse(total) * Decimal.Parse(price);
+                    payment.GSTPercent = float.Parse(gst);
+                    payment.CCV = cvv;
+
+
+                    BookingRepository bookingRepo = new BookingRepository();
+                    RegisteredUserRepository repo3 = new RegisteredUserRepository();
+                    MembershipUser _user = Membership.GetUser(true);
+
+                    if (_user == null)
+                    {
+                        return RedirectToAction("LogOn", "Account");
+                    }
+
+                    RegisteredUser user = repo3.FindById(new Guid(_user.ProviderUserKey.ToString()));
+                    Booking booking = bookingRepo.CreateBooking(schedule_id, selected_seats, payment, user);
+
+                    TempData["booking"] = booking;
+                    return RedirectToAction("PrintTicket");
+                }
+            }
+            else
+            {
+                //TempData["schedule_id"] = id;
+                //TempData["day_select"] = date;
+                //ViewBag.day_select = date;
+                int schedule_id = Int32.Parse(Request["schedule_id"].ToString());
+                ViewBag.schedule_id = schedule_id;
+                string date = Request["day_select"].ToString();
+                ViewBag.day_select = date;
+
+                
+
+                BookingRepository repo = new BookingRepository();
+                List<BookingItem> items = repo.GetMovieBookingsForSchedule(schedule_id);
+                ViewBag.selected_seats = items;
+
             }
 
-            List<string> selected_seats = new List<string>();
-            for (int i = 0; i < selected_num_seats; i++)
-            {
-                String seat = Request["seats[" + i + "]"];
-                selected_seats.Add(seat);
-            }
-
-            string creditCardNum = Request["credit-card-num"].ToString();
-            string creditCardExpiry = Request["credit-card-expiry"].ToString();
-            string nameAsInCard = Request["credit-card-name"].ToString();
-            string cvv = Request["credit-card-cvv"].ToString();
-            //string totalPayment = Request["total-price"].ToString();
-            string total = Request["selected-total"].ToString();
-            string price = Request["price-per-ticket"].ToString();
-            
-            string gst = "7.00";
-
-            Payment payment = new Payment();
-            payment.PaymentModeID = "CreditCard"; // Can not be more than 10 characters
-            payment.CreditCardNo = creditCardNum;
-            payment.CardExpiry = creditCardExpiry;
-            payment.CardHolderName = nameAsInCard;
-            payment.PaymentDate = DateTime.Now;
-            payment.TotalAmount = Decimal.Parse(total) * Decimal.Parse(price);
-            payment.GSTPercent = float.Parse(gst);
-            payment.CCV = cvv;
-
-
-            BookingRepository bookingRepo = new BookingRepository();
-            RegisteredUserRepository repo3 = new RegisteredUserRepository();
-            MembershipUser _user = Membership.GetUser(true);
-
-            if (_user == null)
-            {
-                return RedirectToAction("LogOn", "Account");
-            }
-
-            RegisteredUser user = repo3.FindById(new Guid(_user.ProviderUserKey.ToString()));
-            Booking booking = bookingRepo.CreateBooking(schedule_id, selected_seats, payment, user);
-
-            TempData["booking"] = booking;
-            return RedirectToAction("PrintTicket");
-
+            return View(model);
             //return selected_seats.ToString() + " " + creditCardNum.ToString() + " " + creditCardExpiry + " " + nameAsInCard + " " +
             //       cvv + " " + day_select + schedule_id;
             //return View();
