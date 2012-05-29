@@ -85,8 +85,6 @@ namespace MovieBooking.UI.Maintenance.Movie
            //     CastID = 1.ToString(),
            //     CastName = this.CastCombo1.SelectedValue,
            //     Description = this.txtCast2.Text
-
-
            // };
            // newMovieItem.Insert(movieItem1);
 
@@ -97,14 +95,8 @@ namespace MovieBooking.UI.Maintenance.Movie
            //    CastID = 2.ToString(),
            //    CastName = this.CastCombo3.SelectedValue,
            //    Description = this.txtCast3.Text
-
-
            //};
            // newMovieItem.Insert(movieItem2);
-
-
-
-
         }
     }
 }
