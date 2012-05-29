@@ -36,6 +36,8 @@ namespace MovieBooking.BLL.Entities
             hall = new Hall();
                         
         }
+
+
     }
 
     public interface IBookingRepository 
@@ -44,6 +46,7 @@ namespace MovieBooking.BLL.Entities
         List<Booking> GetMovieBookingsForCustomer(Guid memberId);
         Booking CreateBooking(Movie movie, RegisteredUser user, MovieSchedule schedule, List<BookingItem> items, Payment payment );
         Booking CreateBooking(int schedule_id, List<string> selected_seats, Payment payment, RegisteredUser user);
+        int CancelBooking(int booking_id);
     }
 
     public class BookingRepository : IBookingRepository
@@ -123,7 +126,7 @@ namespace MovieBooking.BLL.Entities
                 using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
                 {
 
-                    var ts = from t in mbRep.FetchAll().Where(b => b.ScheduleID.Equals(scheduleItemId))
+                    var ts = from t in mbRep.FetchAll().Where(b => b.ScheduleID.Equals(scheduleItemId) && b.StatusID.Equals("1"))
                              select new Booking(t);
 
                     bookingList = ts.ToList();
@@ -252,8 +255,8 @@ namespace MovieBooking.BLL.Entities
                         _booking.MemberID = user.UserId;
 
                         _booking.BookingDate = DateTime.Now;
-                        _booking.BookingRef = "1223";
-                        _booking.StatusID = "1";
+                        _booking.BookingRef = "1223";  // We dont really use this Booking Reference. Can be done to generate a random number, which i dont want to do.
+                        _booking.StatusID = "1"; // 1- Successfull booking 0 - cancelled
                         mbRep.Add(_booking);
                         mbRep.SaveChanges();
                         
@@ -283,6 +286,47 @@ namespace MovieBooking.BLL.Entities
             }
 
             return booking;
+        }
+
+        public int CancelBooking(int booking_id)
+        {
+            try
+            {
+                using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+                {
+                    // Define a transaction scope for the operations.
+                    TransactionOptions options = new TransactionOptions
+                    {
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
+                        Timeout = TransactionManager.DefaultTimeout
+                    };
+
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
+                    {
+                        mb_MovieBooking booking = new mb_MovieBooking();
+
+                        booking = mbRep.First(u => u.ID.Equals(booking_id) && u.StatusID.Equals("1")) as mb_MovieBooking;
+
+                        if (booking != null)
+                        {
+                            booking.StatusID = "0";
+                            mbRep.SaveChanges();
+                            scope.Complete();
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+
+                        return booking.ID;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while cancelling Booking " + ex.Message);
+            }
         }
 
 
