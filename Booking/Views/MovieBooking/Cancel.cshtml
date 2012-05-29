@@ -1,6 +1,8 @@
 ﻿@{
     ViewBag.Title = "Cancel";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var booking_id = ViewBag.booking_id;
 }
 
 <div class="page-header">
@@ -14,8 +16,10 @@ Are you sure you want to cancel the booking. No refund will be provided.
 <div class="clearfix"> </div>
 
 <div> 
-<a href="@Url.Action("CancelSuccess","MovieBooking")" class="btn btn-success"> OK </a>
+
+<a href="@Url.Action("CancelSuccess", "MovieBooking", new { booking_id = @booking_id })" class="btn btn-success"> OK </a>
 <a href="@Url.Action("CancelFailure","MovieBooking")" class="btn btn-danger"> Cancel </a>
+
 
 </div>
 

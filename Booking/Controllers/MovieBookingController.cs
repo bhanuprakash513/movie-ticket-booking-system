@@ -88,19 +88,37 @@ namespace MovieBooking.MVC.UI.Controllers
             return View();
         }
 
-        public ActionResult Cancel()
+        public ActionResult Cancel(int booking_id)
         {
-
-
+            ViewBag.booking_id = booking_id;
             return View();
         }
 
 
         public ActionResult CancelSuccess()
         {
+            try
+            {
+                int booking_id = Int32.Parse(Request["booking_id"].ToString());
+                BookingRepository bookingRepo = new BookingRepository();
+                int status = bookingRepo.CancelBooking(booking_id);
 
-
-            return View();
+                if (status != 0)
+                {
+                    ViewBag.message = "Successfully cancelled your ticket. Please collect the money once u visit the theatre next time";
+                    return RedirectToAction("Get", "MovieBooking");
+                }
+                else
+                {
+                    ViewBag.message = "Error occurred while cancelling ticket. Sorry for inconvenience caused. Please call our customer care";
+                    return RedirectToAction("Get", "MovieBooking");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.message = "Error occurred while cancelling ticket. Sorry for inconvenience caused. Please call our customer care";
+                return RedirectToAction("Get", "MovieBooking");
+            }
         }
 
         public ActionResult CancelFailure()
