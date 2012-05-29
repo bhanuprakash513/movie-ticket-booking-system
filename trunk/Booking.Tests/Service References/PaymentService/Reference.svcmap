@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a1041403-c9a8-48bb-8760-97699c9f6aac" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8080/PaymentService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="a8914d08-7260-4d40-95a9-f1703a19e530" SourceId="1" SourceUrl="net.tcp://localhost:8080/PaymentService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6c89ea87-f0f1-4af6-9c58-b56f37013eda" SourceId="1" SourceUrl="net.tcp://localhost:8080/PaymentService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="61519334-1f96-4d4d-abaf-bb01c6bde5cd" SourceId="1" SourceUrl="net.tcp://localhost:8080/PaymentService/mex" />
+    <MetadataFile FileName="MovieBooking.SvcLib.xsd" MetadataType="Schema" ID="e0812877-dbd9-4bc0-8715-fd2058e5f7ad" SourceId="1" SourceUrl="net.tcp://localhost:8080/PaymentService/mex" />
+    <MetadataFile FileName="MovieBooking.BLL.Entities.xsd" MetadataType="Schema" ID="ea406620-e1a2-4d4b-a055-5692d728c6c6" SourceId="1" SourceUrl="net.tcp://localhost:8080/PaymentService/mex" />
+    <MetadataFile FileName="MovieBooking.Model.Entities.xsd" MetadataType="Schema" ID="859e1f5c-f593-4e8c-a612-5371a3143cec" SourceId="1" SourceUrl="net.tcp://localhost:8080/PaymentService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
