@@ -71,7 +71,7 @@ namespace MovieBooking.MVC.UI.Controllers
                         }
 
                         HallRepository hallRepo = new HallRepository();
-                        mb_Hall hall = hallRepo.GetHall(Int32.Parse(schedule.HallID));
+                        mb_Hall hall = hallRepo.GetHall(schedule.HallID);
 
                         if (theatre != null)
                         {
