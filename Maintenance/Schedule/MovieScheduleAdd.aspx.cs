@@ -48,14 +48,40 @@ namespace MovieBooking.UI.Maintenance.Schedule
                 Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
            
             };
-            MovieScheduleRepository newMovie = new MovieScheduleRepository();
-            newMovie.Insert(movie);
-        
+            MovieScheduleRepository newMovieSchedule = new MovieScheduleRepository();
+            newMovieSchedule.Insert(movie);
+            int ScheduleID = newMovieSchedule.FindbyMovieID(Convert.ToInt32(this.ComboMovName.SelectedValue));
+            MovieScheduleItemRepository newScheduleItem = new MovieScheduleItemRepository();
+            MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+            {
+                MovieScheduleID=ScheduleID,
+                TimeSlotID=this.Combotime1.SelectedValue,
+                Price=Convert.ToDecimal(TxtPrice.Text)
+            };
+            newScheduleItem.Insert(movieScheduleItem);
+             MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem2 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+            {
+                MovieScheduleID=ScheduleID,
+                TimeSlotID=this.Combotime2.SelectedValue,
+                Price=Convert.ToDecimal(TxtPrice.Text)
+            };
+            newScheduleItem.Insert(movieScheduleItem2);
+             MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem3 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+            {
+                MovieScheduleID=ScheduleID,
+                TimeSlotID=this.Combotime3.SelectedValue,
+                Price=Convert.ToDecimal(TxtPrice.Text)
+            };
+            newScheduleItem.Insert(movieScheduleItem3);
+             MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem4 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+            {
+                MovieScheduleID=ScheduleID,
+                TimeSlotID=this.Combotime4.SelectedValue,
+                Price=Convert.ToDecimal(TxtPrice.Text)
+            };
+            newScheduleItem.Insert(movieScheduleItem4);
+            
         }
-
-        protected void TextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+   
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MovieScheduleAdd.aspx.cs" Inherits="MovieBooking.UI.Maintenance.Schedule.MovieScheduleAdd" %>
+﻿<%@ Page Title="" Language="C#" Theme="Theme1" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MovieScheduleAdd.aspx.cs" Inherits="MovieBooking.UI.Maintenance.Schedule.MovieScheduleAdd" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
         .style1
@@ -176,7 +176,7 @@
                 <asp:Label ID="LblPrice" runat="server" Text="Price"></asp:Label>
             </td>
             <td class="style15">
-                <asp:TextBox ID="TxtPrice" runat="server" ontextchanged="TextBox1_TextChanged"></asp:TextBox>
+                <asp:TextBox ID="TxtPrice" runat="server"></asp:TextBox>
             </td>
             <td class="style11">
                 &nbsp;</td>
