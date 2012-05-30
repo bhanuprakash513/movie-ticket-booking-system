@@ -100,7 +100,52 @@ namespace MovieBooking.UI.Maintenance.Movie
 
             };
             MovieRepository newMovie = new MovieRepository();
+            MovieItemRepository newMovieItem = new MovieItemRepository();
             newMovie.Update(movie);
+            int MovieID = newMovie.FindIdbyName(movie.MovieName);
+            int movieItemId1=newMovieItem.FindbyIdCast(MovieID,"0");
+            int movieItemId2=newMovieItem.FindbyIdCast(MovieID,"1");
+            int movieItemId3 = newMovieItem.FindbyIdCast(MovieID, "2");
+            MovieBooking.BLL.Entities.Movie_Item movieItem;
+            MovieBooking.BLL.Entities.Movie_Item movieItem1;
+            MovieBooking.BLL.Entities.Movie_Item movieItem2;
+
+            movieItem = new MovieBooking.BLL.Entities.Movie_Item()
+            {
+                ID=movieItemId1,
+                MovieID = MovieID,
+                CastID = 0.ToString(),
+                CastName = this.CastCombo2.SelectedValue,
+                Description = this.txtCast1.Text
+            };
+            newMovieItem.Update(movieItem);
+
+
+            movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
+            {
+                ID = movieItemId2,
+                MovieID = MovieID,
+                CastID = 1.ToString(),
+                CastName = this.CastCombo1.SelectedValue,
+                Description = this.txtCast2.Text
+
+
+            };
+            newMovieItem.Update(movieItem1);
+
+
+            movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
+            {
+                ID = movieItemId3,
+                MovieID = MovieID,
+                CastID = 2.ToString(),
+                CastName = this.CastCombo3.SelectedValue,
+                Description = this.txtCast3.Text
+
+
+            };
+            newMovieItem.Update(movieItem2);
+
         }
         private void ClearFields()
         {
@@ -146,12 +191,57 @@ namespace MovieBooking.UI.Maintenance.Movie
                 (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
 
             };
-            MovieRepository newMovie = new MovieRepository();
-            //bool ret=newMovie.Delete(movie);
-            //if (ret)
-            //{
-            //    ClearFields();
-            //}
+            MovieRepository newMovie = new MovieRepository();          
+            MovieItemRepository newMovieItem = new MovieItemRepository();
+            int MovieID = newMovie.FindIdbyName(movie.MovieName);
+            int movieItemId1 = newMovieItem.FindbyIdCast(MovieID, "0");
+            int movieItemId2 = newMovieItem.FindbyIdCast(MovieID, "1");
+            int movieItemId3 = newMovieItem.FindbyIdCast(MovieID, "2");
+            MovieBooking.BLL.Entities.Movie_Item movieItem;
+            MovieBooking.BLL.Entities.Movie_Item movieItem1;
+            MovieBooking.BLL.Entities.Movie_Item movieItem2;
+
+            movieItem = new MovieBooking.BLL.Entities.Movie_Item()
+            {
+                ID = movieItemId1,
+                MovieID = MovieID,
+                CastID = 0.ToString(),
+                CastName = this.CastCombo2.SelectedValue,
+                Description = this.txtCast1.Text
+            };
+            newMovieItem.Delete(movieItem);
+
+
+            movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
+            {
+                ID = movieItemId2,
+                MovieID = MovieID,
+                CastID = 1.ToString(),
+                CastName = this.CastCombo1.SelectedValue,
+                Description = this.txtCast2.Text
+
+
+            };
+            newMovieItem.Delete(movieItem1);
+
+
+            movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
+            {
+                ID = movieItemId3,
+                MovieID = MovieID,
+                CastID = 2.ToString(),
+                CastName = this.CastCombo3.SelectedValue,
+                Description = this.txtCast3.Text
+
+
+            };
+            newMovieItem.Delete(movieItem2);
+
+            bool ret = newMovie.Delete(movie);
+            if (ret)
+            {
+                ClearFields();
+            }
         }
 
       
