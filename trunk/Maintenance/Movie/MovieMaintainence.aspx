@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MovieMaintainence.aspx.cs" Inherits="MovieBooking.UI.Maintenance.Movie.MovieMaintainence" %>
+﻿<%@ Page Title="" Language="C#" Theme="Theme1" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="MovieMaintainence.aspx.cs" Inherits="MovieBooking.UI.Maintenance.Movie.MovieMaintainence" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
         .style1
