@@ -9,6 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Booking.Tests", "Booking.Te
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maintenance", "Maintenance\Maintenance.csproj", "{CE26765F-8B93-49E2-8854-C324BFCC9322}"
+	ProjectSection(ProjectDependencies) = postProject
+		{17E6DA1B-6AE6-4153-9A4B-FB584ACBF390} = {17E6DA1B-6AE6-4153-9A4B-FB584ACBF390}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieBooking.BLL", "BLL\MovieBooking.BLL.csproj", "{384A95AA-9378-4646-9304-04AF5F2CCB43}"
 EndProject

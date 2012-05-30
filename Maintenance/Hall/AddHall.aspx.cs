@@ -19,6 +19,30 @@ namespace MovieBooking.UI.Maintenance.Hall
                 cmbTheatreName.DataSource = theatreRep.FindAll();
                 cmbTheatreName.DataBind();
                 cmbTheatreName.Items.Insert(0, new ListItem() { Text = "<--Select-->", Value = "0" });
+
+
+                //using (StockService.StockServiceClient ss = new StockService.StockServiceClient("WSHttpBinding_IStockService"))
+                //{
+                //   StockService.Stock  s = ss.GetStock("GOOG");
+                   
+                //}
+
+                //using (PaymentService.PaymentServiceClient pay = new PaymentService.PaymentServiceClient())
+                //{
+                //    PaymentService.Payment pt = new PaymentService.Payment();
+                //    pt.CardExpiry = "2012-05";
+                //    pt.CardHolderName = "CardHolderName";
+                //    pt.CCV="123";
+                //    pt.CreditCardNo="1234-5678-9012-3456";
+                //    pt.GSTPercent = 7.5;
+                //    pt.MovieBookingID = 1;
+                //    pt.PaymentDate = DateTime.Now;
+                //    pt.TotalAmount = 100.75m;
+
+                //    int pId = pay.Insert(pt);
+                //    Console.WriteLine(pId);
+                //}
+                
             }
         }
 
