@@ -119,7 +119,7 @@ namespace MovieBooking.BLL.Entities
         //}
 
         //public Payment CreatePayment(int movieBookingID, string paymentModeID, DateTime paymentDate, string cardNo, string cardExpiry, string cardHolderName, string ccv, decimal totalAmount, float gst)
-          public Payment CreatePayment(Payment pm)
+          public Payment Insert(Payment pm)
           {
             //Payment pm = new Payment();
             //pm.MovieBookingID = movieBookingID;
