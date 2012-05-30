@@ -65,6 +65,8 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="Hall\AddHall.aspx" />
+    <Content Include="Hall\UpdateHall.aspx" />
     <Content Include="Movie\MovieUpdate.aspx" />
     <Content Include="Movie\MovieMaintainence.aspx" />
     <Content Include="Styles\Site.css" />
@@ -74,6 +76,7 @@
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Theatre\AddTheatre.aspx" />
+    <Content Include="Theatre\UpdateTheatre.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -130,6 +133,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hall\AddHall.aspx.cs">
+      <DependentUpon>AddHall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hall\AddHall.aspx.designer.cs">
+      <DependentUpon>AddHall.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Hall\UpdateHall.aspx.cs">
+      <DependentUpon>UpdateHall.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Hall\UpdateHall.aspx.designer.cs">
+      <DependentUpon>UpdateHall.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Movie\MovieUpdate.aspx.cs">
       <DependentUpon>MovieUpdate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -158,6 +175,13 @@
     </Compile>
     <Compile Include="Theatre\AddTheatre.aspx.designer.cs">
       <DependentUpon>AddTheatre.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Theatre\UpdateTheatre.aspx.cs">
+      <DependentUpon>UpdateTheatre.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Theatre\UpdateTheatre.aspx.designer.cs">
+      <DependentUpon>UpdateTheatre.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
