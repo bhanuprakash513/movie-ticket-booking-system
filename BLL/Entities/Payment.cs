@@ -94,17 +94,16 @@ namespace MovieBooking.BLL.Entities
             //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
-        //public Theatre FindById(int id)
-        //{
-        //    Theatre _theatre = null;
-        //    using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
-        //    {
-        //        var th = from t in mbRep.FetchAll().Where(c => c.ID.Equals(id))
-        //                 select new Theatre(t);
-        //        _theatre = th.FirstOrDefault();
-        //    }
-        //    return _theatre;
-        //}
+        public Payment FindById(int id)
+        {
+            Payment _pt = null;
+            using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
+            {
+                var pm = mbRep.First(p => p.ID.Equals(id));
+                _pt = new Payment(pm);
+            }
+            return _pt;
+        }
 
         //public IEnumerable<Theatre> FindAll()
         //{
@@ -119,7 +118,7 @@ namespace MovieBooking.BLL.Entities
         //}
 
         //public Payment CreatePayment(int movieBookingID, string paymentModeID, DateTime paymentDate, string cardNo, string cardExpiry, string cardHolderName, string ccv, decimal totalAmount, float gst)
-          public Payment Insert(Payment pm)
+          public int Insert(Payment pm)
           {
             //Payment pm = new Payment();
             //pm.MovieBookingID = movieBookingID;
@@ -144,12 +143,14 @@ namespace MovieBooking.BLL.Entities
                         pm.ID = mbPm.ID;
                         
                 }
-                return pm;
+
             }
             catch (Exception ex)
             {
                 throw new Exception("Error occured while payment is done " + ex.Message);
             }
+
+            return pm.ID;
         }
 
         //public int Update(Theatre theatre)

@@ -268,12 +268,12 @@ namespace MovieBooking.BLL.Entities
                         PaymentRepository paymentRepo = new PaymentRepository();
                         //int id = paymentRepo.CreatePayment(34, "CreditCard", DateTime.Now, "1234123412341234", "01/12", "Subramanian.S", "232", Decimal.Parse("23.000"), float.Parse("7.00"));
                         //Payment _pm = paymentRepo.CreatePayment(payment.MovieBookingID, payment.PaymentModeID.ToString(), payment.PaymentDate, payment.CreditCardNo.ToString(), payment.CardExpiry.ToString(), payment.CardHolderName.ToString(), payment.CCV.ToString(), Decimal.Parse(payment.TotalAmount.ToString()), float.Parse(payment.GSTPercent.ToString()));
-                        Payment _pm = paymentRepo.Insert(payment);
+                        int _pm = paymentRepo.Insert(payment);
                        
                         //Save the transaction if the payment is successfull.
-                        if (_pm != null && _pm.ID != null)
+                        if (_pm > 0)
                         {
-                            booking.payment = _pm;                            
+                            booking.payment = paymentRepo.FindById(_pm);                            
                             scope.Complete();
                         }
                     }
