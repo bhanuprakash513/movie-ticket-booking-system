@@ -9,12 +9,16 @@ using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Microsoft.Practices.EnterpriseLibrary.Caching;
 using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
+using System.Runtime.Serialization;
+using System.ServiceModel;
 
 namespace MovieBooking.BLL.Entities
 {
 
+    [DataContract]
     public partial class Payment : mb_Payment
     {
+        [DataMember]
         public int ID { get; set; }
 
         [NotNullValidator(MessageTemplate = "CardHolder Name - Cannot be null!")]
