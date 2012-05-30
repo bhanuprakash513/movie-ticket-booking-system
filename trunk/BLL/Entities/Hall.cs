@@ -55,6 +55,38 @@ namespace MovieBooking.BLL.Entities
             //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
+        public IEnumerable<Hall> FindByTheatreId(int theatreId)
+        {
+            IList<Hall> _halls = null;
+            using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
+            {
+                var ts = from t in mbRep.Find(h => h.TheatreID == theatreId)
+                         select new Hall(t);
+                _halls = ts.ToList<Hall>();
+            }
+            return _halls.AsEnumerable<Hall>();
+        }
+
+        public Hall FindById(int id)
+        {
+            Hall _hall = null;
+            try
+            {
+                using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
+                {
+                    //var mbHall = mbRep.First(u => u.ID == id && u.Active == true);
+                    var mbHall = mbRep.First(u => u.ID == id);
+                    _hall = new Hall(mbHall);
+                }
+            }
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+
+            return _hall as Hall;
+        }
         public Hall GetHall(Int32 hallId)
         {
             Hall hall = null;
@@ -66,6 +98,28 @@ namespace MovieBooking.BLL.Entities
             }
             return hall;
         }
+        public int Insert(Hall hall)
+        {
+            mb_Hall ha = new mb_Hall();
+            hall.CopyTo(ha);
+            using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
+            {
+                mbRep.Add(ha);
+                mbRep.SaveChanges();
+            }
+            return ha.ID;
+        }
 
+        public int Update(Hall hall)
+        {
+            mb_Hall ha = new mb_Hall();
+            using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
+            {
+                ha = mbRep.First(u => u.ID == hall.ID) as mb_Hall;
+                hall.CopyTo(ha);
+                mbRep.SaveChanges();
+            }
+            return ha.ID;
+        }
     }
 }
