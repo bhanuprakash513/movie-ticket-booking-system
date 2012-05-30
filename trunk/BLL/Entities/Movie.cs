@@ -27,6 +27,9 @@ namespace MovieBooking.BLL.Entities
             genre = MovieDet.genre;
             Active = MovieDet.Active;
             CastDescription = MovieDet.CastDescription;            
+            mb_Movie_Item = MovieDet.mb_Movie_Item;
+         
+
             //mb_Movie_Item = MovieDet.mb_Movie_Item;
             //mb_MovieSchedule = MovieDet.mb_MovieSchedule;
             ImageMoviePath = MovieDet.ImageMoviePath;
@@ -97,6 +100,16 @@ namespace MovieBooking.BLL.Entities
                 throw new Exception("Error occured while retreiving Movie " + ex.Message);
             }
         }
+        public int FindIdbyName(string MovieName)
+        {
+
+            mb_Movie th = new mb_Movie();
+            using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+            {
+                th = mbRep.Single(u => u.MovieName == MovieName) as mb_Movie;
+            }
+            return th.ID;
+        }
 
 
         public int Insert(Movie movie)
@@ -137,9 +150,29 @@ namespace MovieBooking.BLL.Entities
             }
         }
 
-        public bool Delete()
+        public bool Delete(Movie movie)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            mb_Movie th = new mb_Movie();
+            using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+            {
+                th = mbRep.First(u => u.ID == movie.ID) as mb_Movie;
+                if (th != null)
+                {
+                    movie.CopyTo(th);
+                    mbRep.Delete(th);
+                    mbRep.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            } 
+       
+            
+
         }
     }
 }
