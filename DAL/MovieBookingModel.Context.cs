@@ -85,12 +85,6 @@ namespace MovieBooking.DAL
         }
         private ObjectSet<mb_MovieBooking_Trans> _mb_MovieBooking_Trans;
     
-        public ObjectSet<mb_MovieSchedule> mb_MovieSchedule
-        {
-            get { return _mb_MovieSchedule  ?? (_mb_MovieSchedule = CreateObjectSet<mb_MovieSchedule>("mb_MovieSchedule")); }
-        }
-        private ObjectSet<mb_MovieSchedule> _mb_MovieSchedule;
-    
         public ObjectSet<mb_MovieSchedule_Item> mb_MovieSchedule_Item
         {
             get { return _mb_MovieSchedule_Item  ?? (_mb_MovieSchedule_Item = CreateObjectSet<mb_MovieSchedule_Item>("mb_MovieSchedule_Item")); }
@@ -180,6 +174,12 @@ namespace MovieBooking.DAL
             get { return _sysdiagrams  ?? (_sysdiagrams = CreateObjectSet<sysdiagram>("sysdiagrams")); }
         }
         private ObjectSet<sysdiagram> _sysdiagrams;
+    
+        public ObjectSet<mb_MovieSchedule> mb_MovieSchedule
+        {
+            get { return _mb_MovieSchedule  ?? (_mb_MovieSchedule = CreateObjectSet<mb_MovieSchedule>("mb_MovieSchedule")); }
+        }
+        private ObjectSet<mb_MovieSchedule> _mb_MovieSchedule;
 
         #endregion
     }
