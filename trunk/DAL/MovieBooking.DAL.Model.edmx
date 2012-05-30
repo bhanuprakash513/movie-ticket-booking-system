@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="MovieBooking.DAL.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+    <Schema Namespace="MovieBooking.DAL.Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="MovieBookingDALModelStoreContainer">
           <EntitySet Name="aspnet_Applications" EntityType="MovieBooking.DAL.Model.Store.aspnet_Applications" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_Membership" EntityType="MovieBooking.DAL.Model.Store.aspnet_Membership" store:Type="Tables" Schema="dbo" />
@@ -17,15 +17,7 @@
           <EntitySet Name="aspnet_Users" EntityType="MovieBooking.DAL.Model.Store.aspnet_Users" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_UsersInRoles" EntityType="MovieBooking.DAL.Model.Store.aspnet_UsersInRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="aspnet_WebEvent_Events" EntityType="MovieBooking.DAL.Model.Store.aspnet_WebEvent_Events" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="mb_Hall" EntityType="MovieBooking.DAL.Model.Store.mb_Hall" store:Type="Tables" store:Schema="dbo" store:Name="mb_Hall">
-            <DefiningQuery>SELECT 
-      [mb_Hall].[ID] AS [ID], 
-      [mb_Hall].[TheatreID] AS [TheatreID], 
-      [mb_Hall].[HallName] AS [HallName], 
-      [mb_Hall].[TotalSeats] AS [TotalSeats], 
-      [mb_Hall].[Active] AS [Active]
-      FROM [dbo].[mb_Hall] AS [mb_Hall]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="mb_Hall" EntityType="MovieBooking.DAL.Model.Store.mb_Hall" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="mb_Movie" EntityType="MovieBooking.DAL.Model.Store.mb_Movie" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="mb_Movie_Item" EntityType="MovieBooking.DAL.Model.Store.mb_Movie_Item" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="mb_MovieBooking" EntityType="MovieBooking.DAL.Model.Store.mb_MovieBooking" store:Type="Tables" Schema="dbo" />
@@ -94,8 +86,8 @@
             <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
             <End Role="mb_MovieBooking_Item" EntitySet="mb_MovieBooking_Item" />
           </AssociationSet>
-          <AssociationSet Name="FK_mb_MovieBooking_mb_MovieSchedule" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieBooking_mb_MovieSchedule">
-            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+          <AssociationSet Name="FK_mb_MovieBooking_mb_MovieSchedule_Item" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieBooking_mb_MovieSchedule_Item">
+            <End Role="mb_MovieSchedule_Item" EntitySet="mb_MovieSchedule_Item" />
             <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
           </AssociationSet>
           <AssociationSet Name="FK_mb_MovieBooking_mb_RegisteredUser" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieBooking_mb_RegisteredUser">
@@ -109,6 +101,10 @@
           <AssociationSet Name="FK_mb_MovieSchedule_Item_mb_MovieSchedule" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieSchedule_Item_mb_MovieSchedule">
             <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
             <End Role="mb_MovieSchedule_Item" EntitySet="mb_MovieSchedule_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mb_MovieSchedule_mb_Hall" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieSchedule_mb_Hall">
+            <End Role="mb_Hall" EntitySet="mb_Hall" />
+            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
           </AssociationSet>
           <AssociationSet Name="FK_mb_MovieSchedule_mb_Movie" Association="MovieBooking.DAL.Model.Store.FK_mb_MovieSchedule_mb_Movie">
             <End Role="mb_Movie" EntitySet="mb_Movie" />
@@ -258,22 +254,15 @@
           <Property Name="ExceptionType" Type="nvarchar" MaxLength="256" />
           <Property Name="Details" Type="ntext" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'MovieBooking.dbo.mb_Hall' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="mb_Hall">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="TheatreID" />
-            <PropertyRef Name="HallName" />
-            <PropertyRef Name="TotalSeats" />
-            <PropertyRef Name="Active" />
           </Key>
-          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="TheatreID" Type="int" Nullable="false" />
           <Property Name="HallName" Type="nvarchar" Nullable="false" MaxLength="100" />
           <Property Name="TotalSeats" Type="int" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="mb_Movie">
           <Key>
@@ -286,6 +275,10 @@
           <Property Name="RatingID" Type="nvarchar" MaxLength="10" />
           <Property Name="RunningDuration" Type="smallint" />
           <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="genre" Type="nvarchar" MaxLength="25" />
+          <Property Name="CastDescription" Type="nvarchar(max)" />
+          <Property Name="ImageMoviePath" Type="nvarchar" MaxLength="50" />
+          <Property Name="trailer_url" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="mb_Movie_Item">
           <Key>
@@ -295,6 +288,7 @@
           <Property Name="MovieID" Type="int" Nullable="false" />
           <Property Name="CastID" Type="nvarchar" Nullable="false" MaxLength="10" />
           <Property Name="Description" Type="nvarchar" MaxLength="255" />
+          <Property Name="CastName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="mb_MovieBooking">
           <Key>
@@ -330,9 +324,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="MovieID" Type="int" />
-          <Property Name="TheatreID" Type="int" />
-          <Property Name="HallID" Type="nvarchar" MaxLength="10" />
+          <Property Name="MovieID" Type="int" Nullable="false" />
+          <Property Name="TheatreID" Type="int" Nullable="false" />
+          <Property Name="HallID" Type="int" Nullable="false" />
           <Property Name="ScheduleDate" Type="datetime" />
           <Property Name="Price" Type="money" />
           <Property Name="Active" Type="bit" Nullable="false" />
@@ -578,11 +572,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_mb_MovieBooking_mb_MovieSchedule">
-          <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="0..1" />
+        <Association Name="FK_mb_MovieBooking_mb_MovieSchedule_Item">
+          <End Role="mb_MovieSchedule_Item" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule_Item" Multiplicity="0..1" />
           <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.Store.mb_MovieBooking" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="mb_MovieSchedule">
+            <Principal Role="mb_MovieSchedule_Item">
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="mb_MovieBooking">
@@ -626,8 +620,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_mb_MovieSchedule_mb_Hall">
+          <End Role="mb_Hall" Type="MovieBooking.DAL.Model.Store.mb_Hall" Multiplicity="1" />
+          <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mb_Hall">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mb_MovieSchedule">
+              <PropertyRef Name="HallID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_mb_MovieSchedule_mb_Movie">
-          <End Role="mb_Movie" Type="MovieBooking.DAL.Model.Store.mb_Movie" Multiplicity="0..1" />
+          <End Role="mb_Movie" Type="MovieBooking.DAL.Model.Store.mb_Movie" Multiplicity="1" />
           <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="mb_Movie">
@@ -639,7 +645,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_mb_MovieSchedule_mb_Theatre">
-          <End Role="mb_Theatre" Type="MovieBooking.DAL.Model.Store.mb_Theatre" Multiplicity="0..1" />
+          <End Role="mb_Theatre" Type="MovieBooking.DAL.Model.Store.mb_Theatre" Multiplicity="1" />
           <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.Store.mb_MovieSchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="mb_Theatre">
@@ -1137,7 +1143,6 @@
           <EntitySet Name="mb_MovieBooking" EntityType="MovieBooking.DAL.Model.mb_MovieBooking" />
           <EntitySet Name="mb_MovieBooking_Item" EntityType="MovieBooking.DAL.Model.mb_MovieBooking_Item" />
           <EntitySet Name="mb_MovieBooking_Trans" EntityType="MovieBooking.DAL.Model.mb_MovieBooking_Trans" />
-          <EntitySet Name="mb_MovieSchedule" EntityType="MovieBooking.DAL.Model.mb_MovieSchedule" />
           <EntitySet Name="mb_MovieSchedule_Item" EntityType="MovieBooking.DAL.Model.mb_MovieSchedule_Item" />
           <EntitySet Name="mb_Payment" EntityType="MovieBooking.DAL.Model.mb_Payment" />
           <EntitySet Name="mb_RegisteredUser" EntityType="MovieBooking.DAL.Model.mb_RegisteredUser" />
@@ -1155,17 +1160,9 @@
             <End Role="mb_Movie" EntitySet="mb_Movie" />
             <End Role="mb_Movie_Item" EntitySet="mb_Movie_Item" />
           </AssociationSet>
-          <AssociationSet Name="FK_mb_MovieSchedule_mb_Movie" Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie">
-            <End Role="mb_Movie" EntitySet="mb_Movie" />
-            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
-          </AssociationSet>
           <AssociationSet Name="FK_mb_MovieBooking_Item_mb_MovieBooking" Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_Item_mb_MovieBooking">
             <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
             <End Role="mb_MovieBooking_Item" EntitySet="mb_MovieBooking_Item" />
-          </AssociationSet>
-          <AssociationSet Name="FK_mb_MovieBooking_mb_MovieSchedule" Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule">
-            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
-            <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
           </AssociationSet>
           <AssociationSet Name="FK_mb_MovieBooking_mb_RegisteredUser" Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_RegisteredUser">
             <End Role="mb_RegisteredUser" EntitySet="mb_RegisteredUser" />
@@ -1178,14 +1175,6 @@
           <AssociationSet Name="FK_mb_Payment_mb_MovieBooking" Association="MovieBooking.DAL.Model.FK_mb_Payment_mb_MovieBooking">
             <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
             <End Role="mb_Payment" EntitySet="mb_Payment" />
-          </AssociationSet>
-          <AssociationSet Name="FK_mb_MovieSchedule_Item_mb_MovieSchedule" Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule">
-            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
-            <End Role="mb_MovieSchedule_Item" EntitySet="mb_MovieSchedule_Item" />
-          </AssociationSet>
-          <AssociationSet Name="FK_mb_MovieSchedule_mb_Theatre" Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre">
-            <End Role="mb_Theatre" EntitySet="mb_Theatre" />
-            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
           </AssociationSet>
           <EntitySet Name="aspnet_Applications" EntityType="MovieBooking.DAL.Model.aspnet_Applications" />
           <EntitySet Name="aspnet_Paths" EntityType="MovieBooking.DAL.Model.aspnet_Paths" />
@@ -1236,6 +1225,31 @@
           <AssociationSet Name="aspnet_UsersInRoles" Association="MovieBooking.DAL.Model.aspnet_UsersInRoles">
             <End Role="aspnet_Roles" EntitySet="aspnet_Roles" />
             <End Role="aspnet_Users" EntitySet="aspnet_Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mb_MovieBooking_mb_MovieSchedule1" Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule1">
+            <End Role="mb_MovieSchedule_Item" EntitySet="mb_MovieSchedule_Item" />
+            <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mb_MovieBooking_mb_MovieSchedule2" Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule2">
+            <End Role="mb_MovieBooking_Item" EntitySet="mb_MovieBooking_Item" />
+            <End Role="mb_MovieBooking" EntitySet="mb_MovieBooking" />
+          </AssociationSet>
+          <EntitySet Name="mb_MovieSchedule" EntityType="MovieBooking.DAL.Model.mb_MovieSchedule" />
+          <AssociationSet Name="FK_mb_MovieSchedule_mb_Hall" Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Hall">
+            <End Role="mb_Hall" EntitySet="mb_Hall" />
+            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mb_MovieSchedule_mb_Movie" Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie">
+            <End Role="mb_Movie" EntitySet="mb_Movie" />
+            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mb_MovieSchedule_Item_mb_MovieSchedule" Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule">
+            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
+            <End Role="mb_MovieSchedule_Item" EntitySet="mb_MovieSchedule_Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_mb_MovieSchedule_mb_Theatre" Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre">
+            <End Role="mb_Theatre" EntitySet="mb_Theatre" />
+            <End Role="mb_MovieSchedule" EntitySet="mb_MovieSchedule" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="aspnet_Membership">
@@ -1295,8 +1309,12 @@
           <Property Name="RatingID" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="RunningDuration" Type="Int16" />
           <NavigationProperty Name="mb_Movie_Item" Relationship="MovieBooking.DAL.Model.FK_mb_Movie_Item_mb_Movie" FromRole="mb_Movie" ToRole="mb_Movie_Item" />
-          <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" FromRole="mb_Movie" ToRole="mb_MovieSchedule" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
+          <Property Type="String" Name="trailer_url" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="genre" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImageMoviePath" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CastDescription" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" FromRole="mb_Movie" ToRole="mb_MovieSchedule" />
         </EntityType>
         <EntityType Name="mb_Movie_Item">
           <Key>
@@ -1307,6 +1325,7 @@
           <Property Name="CastID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="255" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="mb_Movie" Relationship="MovieBooking.DAL.Model.FK_mb_Movie_Item_mb_Movie" FromRole="mb_Movie_Item" ToRole="mb_Movie" />
+          <Property Type="String" Name="CastName" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="mb_MovieBooking">
           <Key>
@@ -1319,10 +1338,11 @@
           <Property Name="BookingDate" Type="DateTime" />
           <Property Name="StatusID" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="mb_MovieBooking_Item" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_Item_mb_MovieBooking" FromRole="mb_MovieBooking" ToRole="mb_MovieBooking_Item" />
-          <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule" FromRole="mb_MovieBooking" ToRole="mb_MovieSchedule" />
           <NavigationProperty Name="mb_RegisteredUser" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_RegisteredUser" FromRole="mb_MovieBooking" ToRole="mb_RegisteredUser" />
           <NavigationProperty Name="mb_MovieBooking_Trans" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_Trans_mb_MovieBooking" FromRole="mb_MovieBooking" ToRole="mb_MovieBooking_Trans" />
           <NavigationProperty Name="mb_Payment" Relationship="MovieBooking.DAL.Model.FK_mb_Payment_mb_MovieBooking" FromRole="mb_MovieBooking" ToRole="mb_Payment" />
+          <NavigationProperty Name="mb_MovieSchedule_Item" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule1" FromRole="mb_MovieBooking" ToRole="mb_MovieSchedule_Item" />
+          <NavigationProperty Name="mb_MovieBooking_Item1" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule2" FromRole="mb_MovieBooking" ToRole="mb_MovieBooking_Item" />
         </EntityType>
         <EntityType Name="mb_MovieBooking_Item">
           <Key>
@@ -1332,6 +1352,7 @@
           <Property Name="MovieBookingID" Type="Int32" />
           <Property Name="SeatNo" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="mb_MovieBooking" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_Item_mb_MovieBooking" FromRole="mb_MovieBooking_Item" ToRole="mb_MovieBooking" />
+          <NavigationProperty Name="mb_MovieBooking1" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule2" FromRole="mb_MovieBooking_Item" ToRole="mb_MovieBooking" />
         </EntityType>
         <EntityType Name="mb_MovieBooking_Trans">
           <Key>
@@ -1344,22 +1365,6 @@
           <Property Name="Remarks" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
           <NavigationProperty Name="mb_MovieBooking" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_Trans_mb_MovieBooking" FromRole="mb_MovieBooking_Trans" ToRole="mb_MovieBooking" />
         </EntityType>
-        <EntityType Name="mb_MovieSchedule">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MovieID" Type="Int32" />
-          <Property Name="TheatreID" Type="Int32" />
-          <Property Name="HallID" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
-          <Property Name="ScheduleDate" Type="DateTime" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="mb_Movie" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" FromRole="mb_MovieSchedule" ToRole="mb_Movie" />
-          <NavigationProperty Name="mb_MovieBooking" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule" FromRole="mb_MovieSchedule" ToRole="mb_MovieBooking" />
-          <NavigationProperty Name="mb_MovieSchedule_Item" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule" FromRole="mb_MovieSchedule" ToRole="mb_MovieSchedule_Item" />
-          <NavigationProperty Name="mb_Theatre" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" FromRole="mb_MovieSchedule" ToRole="mb_Theatre" />
-          <Property Type="Boolean" Name="Active" Nullable="false" />
-        </EntityType>
         <EntityType Name="mb_MovieSchedule_Item">
           <Key>
             <PropertyRef Name="ID" />
@@ -1368,6 +1373,7 @@
           <Property Name="MovieScheduleID" Type="Int32" />
           <Property Name="TimeSlotID" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="mb_MovieBooking" Relationship="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule1" FromRole="mb_MovieSchedule_Item" ToRole="mb_MovieBooking" />
           <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule" FromRole="mb_MovieSchedule_Item" ToRole="mb_MovieSchedule" />
         </EntityType>
         <EntityType Name="mb_Payment">
@@ -1425,9 +1431,9 @@
           <Property Name="FaxNo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="Email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="WebSite" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
-          <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" FromRole="mb_Theatre" ToRole="mb_MovieSchedule" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <NavigationProperty Name="mb_Hall" Relationship="MovieBooking.DAL.Model.FK_mb_Hall_mb_Theatre" FromRole="mb_Theatre" ToRole="mb_Hall" />
+          <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" FromRole="mb_Theatre" ToRole="mb_MovieSchedule" />
         </EntityType>
         <Association Name="FK__aspnet_Me__UserI__15502E78">
           <End Role="aspnet_Users" Type="MovieBooking.DAL.Model.aspnet_Users" Multiplicity="1" />
@@ -1465,18 +1471,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_mb_MovieSchedule_mb_Movie">
-          <End Role="mb_Movie" Type="MovieBooking.DAL.Model.mb_Movie" Multiplicity="0..1" />
-          <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.mb_MovieSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mb_Movie">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="mb_MovieSchedule">
-              <PropertyRef Name="MovieID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_mb_MovieBooking_Item_mb_MovieBooking">
           <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.mb_MovieBooking" Multiplicity="0..1" />
           <End Role="mb_MovieBooking_Item" Type="MovieBooking.DAL.Model.mb_MovieBooking_Item" Multiplicity="*" />
@@ -1486,18 +1480,6 @@
             </Principal>
             <Dependent Role="mb_MovieBooking_Item">
               <PropertyRef Name="MovieBookingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_mb_MovieBooking_mb_MovieSchedule">
-          <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.mb_MovieSchedule" Multiplicity="0..1" />
-          <End Role="mb_MovieBooking" Type="MovieBooking.DAL.Model.mb_MovieBooking" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mb_MovieSchedule">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="mb_MovieBooking">
-              <PropertyRef Name="ScheduleID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1534,30 +1516,6 @@
             </Principal>
             <Dependent Role="mb_Payment">
               <PropertyRef Name="MovieBookingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_mb_MovieSchedule_Item_mb_MovieSchedule">
-          <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.mb_MovieSchedule" Multiplicity="0..1" />
-          <End Role="mb_MovieSchedule_Item" Type="MovieBooking.DAL.Model.mb_MovieSchedule_Item" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mb_MovieSchedule">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="mb_MovieSchedule_Item">
-              <PropertyRef Name="MovieScheduleID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_mb_MovieSchedule_mb_Theatre">
-          <End Role="mb_Theatre" Type="MovieBooking.DAL.Model.mb_Theatre" Multiplicity="0..1" />
-          <End Role="mb_MovieSchedule" Type="MovieBooking.DAL.Model.mb_MovieSchedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="mb_Theatre">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="mb_MovieSchedule">
-              <PropertyRef Name="TheatreID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1662,10 +1620,6 @@
         <EntityType Name="mb_Hall">
           <Key>
             <PropertyRef Name="ID" />
-            <PropertyRef Name="TheatreID" />
-            <PropertyRef Name="HallName" />
-            <PropertyRef Name="TotalSeats" />
-            <PropertyRef Name="Active" />
           </Key>
           <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="TheatreID" Nullable="false" />
@@ -1673,6 +1627,7 @@
           <Property Type="Int32" Name="TotalSeats" Nullable="false" />
           <Property Type="Boolean" Name="Active" Nullable="false" />
           <NavigationProperty Name="mb_Theatre" Relationship="MovieBooking.DAL.Model.FK_mb_Hall_mb_Theatre" FromRole="mb_Hall" ToRole="mb_Theatre" />
+          <NavigationProperty Name="mb_MovieSchedule" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Hall" FromRole="mb_Hall" ToRole="mb_MovieSchedule" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1796,6 +1751,94 @@
           <End Type="MovieBooking.DAL.Model.aspnet_Roles" Role="aspnet_Roles" Multiplicity="*" />
           <End Type="MovieBooking.DAL.Model.aspnet_Users" Role="aspnet_Users" Multiplicity="*" />
         </Association>
+        <Association Name="FK_mb_MovieBooking_mb_MovieSchedule1">
+          <End Type="MovieBooking.DAL.Model.mb_MovieSchedule_Item" Role="mb_MovieSchedule_Item" Multiplicity="0..1" />
+          <End Type="MovieBooking.DAL.Model.mb_MovieBooking" Role="mb_MovieBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mb_MovieSchedule_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mb_MovieBooking">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mb_MovieBooking_mb_MovieSchedule2">
+          <End Type="MovieBooking.DAL.Model.mb_MovieBooking_Item" Role="mb_MovieBooking_Item" Multiplicity="0..1" />
+          <End Type="MovieBooking.DAL.Model.mb_MovieBooking" Role="mb_MovieBooking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mb_MovieBooking_Item">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mb_MovieBooking">
+              <PropertyRef Name="ScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="mb_MovieSchedule">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="MovieID" Nullable="false" />
+          <Property Type="Int32" Name="TheatreID" Nullable="false" />
+          <Property Type="Int32" Name="HallID" Nullable="false" />
+          <Property Type="DateTime" Name="ScheduleDate" />
+          <Property Type="Decimal" Name="Price" Precision="19" Scale="4" />
+          <Property Type="Boolean" Name="Active" Nullable="false" />
+          <NavigationProperty Name="mb_Hall" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Hall" FromRole="mb_MovieSchedule" ToRole="mb_Hall" />
+          <NavigationProperty Name="mb_Movie" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" FromRole="mb_MovieSchedule" ToRole="mb_Movie" />
+          <NavigationProperty Name="mb_MovieSchedule_Item" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule" FromRole="mb_MovieSchedule" ToRole="mb_MovieSchedule_Item" />
+          <NavigationProperty Name="mb_Theatre" Relationship="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" FromRole="mb_MovieSchedule" ToRole="mb_Theatre" />
+        </EntityType>
+        <Association Name="FK_mb_MovieSchedule_mb_Hall">
+          <End Type="MovieBooking.DAL.Model.mb_Hall" Role="mb_Hall" Multiplicity="1" />
+          <End Type="MovieBooking.DAL.Model.mb_MovieSchedule" Role="mb_MovieSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mb_Hall">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mb_MovieSchedule">
+              <PropertyRef Name="HallID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mb_MovieSchedule_mb_Movie">
+          <End Type="MovieBooking.DAL.Model.mb_Movie" Role="mb_Movie" Multiplicity="1" />
+          <End Type="MovieBooking.DAL.Model.mb_MovieSchedule" Role="mb_MovieSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mb_Movie">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mb_MovieSchedule">
+              <PropertyRef Name="MovieID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mb_MovieSchedule_Item_mb_MovieSchedule">
+          <End Type="MovieBooking.DAL.Model.mb_MovieSchedule" Role="mb_MovieSchedule" Multiplicity="0..1" />
+          <End Type="MovieBooking.DAL.Model.mb_MovieSchedule_Item" Role="mb_MovieSchedule_Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mb_MovieSchedule">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mb_MovieSchedule_Item">
+              <PropertyRef Name="MovieScheduleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_mb_MovieSchedule_mb_Theatre">
+          <End Type="MovieBooking.DAL.Model.mb_Theatre" Role="mb_Theatre" Multiplicity="1" />
+          <End Type="MovieBooking.DAL.Model.mb_MovieSchedule" Role="mb_MovieSchedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mb_Theatre">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="mb_MovieSchedule">
+              <PropertyRef Name="TheatreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1835,6 +1878,10 @@
             <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_Movie"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_Movie"><MappingFragment StoreEntitySet="mb_Movie">
+                <ScalarProperty Name="trailer_url" ColumnName="trailer_url" />
+                <ScalarProperty Name="ImageMoviePath" ColumnName="ImageMoviePath" />
+                <ScalarProperty Name="CastDescription" ColumnName="CastDescription" />
+                <ScalarProperty Name="genre" ColumnName="genre" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="MovieName" ColumnName="MovieName" />
@@ -1844,6 +1891,7 @@
             <ScalarProperty Name="RunningDuration" ColumnName="RunningDuration" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_Movie_Item"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_Movie_Item"><MappingFragment StoreEntitySet="mb_Movie_Item">
+                <ScalarProperty Name="CastName" ColumnName="CastName" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
             <ScalarProperty Name="MovieID" ColumnName="MovieID" />
             <ScalarProperty Name="CastID" ColumnName="CastID" />
@@ -1868,15 +1916,6 @@
             <ScalarProperty Name="TransDate" ColumnName="TransDate" />
             <ScalarProperty Name="StatusID" ColumnName="StatusID" />
             <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-          </MappingFragment></EntityTypeMapping></EntitySetMapping>
-          <EntitySetMapping Name="mb_MovieSchedule"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_MovieSchedule"><MappingFragment StoreEntitySet="mb_MovieSchedule">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-            <ScalarProperty Name="MovieID" ColumnName="MovieID" />
-            <ScalarProperty Name="TheatreID" ColumnName="TheatreID" />
-            <ScalarProperty Name="HallID" ColumnName="HallID" />
-            <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
-            <ScalarProperty Name="Price" ColumnName="Price" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="mb_MovieSchedule_Item"><EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_MovieSchedule_Item"><MappingFragment StoreEntitySet="mb_MovieSchedule_Item">
             <ScalarProperty Name="ID" ColumnName="ID" />
@@ -2094,6 +2133,19 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="mb_MovieSchedule">
+            <EntityTypeMapping TypeName="MovieBooking.DAL.Model.mb_MovieSchedule">
+              <MappingFragment StoreEntitySet="mb_MovieSchedule">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ScheduleDate" ColumnName="ScheduleDate" />
+                <ScalarProperty Name="HallID" ColumnName="HallID" />
+                <ScalarProperty Name="TheatreID" ColumnName="TheatreID" />
+                <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -2115,15 +2167,14 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MovieBooking.DAL.Model" ZoomLevel="81">
+      <Diagram Name="MovieBooking.DAL.Model" ZoomLevel="88">
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Membership" Width="1.5" PointX="3.75" PointY="11.875" Height="5.4417122395833335" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Users" Width="1.5" PointX="1.5" PointY="13.25" Height="2.5571907552083317" IsExpanded="true" />
-        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie" Width="1.5" PointX="0.75" PointY="7.125" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie" Width="1.5" PointX="0.75" PointY="7.125" Height="3.0714322916666656" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Movie_Item" Width="1.5" PointX="3" PointY="7.625" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking" Width="1.5" PointX="8.25" PointY="7" Height="3.1340950520833344" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking_Item" Width="1.5" PointX="10.5" PointY="4.25" Height="1.7879850260416674" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieBooking_Trans" Width="1.5" PointX="10.5" PointY="6.75" Height="2.1725878906249987" IsExpanded="true" />
-        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieSchedule" Width="1.5" PointX="6" PointY="7" Height="3.1340950520833317" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieSchedule_Item" Width="1.5" PointX="8.25" PointY="16.875" Height="1.9802864583333317" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_Payment" Width="1.5" PointX="10.5" PointY="9.75" Height="3.1340950520833353" IsExpanded="true" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_RegisteredUser" Width="1.5" PointX="6" PointY="13.125" Height="2.9417936197916692" IsExpanded="true" />
@@ -2138,49 +2189,29 @@
           <ConnectorPoint PointX="6" PointY="14.595896809895834" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_Movie_Item_mb_Movie" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="8.6151432291666659" />
-          <ConnectorPoint PointX="3" PointY="8.6151432291666659" />
-        </AssociationConnector>
-        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.34375" />
-          <ConnectorPoint PointX="4.822916666666667" PointY="7.3437499999999991" />
-          <ConnectorPoint PointX="4.989583333333333" PointY="7.34375" />
-          <ConnectorPoint PointX="6" PointY="7.34375" />
+          <ConnectorPoint PointX="2.25" PointY="8.58550048828125" />
+          <ConnectorPoint PointX="3" PointY="8.58550048828125" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_Item_mb_MovieBooking" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.09375" PointY="7" />
-          <ConnectorPoint PointX="9.09375" PointY="5.8865364583333317" />
-          <ConnectorPoint PointX="10.5" PointY="5.8865364583333317" />
-        </AssociationConnector>
-        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="8.4932782117315142" />
-          <ConnectorPoint PointX="8.25" PointY="8.4932782117315142" />
+          <ConnectorPoint PointX="8.94531375" PointY="7" />
+          <ConnectorPoint PointX="8.94531375" PointY="5.6846003938802081" />
+          <ConnectorPoint PointX="10.5" PointY="5.6846003938802081" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_RegisteredUser" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="14.595896809895834" />
-          <ConnectorPoint PointX="7.791666666666667" PointY="14.595896809895834" />
-          <ConnectorPoint PointX="7.958333333333333" PointY="14.595896809895834" />
-          <ConnectorPoint PointX="9" PointY="14.595896809895834" />
-          <ConnectorPoint PointX="9" PointY="10.134095052083335" />
+          <ConnectorPoint PointX="6.75" PointY="13.125" />
+          <ConnectorPoint PointX="6.75" PointY="8.45354248046875" />
+          <ConnectorPoint PointX="8.25" PointY="8.45354248046875" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_Trans_mb_MovieBooking" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="7.9612939453125" />
-          <ConnectorPoint PointX="10.5" PointY="7.9612939453125" />
+          <ConnectorPoint PointX="9.75" PointY="7.8355004882812507" />
+          <ConnectorPoint PointX="10.5" PointY="7.8355004882812507" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_Payment_mb_MovieBooking" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.75" PointY="9.9420475260416676" />
-          <ConnectorPoint PointX="10.5" PointY="9.9420475260416676" />
-        </AssociationConnector>
-        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule" ManuallyRouted="false">
-          <ConnectorPoint PointX="7.5" PointY="10.134095052083332" />
-          <ConnectorPoint PointX="7.875" PointY="10.509095052083332" />
-          <ConnectorPoint PointX="7.875" PointY="17.865143229166666" />
-          <ConnectorPoint PointX="8.25" PointY="17.865143229166666" />
-        </AssociationConnector>
-        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.90625" PointY="6.2590950520833326" />
-          <ConnectorPoint PointX="4.90625" PointY="9.9009407552083317" />
-          <ConnectorPoint PointX="6" PointY="9.9009407552083317" />
+          <ConnectorPoint PointX="8.7954081640625" PointY="9.9070849609375" />
+          <ConnectorPoint PointX="8.7954081640625" PointY="11.272250628255208" />
+          <ConnectorPoint PointX="9.2518707486979164" PointY="11.272250628255208" />
+          <ConnectorPoint PointX="9.4185374153645842" PointY="11.272250628255208" />
+          <ConnectorPoint PointX="10.5" PointY="11.272250628255208" />
         </AssociationConnector>
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Applications" Width="1.5" PointX="0.75" PointY="14.375" Height="2.5571907552083388" />
         <EntityTypeShape EntityType="MovieBooking.DAL.Model.aspnet_Paths" Width="1.5" PointX="6" PointY="22.5" Height="2.3648893229166674" />
@@ -2238,8 +2269,8 @@
           <ConnectorPoint PointX="7.5" PointY="20.237488606770835" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_Hall_mb_Theatre" >
-          <ConnectorPoint PointX="5.25" PointY="4.586293945312498" />
-          <ConnectorPoint PointX="6.875" PointY="4.586293945312498" />
+          <ConnectorPoint PointX="5.25" PointY="4.5426741536458328" />
+          <ConnectorPoint PointX="6.875" PointY="4.5426741536458328" />
         </AssociationConnector>
         <AssociationConnector Association="MovieBooking.DAL.Model.aspnet_UsersInRoles" >
           <ConnectorPoint PointX="3" PointY="17.559970330729172" />
@@ -2248,6 +2279,42 @@
           <ConnectorPoint PointX="3.25" PointY="16.6875" />
           <ConnectorPoint PointX="3.25" PointY="15.776049363281249" />
           <ConnectorPoint PointX="3" PointY="15.776049363281249" />
+        </AssociationConnector>
+        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule1" >
+          <ConnectorPoint PointX="9.33520408203125" PointY="16.875" />
+          <ConnectorPoint PointX="9.33520408203125" PointY="9.9070849609375" />
+        </AssociationConnector>
+        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieBooking_mb_MovieSchedule2" >
+          <ConnectorPoint PointX="10.5" PointY="5.8768795198567707" />
+          <ConnectorPoint PointX="9.378909375" PointY="5.8768795198567707" />
+          <ConnectorPoint PointX="9.378909375" PointY="7" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="MovieBooking.DAL.Model.mb_MovieSchedule" Width="1.5" PointX="13.125" PointY="5.25" Height="2.7427376302083246" />
+        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Hall" >
+          <ConnectorPoint PointX="8.375" PointY="3.84375" />
+          <ConnectorPoint PointX="13.385414166666665" PointY="3.8437499999999996" />
+          <ConnectorPoint PointX="13.552080833333333" PointY="3.84375" />
+          <ConnectorPoint PointX="13.875" PointY="3.84375" />
+          <ConnectorPoint PointX="13.875" PointY="5.25" />
+        </AssociationConnector>
+        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Movie" >
+          <ConnectorPoint PointX="1.5" PointY="7.125" />
+          <ConnectorPoint PointX="1.5" PointY="6.3783268229166659" />
+          <ConnectorPoint PointX="8.8619804166666665" PointY="6.378326822916665" />
+          <ConnectorPoint PointX="9.0286470833333343" PointY="6.3783268229166659" />
+          <ConnectorPoint PointX="9.2955760416666653" PointY="6.378326822916665" />
+          <ConnectorPoint PointX="9.4622427083333331" PointY="6.3783268229166659" />
+          <ConnectorPoint PointX="13.125" PointY="6.3783268229166659" />
+        </AssociationConnector>
+        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_Item_mb_MovieSchedule" >
+          <ConnectorPoint PointX="13.875" PointY="7.9927376302083246" />
+          <ConnectorPoint PointX="13.875" PointY="17.835500488281248" />
+          <ConnectorPoint PointX="9.75" PointY="17.835500488281248" />
+        </AssociationConnector>
+        <AssociationConnector Association="MovieBooking.DAL.Model.FK_mb_MovieSchedule_mb_Theatre" >
+          <ConnectorPoint PointX="5.25" PointY="3.2812499999999996" />
+          <ConnectorPoint PointX="13.4687475" PointY="3.2812499999999996" />
+          <ConnectorPoint PointX="13.4687475" PointY="5.25" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
