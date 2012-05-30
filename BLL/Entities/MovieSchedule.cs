@@ -129,7 +129,7 @@ namespace MovieBooking.BLL.Entities
                     foreach (MovieSchedule schedule in schedules)
                     {
                         schedule.items = itemRepo.GetMovieScheduleItem(schedule);
-                        schedule.hall = hallRepo.GetHall(Int32.Parse(schedule.HallID));
+                        schedule.hall = hallRepo.GetHall(schedule.HallID);
                     }
                 }
                 return schedules;

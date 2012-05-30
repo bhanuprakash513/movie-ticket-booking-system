@@ -55,7 +55,7 @@ namespace MovieBooking.BLL.Entities
             //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
-        public Hall GetHall(int hallId)
+        public Hall GetHall(Int32 hallId)
         {
             Hall hall = null;
             using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
