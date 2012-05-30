@@ -53,6 +53,12 @@ namespace MovieBooking.Model.Entities
             get;
             set;
         }
+    
+        public virtual string CastName
+        {
+            get;
+            set;
+        }
 
         #endregion
         #region Navigation Properties

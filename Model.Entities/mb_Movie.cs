@@ -61,19 +61,25 @@ namespace MovieBooking.Model.Entities
             set;
         }
     
+        public virtual string trailer_url
+        {
+            get;
+            set;
+        }
+    
         public virtual string genre
         {
             get;
             set;
         }
     
-        public virtual string CastDescription
+        public virtual string ImageMoviePath
         {
             get;
             set;
         }
     
-        public virtual string ImageMoviePath
+        public virtual string CastDescription
         {
             get;
             set;

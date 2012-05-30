@@ -73,6 +73,38 @@ namespace MovieBooking.Model.Entities
             }
         }
         private mb_MovieBooking _mb_MovieBooking;
+    
+        public virtual ICollection<mb_MovieBooking> mb_MovieBooking1
+        {
+            get
+            {
+                if (_mb_MovieBooking1 == null)
+                {
+                    var newCollection = new FixupCollection<mb_MovieBooking>();
+                    newCollection.CollectionChanged += Fixupmb_MovieBooking1;
+                    _mb_MovieBooking1 = newCollection;
+                }
+                return _mb_MovieBooking1;
+            }
+            set
+            {
+                if (!ReferenceEquals(_mb_MovieBooking1, value))
+                {
+                    var previousValue = _mb_MovieBooking1 as FixupCollection<mb_MovieBooking>;
+                    if (previousValue != null)
+                    {
+                        previousValue.CollectionChanged -= Fixupmb_MovieBooking1;
+                    }
+                    _mb_MovieBooking1 = value;
+                    var newValue = value as FixupCollection<mb_MovieBooking>;
+                    if (newValue != null)
+                    {
+                        newValue.CollectionChanged += Fixupmb_MovieBooking1;
+                    }
+                }
+            }
+        }
+        private ICollection<mb_MovieBooking> _mb_MovieBooking1;
 
         #endregion
         #region Association Fixup
@@ -100,6 +132,28 @@ namespace MovieBooking.Model.Entities
             else if (!_settingFK)
             {
                 MovieBookingID = null;
+            }
+        }
+    
+        private void Fixupmb_MovieBooking1(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (mb_MovieBooking item in e.NewItems)
+                {
+                    item.mb_MovieBooking_Item1 = this;
+                }
+            }
+    
+            if (e.OldItems != null)
+            {
+                foreach (mb_MovieBooking item in e.OldItems)
+                {
+                    if (ReferenceEquals(item.mb_MovieBooking_Item1, this))
+                    {
+                        item.mb_MovieBooking_Item1 = null;
+                    }
+                }
             }
         }
 

@@ -66,9 +66,13 @@ namespace MovieBooking.Model.Entities
                     _settingFK = true;
                     if (_scheduleID != value)
                     {
-                        if (mb_MovieSchedule != null && mb_MovieSchedule.ID != value)
+                        if (mb_MovieSchedule_Item != null && mb_MovieSchedule_Item.ID != value)
                         {
-                            mb_MovieSchedule = null;
+                            mb_MovieSchedule_Item = null;
+                        }
+                        if (mb_MovieBooking_Item1 != null && mb_MovieBooking_Item1.ID != value)
+                        {
+                            mb_MovieBooking_Item1 = null;
                         }
                         _scheduleID = value;
                     }
@@ -127,21 +131,6 @@ namespace MovieBooking.Model.Entities
             }
         }
         private ICollection<mb_MovieBooking_Item> _mb_MovieBooking_Item;
-    
-        public virtual mb_MovieSchedule mb_MovieSchedule
-        {
-            get { return _mb_MovieSchedule; }
-            set
-            {
-                if (!ReferenceEquals(_mb_MovieSchedule, value))
-                {
-                    var previousValue = _mb_MovieSchedule;
-                    _mb_MovieSchedule = value;
-                    Fixupmb_MovieSchedule(previousValue);
-                }
-            }
-        }
-        private mb_MovieSchedule _mb_MovieSchedule;
     
         public virtual mb_RegisteredUser mb_RegisteredUser
         {
@@ -221,35 +210,41 @@ namespace MovieBooking.Model.Entities
             }
         }
         private ICollection<mb_Payment> _mb_Payment;
+    
+        public virtual mb_MovieSchedule_Item mb_MovieSchedule_Item
+        {
+            get { return _mb_MovieSchedule_Item; }
+            set
+            {
+                if (!ReferenceEquals(_mb_MovieSchedule_Item, value))
+                {
+                    var previousValue = _mb_MovieSchedule_Item;
+                    _mb_MovieSchedule_Item = value;
+                    Fixupmb_MovieSchedule_Item(previousValue);
+                }
+            }
+        }
+        private mb_MovieSchedule_Item _mb_MovieSchedule_Item;
+    
+        public virtual mb_MovieBooking_Item mb_MovieBooking_Item1
+        {
+            get { return _mb_MovieBooking_Item1; }
+            set
+            {
+                if (!ReferenceEquals(_mb_MovieBooking_Item1, value))
+                {
+                    var previousValue = _mb_MovieBooking_Item1;
+                    _mb_MovieBooking_Item1 = value;
+                    Fixupmb_MovieBooking_Item1(previousValue);
+                }
+            }
+        }
+        private mb_MovieBooking_Item _mb_MovieBooking_Item1;
 
         #endregion
         #region Association Fixup
     
         private bool _settingFK = false;
-    
-        private void Fixupmb_MovieSchedule(mb_MovieSchedule previousValue)
-        {
-            if (previousValue != null && previousValue.mb_MovieBooking.Contains(this))
-            {
-                previousValue.mb_MovieBooking.Remove(this);
-            }
-    
-            if (mb_MovieSchedule != null)
-            {
-                if (!mb_MovieSchedule.mb_MovieBooking.Contains(this))
-                {
-                    mb_MovieSchedule.mb_MovieBooking.Add(this);
-                }
-                if (ScheduleID != mb_MovieSchedule.ID)
-                {
-                    ScheduleID = mb_MovieSchedule.ID;
-                }
-            }
-            else if (!_settingFK)
-            {
-                ScheduleID = null;
-            }
-        }
     
         private void Fixupmb_RegisteredUser(mb_RegisteredUser previousValue)
         {
@@ -272,6 +267,54 @@ namespace MovieBooking.Model.Entities
             else if (!_settingFK)
             {
                 MemberID = null;
+            }
+        }
+    
+        private void Fixupmb_MovieSchedule_Item(mb_MovieSchedule_Item previousValue)
+        {
+            if (previousValue != null && previousValue.mb_MovieBooking.Contains(this))
+            {
+                previousValue.mb_MovieBooking.Remove(this);
+            }
+    
+            if (mb_MovieSchedule_Item != null)
+            {
+                if (!mb_MovieSchedule_Item.mb_MovieBooking.Contains(this))
+                {
+                    mb_MovieSchedule_Item.mb_MovieBooking.Add(this);
+                }
+                if (ScheduleID != mb_MovieSchedule_Item.ID)
+                {
+                    ScheduleID = mb_MovieSchedule_Item.ID;
+                }
+            }
+            else if (!_settingFK)
+            {
+                ScheduleID = null;
+            }
+        }
+    
+        private void Fixupmb_MovieBooking_Item1(mb_MovieBooking_Item previousValue)
+        {
+            if (previousValue != null && previousValue.mb_MovieBooking1.Contains(this))
+            {
+                previousValue.mb_MovieBooking1.Remove(this);
+            }
+    
+            if (mb_MovieBooking_Item1 != null)
+            {
+                if (!mb_MovieBooking_Item1.mb_MovieBooking1.Contains(this))
+                {
+                    mb_MovieBooking_Item1.mb_MovieBooking1.Add(this);
+                }
+                if (ScheduleID != mb_MovieBooking_Item1.ID)
+                {
+                    ScheduleID = mb_MovieBooking_Item1.ID;
+                }
+            }
+            else if (!_settingFK)
+            {
+                ScheduleID = null;
             }
         }
     
