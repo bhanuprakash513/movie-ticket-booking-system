@@ -66,10 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
-    <None Include="MovieBooking.DAL.Model.edmx">
+    <EntityDeploy Include="MovieBooking.DAL.Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MovieBooking.DAL.Model.Designer.cs</LastGenOutput>
-    </None>
+    </EntityDeploy>
     <None Include="MovieBookingModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>MovieBookingModel.Context.cs</LastGenOutput>
