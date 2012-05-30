@@ -25,61 +25,56 @@ namespace MovieBooking.Model.Entities
             set;
         }
     
-        public virtual Nullable<int> MovieID
+        public virtual int MovieID
         {
             get { return _movieID; }
             set
             {
-                try
+                if (_movieID != value)
                 {
-                    _settingFK = true;
-                    if (_movieID != value)
+                    if (mb_Movie != null && mb_Movie.ID != value)
                     {
-                        if (mb_Movie != null && mb_Movie.ID != value)
-                        {
-                            mb_Movie = null;
-                        }
-                        _movieID = value;
+                        mb_Movie = null;
                     }
-                }
-                finally
-                {
-                    _settingFK = false;
+                    _movieID = value;
                 }
             }
         }
-        private Nullable<int> _movieID;
+        private int _movieID;
     
-        public virtual Nullable<int> TheatreID
+        public virtual int TheatreID
         {
             get { return _theatreID; }
             set
             {
-                try
+                if (_theatreID != value)
                 {
-                    _settingFK = true;
-                    if (_theatreID != value)
+                    if (mb_Theatre != null && mb_Theatre.ID != value)
                     {
-                        if (mb_Theatre != null && mb_Theatre.ID != value)
-                        {
-                            mb_Theatre = null;
-                        }
-                        _theatreID = value;
+                        mb_Theatre = null;
                     }
-                }
-                finally
-                {
-                    _settingFK = false;
+                    _theatreID = value;
                 }
             }
         }
-        private Nullable<int> _theatreID;
+        private int _theatreID;
     
-        public virtual string HallID
+        public virtual int HallID
         {
-            get;
-            set;
+            get { return _hallID; }
+            set
+            {
+                if (_hallID != value)
+                {
+                    if (mb_Hall != null && mb_Hall.ID != value)
+                    {
+                        mb_Hall = null;
+                    }
+                    _hallID = value;
+                }
+            }
         }
+        private int _hallID;
     
         public virtual Nullable<System.DateTime> ScheduleDate
         {
@@ -102,6 +97,21 @@ namespace MovieBooking.Model.Entities
         #endregion
         #region Navigation Properties
     
+        public virtual mb_Hall mb_Hall
+        {
+            get { return _mb_Hall; }
+            set
+            {
+                if (!ReferenceEquals(_mb_Hall, value))
+                {
+                    var previousValue = _mb_Hall;
+                    _mb_Hall = value;
+                    Fixupmb_Hall(previousValue);
+                }
+            }
+        }
+        private mb_Hall _mb_Hall;
+    
         public virtual mb_Movie mb_Movie
         {
             get { return _mb_Movie; }
@@ -116,38 +126,6 @@ namespace MovieBooking.Model.Entities
             }
         }
         private mb_Movie _mb_Movie;
-    
-        public virtual ICollection<mb_MovieBooking> mb_MovieBooking
-        {
-            get
-            {
-                if (_mb_MovieBooking == null)
-                {
-                    var newCollection = new FixupCollection<mb_MovieBooking>();
-                    newCollection.CollectionChanged += Fixupmb_MovieBooking;
-                    _mb_MovieBooking = newCollection;
-                }
-                return _mb_MovieBooking;
-            }
-            set
-            {
-                if (!ReferenceEquals(_mb_MovieBooking, value))
-                {
-                    var previousValue = _mb_MovieBooking as FixupCollection<mb_MovieBooking>;
-                    if (previousValue != null)
-                    {
-                        previousValue.CollectionChanged -= Fixupmb_MovieBooking;
-                    }
-                    _mb_MovieBooking = value;
-                    var newValue = value as FixupCollection<mb_MovieBooking>;
-                    if (newValue != null)
-                    {
-                        newValue.CollectionChanged += Fixupmb_MovieBooking;
-                    }
-                }
-            }
-        }
-        private ICollection<mb_MovieBooking> _mb_MovieBooking;
     
         public virtual ICollection<mb_MovieSchedule_Item> mb_MovieSchedule_Item
         {
@@ -199,7 +177,25 @@ namespace MovieBooking.Model.Entities
         #endregion
         #region Association Fixup
     
-        private bool _settingFK = false;
+        private void Fixupmb_Hall(mb_Hall previousValue)
+        {
+            if (previousValue != null && previousValue.mb_MovieSchedule.Contains(this))
+            {
+                previousValue.mb_MovieSchedule.Remove(this);
+            }
+    
+            if (mb_Hall != null)
+            {
+                if (!mb_Hall.mb_MovieSchedule.Contains(this))
+                {
+                    mb_Hall.mb_MovieSchedule.Add(this);
+                }
+                if (HallID != mb_Hall.ID)
+                {
+                    HallID = mb_Hall.ID;
+                }
+            }
+        }
     
         private void Fixupmb_Movie(mb_Movie previousValue)
         {
@@ -219,10 +215,6 @@ namespace MovieBooking.Model.Entities
                     MovieID = mb_Movie.ID;
                 }
             }
-            else if (!_settingFK)
-            {
-                MovieID = null;
-            }
         }
     
         private void Fixupmb_Theatre(mb_Theatre previousValue)
@@ -241,32 +233,6 @@ namespace MovieBooking.Model.Entities
                 if (TheatreID != mb_Theatre.ID)
                 {
                     TheatreID = mb_Theatre.ID;
-                }
-            }
-            else if (!_settingFK)
-            {
-                TheatreID = null;
-            }
-        }
-    
-        private void Fixupmb_MovieBooking(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                foreach (mb_MovieBooking item in e.NewItems)
-                {
-                    item.mb_MovieSchedule = this;
-                }
-            }
-    
-            if (e.OldItems != null)
-            {
-                foreach (mb_MovieBooking item in e.OldItems)
-                {
-                    if (ReferenceEquals(item.mb_MovieSchedule, this))
-                    {
-                        item.mb_MovieSchedule = null;
-                    }
                 }
             }
         }
