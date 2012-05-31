@@ -43,8 +43,8 @@ namespace MovieBooking.UI.Maintenance.Schedule
                 TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue),
                 HallID = Convert.ToInt32(this.CombohallName.SelectedValue),
                 Price = Convert.ToDecimal(TxtPrice.Text),
-                FromDate = Convert.ToDateTime(this.TxtFromdate.Text),
-                ToDate = Convert.ToDateTime(this.TxtTodate.Text),
+                //FromDate = Convert.ToDateTime(this.TxtFromdate.Text),
+                //ToDate = Convert.ToDateTime(this.TxtTodate.Text),
                 Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
            
             };
