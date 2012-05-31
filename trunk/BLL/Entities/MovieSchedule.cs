@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Microsoft.Practices.EnterpriseLibrary.Caching;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 using MovieBooking.DLL.Entities;
 using MovieBooking.Model.Entities;
 
@@ -51,9 +54,110 @@ namespace MovieBooking.BLL.Entities
 
     public class MovieScheduleRepository : IMovieScheduleRepository
     {
+        // Global variable to store the ExceptionManager instance. 
+        ExceptionManager exManager;
+        ICacheManager cache = null;
         public MovieScheduleRepository()
         {
+            cache = CacheFactory.GetCacheManager();
+            // Resolve the default ExceptionManager object from the container.
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+        }
 
+        public IEnumerable<MovieSchedule> FindAll()
+        {
+            IList<MovieSchedule> _movies = null;
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                var ts = from t in mbRep.FetchAll()
+                         select new MovieSchedule(t);
+                _movies = ts.ToList<MovieSchedule>();
+            }
+            return _movies.AsEnumerable<MovieSchedule>();
+        }
+
+        public mb_MovieSchedule FindbyId(int Id)
+        {
+            mb_MovieSchedule th = new mb_MovieSchedule();
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                th = mbRep.Single(u => u.ID == Id) as mb_MovieSchedule;
+            }
+            return th;
+        }
+        public mb_MovieSchedule FindMovieschedule(int MovieID, int TheatreID, int HallID)
+        {
+            mb_MovieSchedule th = new mb_MovieSchedule();
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                th = mbRep.Single(u => u.MovieID == MovieID && u.TheatreID == TheatreID && u.HallID == HallID) as mb_MovieSchedule;
+            }
+            return th;
+        }
+
+        public int FindScheduleId(int MovieID, int TheatreID, int HallID)
+        {
+            mb_MovieSchedule th = new mb_MovieSchedule();
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                th = mbRep.Single(u => u.MovieID == MovieID && u.TheatreID == TheatreID && u.HallID == HallID) as mb_MovieSchedule;
+            }
+            return th.ID;
+        }
+        public int FindbyMovieID(int ID)
+        {
+
+            mb_MovieSchedule th = new mb_MovieSchedule();
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                th = mbRep.Single(u => u.MovieID == ID) as mb_MovieSchedule;
+            }
+            return th.ID;
+        }
+
+        public int Insert(MovieSchedule movie)
+        {
+            mb_MovieSchedule th = new mb_MovieSchedule();
+            movie.CopyTo(th);
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                mbRep.Add(th);
+                mbRep.SaveChanges();
+            }
+            return th.ID;
+        }
+
+        public int Update(MovieSchedule movie)
+        {
+            mb_MovieSchedule th = new mb_MovieSchedule();
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                th = mbRep.First(u => u.ID == movie.ID) as mb_MovieSchedule;
+                movie.CopyTo(th);
+                mbRep.SaveChanges();
+            }
+            return th.ID;
+        }
+
+        public bool Delete(MovieSchedule movie)
+        {
+            mb_MovieSchedule th = new mb_MovieSchedule();
+            using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+            {
+                th = mbRep.First(u => u.ID == movie.ID) as mb_MovieSchedule;
+                if (th != null)
+                {
+                    movie.CopyTo(th);
+                    mbRep.Delete(th);
+                    mbRep.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
         }
 
         public List<MovieSchedule> GetScheduleForMovie(Movie movie)
