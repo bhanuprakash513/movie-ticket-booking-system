@@ -22,13 +22,13 @@ namespace MovieBooking.UI.Maintenance.Hall {
         protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
-        /// RegisterUserValidationSummary control.
+        /// HallValidationSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary RegisterUserValidationSummary;
+        protected global::System.Web.UI.WebControls.ValidationSummary HallValidationSummary;
         
         /// <summary>
         /// TheatreNameLabel control.

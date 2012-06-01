@@ -9,8 +9,8 @@ Hall Maintenance
 <span class="failureNotification">
     <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
 </span>
-<asp:ValidationSummary ID="RegisterUserValidationSummary" runat="server" CssClass="failureNotification" 
-        ValidationGroup="RegisterUserValidationGroup"/>
+<asp:ValidationSummary ID="HallValidationSummary" runat="server" CssClass="failureNotification" 
+        ValidationGroup="HallValidationGroup"/>
 
 <div class="accountInfo">
     <fieldset class="register">

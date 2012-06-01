@@ -9,8 +9,8 @@ Hall Maintenance
 <span class="failureNotification">
     <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
 </span>
-<asp:ValidationSummary ID="RegisterUserValidationSummary" runat="server" CssClass="failureNotification" 
-        ValidationGroup="RegisterUserValidationGroup"/>
+<asp:ValidationSummary ID="HallValidationSummary" runat="server" CssClass="failureNotification" 
+        ValidationGroup="HallValidationGroup"/>
 
 <div class="accountInfo">
     <fieldset class="register">
@@ -28,10 +28,11 @@ Hall Maintenance
         </p>
         <p>
         <asp:Label ID="HallNameLabel" runat="server" AssociatedControlID="HallName">Hall Name:</asp:Label>
-        <asp:TextBox ID="HallName" runat="server" CssClass="textEntry" Width="400px" ></asp:TextBox>
+        <asp:TextBox ID="HallName" runat="server" CssClass="textEntry" Width="400px" MaxLength="100" ></asp:TextBox>
         <asp:RequiredFieldValidator ID="HallNameRequired" runat="server" ControlToValidate="HallName" 
                 CssClass="failureNotification" ErrorMessage="Hall Name is required." ToolTip="Hall Name is required." 
                 ValidationGroup="HallValidationGroup">*</asp:RequiredFieldValidator>
+        
         </p>
         <p>
         <asp:Label ID="TotalSeatsLabel" runat="server" AssociatedControlID="TotalSeats">Total No. of Seats:</asp:Label>
@@ -39,6 +40,9 @@ Hall Maintenance
         <asp:RequiredFieldValidator ID="TotalSeatsRequired" runat="server" ControlToValidate="TotalSeats" 
                 CssClass="failureNotification" ErrorMessage="Total No. of Seats is required." ToolTip="Total No. of Seats is required." 
                 ValidationGroup="HallValidationGroup">*</asp:RequiredFieldValidator>
+         <asp:RegularExpressionValidator ID="RegularExpressionValidator1"  CssClass="failureNotification" ToolTip="Total seats must be numeric"
+            ControlToValidate="TotalSeats" 
+             ValidationExpression="\d+" runat="server" ErrorMessage="Total seats must be numeric" ValidationGroup="HallValidationGroup">*</asp:RegularExpressionValidator>
         </p>
         <p>
         <asp:Label ID="HallStatusLabel" runat="server" AssociatedControlID="cmbHallStatus">Hall Status:</asp:Label>

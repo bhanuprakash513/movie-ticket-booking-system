@@ -57,7 +57,15 @@ namespace MovieBooking.UI.Maintenance.Hall
             };
             HallRepository hallRep = new HallRepository();
             hallRep.Insert(hall);
-            ErrorMessage.Text = "Updated Successfully";  
+            ErrorMessage.Text = "Updated Successfully";
+            ClearAll();
+        }
+
+        protected void ClearAll()
+        {
+            cmbTheatreName.SelectedIndex = 0;
+            HallName.Text = string.Empty;
+            TotalSeats.Text = string.Empty;
         }
     }
 }

@@ -22,13 +22,13 @@ namespace MovieBooking.UI.Maintenance.Theatre {
         protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
-        /// RegisterUserValidationSummary control.
+        /// TheatreValidationSummary control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ValidationSummary RegisterUserValidationSummary;
+        protected global::System.Web.UI.WebControls.ValidationSummary TheatreValidationSummary;
         
         /// <summary>
         /// TheatreNameLabel control.
@@ -112,6 +112,15 @@ namespace MovieBooking.UI.Maintenance.Theatre {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
         /// TheatrePhoneNoLabel control.
         /// </summary>
         /// <remarks>
@@ -191,6 +200,15 @@ namespace MovieBooking.UI.Maintenance.Theatre {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        
+        /// <summary>
+        /// RegularExpressionValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
         
         /// <summary>
         /// TheatreWebSiteLabel control.

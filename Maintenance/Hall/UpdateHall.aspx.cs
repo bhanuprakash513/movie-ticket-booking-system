@@ -53,8 +53,16 @@ namespace MovieBooking.UI.Maintenance.Hall
             hal.Active = bool.Parse(this.cmbHallStatus.SelectedValue.ToString());
             hallRep.Update(hal);
             ErrorMessage.Text = "Updated Successfully";
+            ClearAll();
         }
 
+        protected void ClearAll()
+        {
+            cmbTheatreName.SelectedIndex = 0;
+            cmbHallName.SelectedIndex = 0;
+            HallName.Text = string.Empty;
+            TotalSeats.Text = string.Empty;
+        }
       
     }
 }
