@@ -59,8 +59,8 @@ namespace MovieBooking.BLL.Entities
         public TheatreRepository()
         {
             //cache = CacheFactory.GetCacheManager();
-            // Resolve the default ExceptionManager object from the container.
-            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+             //Resolve the default ExceptionManager object from the container.
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         public Theatre FindById(int id)
@@ -78,7 +78,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while getting Theatre " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -111,7 +112,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while creating new Theatre " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -130,7 +132,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while udpdating theatre " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 

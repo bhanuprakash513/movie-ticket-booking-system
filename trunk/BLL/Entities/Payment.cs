@@ -93,9 +93,9 @@ namespace MovieBooking.BLL.Entities
 
         public PaymentRepository()
         {
-            //cache = CacheFactory.GetCacheManager();
+            cache = CacheFactory.GetCacheManager();
             // Resolve the default ExceptionManager object from the container.
-            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         public Payment FindById(int id)
@@ -151,7 +151,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while payment is done " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
 
             return pm.ID;

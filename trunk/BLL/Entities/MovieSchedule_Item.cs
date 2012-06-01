@@ -49,69 +49,109 @@ namespace MovieBooking.BLL.Entities
         }
         public IEnumerable<MovieSchedule_Item> FindAll()
         {
-            IList<MovieSchedule_Item> _movies = null;
-            using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+            try
             {
-                var ts = from t in mbRep.FetchAll()
-                         select new MovieSchedule_Item(t);
-                _movies = ts.ToList<MovieSchedule_Item>();
+                IList<MovieSchedule_Item> _movies = null;
+                using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+                {
+                    var ts = from t in mbRep.FetchAll()
+                             select new MovieSchedule_Item(t);
+                    _movies = ts.ToList<MovieSchedule_Item>();
+                }
+                return _movies.AsEnumerable<MovieSchedule_Item>();
             }
-            return _movies.AsEnumerable<MovieSchedule_Item>();
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
         }
 
         public mb_MovieSchedule_Item FindbyId(int Id)
         {
-            mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
-            using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+            try
             {
-                th = mbRep.Single(u => u.ID == Id) as mb_MovieSchedule_Item;
+                mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
+                using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+                {
+                    th = mbRep.Single(u => u.ID == Id) as mb_MovieSchedule_Item;
+                }
+                return th;
             }
-            return th;
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
         }
 
 
         public int Insert(MovieSchedule_Item movie)
         {
-            mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
-            movie.CopyTo(th);
-            using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+            try
             {
-                mbRep.Add(th);
-                mbRep.SaveChanges();
+                mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
+                movie.CopyTo(th);
+                using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+                {
+                    mbRep.Add(th);
+                    mbRep.SaveChanges();
+                }
+                return th.ID;
             }
-            return th.ID;
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
         }
 
         public int Update(MovieSchedule_Item movie)
         {
-            mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
-            using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+            try
             {
-                th = mbRep.First(u => u.ID == movie.ID) as mb_MovieSchedule_Item;
-                movie.CopyTo(th);
-                mbRep.SaveChanges();
+                mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
+                using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+                {
+                    th = mbRep.First(u => u.ID == movie.ID) as mb_MovieSchedule_Item;
+                    movie.CopyTo(th);
+                    mbRep.SaveChanges();
+                }
+                return th.ID;
             }
-            return th.ID;
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
         }
 
         public bool Delete(MovieSchedule_Item movie)
         {
-            mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
-            using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+            try
             {
-                th = mbRep.First(u => u.ID == movie.ID) as mb_MovieSchedule_Item;
-                if (th != null)
+                mb_MovieSchedule_Item th = new mb_MovieSchedule_Item();
+                using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
                 {
-                    movie.CopyTo(th);
-                    mbRep.Delete(th);
-                    mbRep.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                    th = mbRep.First(u => u.ID == movie.ID) as mb_MovieSchedule_Item;
+                    if (th != null)
+                    {
+                        movie.CopyTo(th);
+                        mbRep.Delete(th);
+                        mbRep.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
 
+                }
+            }
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -132,7 +172,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while getting Movie Schedule Item " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -152,7 +193,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while getting Movie Schedule Item " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
     }

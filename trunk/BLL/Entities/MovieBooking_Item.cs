@@ -5,6 +5,8 @@ using System.Text;
 using MovieBooking.Model.Entities;
 using MovieBooking.DLL.Entities;
 using System.Transactions;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 
 namespace MovieBooking.BLL.Entities
 {
@@ -43,10 +45,13 @@ namespace MovieBooking.BLL.Entities
     public class BookingItemRepository : IBookingItemRepository
     {
         private IRepository<mb_MovieBooking_Item> context;
+        ExceptionManager exManager; 
 
         public BookingItemRepository()
         {
             this.context = new MovieBookingRepository<mb_MovieBooking_Item>();
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            
         }
 
         public List<BookingItem> GetMovieBookingItems(Booking booking)
@@ -65,7 +70,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while getting Movie Booking Items " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -101,7 +107,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while creating booking " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
 
         }

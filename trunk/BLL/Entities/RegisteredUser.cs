@@ -119,7 +119,7 @@ namespace MovieBooking.BLL.Entities
         public RegisteredUserRepository()
         {
             // Resolve the default ExceptionManager object from the container.
-            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         #endregion
