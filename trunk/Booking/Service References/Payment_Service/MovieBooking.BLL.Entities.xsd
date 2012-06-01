@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MovieBooking.BLL.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MovieBooking.BLL.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/MovieBooking.Model.Entities" />
+  <xs:complexType name="Payment">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/MovieBooking.Model.Entities" base="q1:mb_Payment">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CardExpiry" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ID" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Payment" nillable="true" type="tns:Payment" />
+</xs:schema>
