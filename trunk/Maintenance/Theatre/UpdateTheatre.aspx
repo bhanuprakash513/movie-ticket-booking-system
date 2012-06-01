@@ -84,9 +84,6 @@ Theatre Maintenance
             <asp:Button ID="btnAdd" runat="server" Text="Update" 
                 CausesValidation="true" ValidationGroup="TheatreValidationGroup" 
                 onclick="btnAdd_Click" /> &nbsp;&nbsp;
-            <asp:Button ID="btnDelete" runat="server" Text="Delete" 
-                CausesValidation="true" ValidationGroup="TheatreValidationGroup" onclick="btnDelete_Click" 
-               />
         </p>
         <br />
     </fieldset>
