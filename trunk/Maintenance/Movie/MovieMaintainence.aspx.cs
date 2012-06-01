@@ -39,7 +39,7 @@ namespace MovieBooking.UI.Maintenance.Movie
             {
                 LangID = 2;
             }
-            if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
+            else if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
             {
                 LangID = 3;
             }
@@ -97,6 +97,12 @@ namespace MovieBooking.UI.Maintenance.Movie
                Description = this.txtCast3.Text
            };
             newMovieItem.Insert(movieItem2);
+            ErrorMessage.Text = "Inserted Successfully";
+            //string StrScript = ("<script>alert('Updated successfully')</script>");
+            //if (!Page.IsStartupScriptRegistered("clientScript"))
+            //{
+            //    Page.RegisterStartupScript("clientScript", StrScript);
+            //}
         }
     }
 }
