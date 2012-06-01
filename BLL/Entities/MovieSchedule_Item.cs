@@ -12,6 +12,9 @@ namespace MovieBooking.BLL.Entities
 {
     public partial class MovieSchedule_Item : mb_MovieSchedule_Item
     {
+        public MovieSchedule_Item()
+        {
+        }
          public MovieSchedule_Item(mb_MovieSchedule_Item _mb_schedule_item)
         {
             ID = _mb_schedule_item.ID;

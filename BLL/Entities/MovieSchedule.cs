@@ -16,6 +16,9 @@ namespace MovieBooking.BLL.Entities
     {
         public List<MovieSchedule_Item> items;
         public Hall hall;
+        public MovieSchedule()
+        {
+        }
         public MovieSchedule(mb_MovieSchedule _mb_schedule)
         {
             ID = _mb_schedule.ID;
