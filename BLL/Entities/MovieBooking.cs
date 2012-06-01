@@ -46,6 +46,7 @@ namespace MovieBooking.BLL.Entities
         List<Booking> GetMovieBookingsForCustomer(Guid memberId);
         Booking CreateBooking(Movie movie, RegisteredUser user, MovieSchedule schedule, List<BookingItem> items, Payment payment );
         Booking CreateBooking(int schedule_id, List<string> selected_seats, Payment payment, RegisteredUser user);
+        Booking CreateBooking(int schedule_id, List<string> selected_seats, RegisteredUser user);
         int CancelBooking(int booking_id);
     }
 
@@ -225,8 +226,9 @@ namespace MovieBooking.BLL.Entities
         public Booking CreateBooking(int schedule_id, List<string> selected_seats, Payment payment, RegisteredUser user)
         {
             Booking booking = null;
-            
-            try{
+
+            try
+            {
                 using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
                 {
                     // Define a transaction scope for the operations.
@@ -244,7 +246,8 @@ namespace MovieBooking.BLL.Entities
 
                         List<BookingItem> bookingItems = new List<BookingItem>();
                         //Set booking items in booking
-                        foreach(string seat in selected_seats){
+                        foreach (string seat in selected_seats)
+                        {
                             mb_MovieBooking_Item item = new mb_MovieBooking_Item();
                             BookingItem bItem = new BookingItem();
                             bItem.SeatNo = seat;
@@ -266,23 +269,101 @@ namespace MovieBooking.BLL.Entities
                         _booking.StatusID = "1"; // 1- Successfull booking 0 - cancelled
                         mbRep.Add(_booking);
                         mbRep.SaveChanges();
-                        
 
-                        booking =  new Booking(_booking);     
-                        booking.bookingItems = bookingItems;                        
 
-                        payment.MovieBookingID= _booking.ID;
+                        booking = new Booking(_booking);
+                        booking.bookingItems = bookingItems;
+
+                        payment.MovieBookingID = _booking.ID;
                         PaymentRepository paymentRepo = new PaymentRepository();
                         //int id = paymentRepo.CreatePayment(34, "CreditCard", DateTime.Now, "1234123412341234", "01/12", "Subramanian.S", "232", Decimal.Parse("23.000"), float.Parse("7.00"));
                         //Payment _pm = paymentRepo.CreatePayment(payment.MovieBookingID, payment.PaymentModeID.ToString(), payment.PaymentDate, payment.CreditCardNo.ToString(), payment.CardExpiry.ToString(), payment.CardHolderName.ToString(), payment.CCV.ToString(), Decimal.Parse(payment.TotalAmount.ToString()), float.Parse(payment.GSTPercent.ToString()));
                         int _pm = paymentRepo.Insert(payment);
-                       
+
                         //Save the transaction if the payment is successfull.
                         if (_pm > 0)
                         {
-                            booking.payment = paymentRepo.FindById(_pm);                            
+                            booking.payment = paymentRepo.FindById(_pm);
                             scope.Complete();
                         }
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+
+            return booking;
+        }
+
+        public Booking CreateBooking(int schedule_id, List<string> selected_seats, RegisteredUser user)
+        {
+            Booking booking = null;
+
+            try
+            {
+                using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+                {
+                    // Define a transaction scope for the operations.
+                    TransactionOptions options = new TransactionOptions
+                    {
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted,
+                        Timeout = TransactionManager.DefaultTimeout
+                    };
+
+                    using (var scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
+                    {
+
+                        mb_MovieBooking _booking = new mb_MovieBooking();
+                        List<mb_MovieBooking_Item> items = new List<mb_MovieBooking_Item>();
+
+                        List<BookingItem> bookingItems = new List<BookingItem>();
+                        //Set booking items in booking
+                        foreach (string seat in selected_seats)
+                        {
+                            mb_MovieBooking_Item item = new mb_MovieBooking_Item();
+                            BookingItem bItem = new BookingItem();
+                            bItem.SeatNo = seat;
+                            item.SeatNo = seat;
+                            items.Add(item);
+                            bookingItems.Add(bItem);
+                        }
+                        _booking.mb_MovieBooking_Item = items;
+
+                        _booking.ScheduleID = schedule_id;
+
+                        //Registered user foreign key
+                        //mb_RegisteredUser _user = new mb_RegisteredUser();
+                        //user.CopyTo(_user);
+                        _booking.MemberID = user.UserId;
+
+                        _booking.BookingDate = DateTime.Now;
+                        _booking.BookingRef = "1223";  // We dont really use this Booking Reference. Can be done to generate a random number, which i dont want to do.
+                        _booking.StatusID = "1"; // 1- Successfull booking 0 - cancelled
+                        mbRep.Add(_booking);
+                        mbRep.SaveChanges();
+
+
+                        booking = new Booking(_booking);
+                        booking.bookingItems = bookingItems;
+                        scope.Complete();
+
+
+                        //payment.MovieBookingID = _booking.ID;
+                        //PaymentRepository paymentRepo = new PaymentRepository();
+                        ////int id = paymentRepo.CreatePayment(34, "CreditCard", DateTime.Now, "1234123412341234", "01/12", "Subramanian.S", "232", Decimal.Parse("23.000"), float.Parse("7.00"));
+                        ////Payment _pm = paymentRepo.CreatePayment(payment.MovieBookingID, payment.PaymentModeID.ToString(), payment.PaymentDate, payment.CreditCardNo.ToString(), payment.CardExpiry.ToString(), payment.CardHolderName.ToString(), payment.CCV.ToString(), Decimal.Parse(payment.TotalAmount.ToString()), float.Parse(payment.GSTPercent.ToString()));
+                        //int _pm = paymentRepo.Insert(payment);
+
+                        ////Save the transaction if the payment is successfull.
+                        //if (_pm > 0)
+                        //{
+                        //    booking.payment = paymentRepo.FindById(_pm);
+                        //    scope.Complete();
+                        //}
                     }
 
                 }

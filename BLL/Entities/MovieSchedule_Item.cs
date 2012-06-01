@@ -43,7 +43,7 @@ namespace MovieBooking.BLL.Entities
 
         public MovieScheduleItemRepository()
         {
-            cache = CacheFactory.GetCacheManager();
+            //cache = CacheFactory.GetCacheManager();
             // Resolve the default ExceptionManager object from the container.
             exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
