@@ -6,6 +6,7 @@ using MovieBooking.DAL;
 using MovieBooking.DLL.Entities;
 using MovieBooking.Model.Entities;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
+using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using Microsoft.Practices.EnterpriseLibrary.Caching;
 using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
 
@@ -14,8 +15,28 @@ namespace MovieBooking.BLL.Entities
 
     public partial class Theatre : mb_Theatre
     {
+
+        #region Primitive Properties
+            
+
         public int ID { get; private set; }
 
+        [NotNullValidator(MessageTemplate = "Theatre Name - Cannot be null!")]
+        public override string Name { get; set;}
+
+        public override string Address { get; set; }
+        public override string Email { get; set; }
+        public override string FaxNo { get; set; }
+        public override string PhoneNo { get; set; }
+        public override string PostalCode { get; set; }
+        public override string WebSite { get; set; }
+        
+        
+             //Email
+             //   FaxNo 
+             //   PhoneNo 
+             //   PostalCode 
+             //   WebSite 
         #region ctor and copyTo methods
 
         public Theatre() { }
@@ -46,6 +67,8 @@ namespace MovieBooking.BLL.Entities
             mbTh.WebSite = WebSite;
             mbTh.mb_MovieSchedule = mb_MovieSchedule;
         }
+
+        #endregion
 
         #endregion
     }
@@ -98,15 +121,18 @@ namespace MovieBooking.BLL.Entities
 
         public int Insert(Theatre theatre)
         {
+
             mb_Theatre th = new mb_Theatre();
             try
             {
                 theatre.CopyTo(th);
                 using (IRepository<mb_Theatre> mbRep = new MovieBookingRepository<mb_Theatre>())
                 {
-                    mbRep.Add(th);
-
-                    mbRep.SaveChanges();
+                    if (mbRep.IsValid(theatre as Theatre))
+                    {
+                        mbRep.Add(th);
+                        mbRep.SaveChanges();
+                    }
                 }
                 return th.ID;
             }
