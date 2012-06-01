@@ -27,7 +27,7 @@ namespace MovieBooking.BLL.Entities
             genre = MovieDet.genre;
             Active = MovieDet.Active;
             CastDescription = MovieDet.CastDescription;            
-            mb_Movie_Item = MovieDet.mb_Movie_Item;
+            //mb_Movie_Item = MovieDet.mb_Movie_Item;
          
 
             //mb_Movie_Item = MovieDet.mb_Movie_Item;

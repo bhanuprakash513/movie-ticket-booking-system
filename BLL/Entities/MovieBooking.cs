@@ -52,10 +52,13 @@ namespace MovieBooking.BLL.Entities
     public class BookingRepository : IBookingRepository
     {
         private IRepository<mb_MovieBooking> context;
+        ExceptionManager exManager; 
+                    
 
         public BookingRepository()
         {
             this.context = new MovieBookingRepository<mb_MovieBooking>();
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         public List<Booking> GetMovieBookings()
@@ -82,7 +85,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while getting Movie Bookings " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -112,7 +116,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while getting Movie Bookings for customer " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -148,7 +153,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while getting Movie Bookings for customer " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
@@ -210,7 +216,8 @@ namespace MovieBooking.BLL.Entities
                 }
             }catch(Exception ex){
 
-                    throw new Exception("Error occured while creating new Booking " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
                 }
 
             }
@@ -282,7 +289,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while creating new Booking " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
 
             return booking;
@@ -325,7 +333,8 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                throw new Exception("Error occured while cancelling Booking " + ex.Message);
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
             }
         }
 
