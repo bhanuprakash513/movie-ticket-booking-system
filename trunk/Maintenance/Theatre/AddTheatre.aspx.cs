@@ -32,7 +32,19 @@ namespace MovieBooking.UI.Maintenance.Theatre
             TheatreRepository theatreRep = new TheatreRepository();
             theatreRep.Insert(theatre);
             ErrorMessage.Text = "Updated Successfully";
+            ClearAll();
             //theatre.InsertTheatre();
+        }
+
+        protected void ClearAll()
+        {
+            TheatreName.Text = string.Empty;
+            TheatreAddress.Text = string.Empty;
+            TheatreEmail.Text = string.Empty;
+            TheatreFaxNo.Text = string.Empty;
+            TheatrePhoneNo.Text = string.Empty;
+            TheatrePostalCode.Text = string.Empty;
+            TheatreWebSiteAddress.Text = string.Empty;
         }
 
         

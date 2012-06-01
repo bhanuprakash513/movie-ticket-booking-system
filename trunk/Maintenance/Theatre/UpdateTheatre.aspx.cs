@@ -47,14 +47,22 @@ namespace MovieBooking.UI.Maintenance.Theatre
             theatr.PhoneNo = this.TheatrePhoneNo.Text.ToString();
             theatr.PostalCode = this.TheatrePostalCode.Text.ToString();
             theatr.WebSite = this.TheatreWebSiteAddress.Text.ToString();
-
             theatreRep.Update(theatr);
             ErrorMessage.Text = "Updated Successfully";
+            ClearAll();
+         }
+
+         protected void ClearAll()
+         {
+            cmbTheatreName.SelectedIndex = 0;
+            TheatreAddress.Text = string.Empty;
+            TheatreEmail.Text = string.Empty;
+            TheatreFaxNo.Text = string.Empty;
+            TheatrePhoneNo.Text = string.Empty;
+            TheatrePostalCode.Text = string.Empty;
+            TheatreWebSiteAddress.Text = string.Empty;
         }
 
-        protected void btnDelete_Click(object sender, EventArgs e)
-        {
-
-        }
+      
     }
 }

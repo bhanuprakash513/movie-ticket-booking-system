@@ -29,16 +29,59 @@
         }
         .style15
         {
-            width: 283px;
+            width: 312px;
         }
         .style16
         {
             height: 21px;
-            width: 283px;
+            width: 312px;
+        }
+        .style17
+        {
+            width: 116px;
+            height: 41px;
+        }
+        .style18
+        {
+            width: 312px;
+            height: 41px;
+        }
+        .style19
+        {
+            width: 264px;
+            height: 41px;
+        }
+        .style20
+        {
+            height: 41px;
+        }
+        .style21
+        {
+            width: 116px;
+            height: 40px;
+        }
+        .style22
+        {
+            width: 312px;
+            height: 40px;
+        }
+        .style23
+        {
+            width: 264px;
+            height: 40px;
+        }
+        .style24
+        {
+            height: 40px;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<span class="failureNotification">
+    <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
+</span>
+<asp:ValidationSummary ID="RegisterUserValidationSummary" runat="server" CssClass="failureNotification" 
+        ValidationGroup="RegisterUserValidationGroup"/>
     <div class="accountInfo">
     <fieldset class="register">
         <legend>Movie Schedule -> Add</legend>
@@ -48,7 +91,7 @@
                 <asp:Label ID="lblMovName" runat="server" Text="Movie Name"></asp:Label>
             </td>
             <td class="style15">
-                <asp:DropDownList ID="ComboMovName" runat="server" 
+                <asp:DropDownList ID="ComboMovName" runat="server" Width="300px" 
                     DataSourceID="ObsMovie" DataTextField="MovieName" 
                     DataValueField="ID">
                 </asp:DropDownList>
@@ -65,7 +108,7 @@
                 <asp:Label ID="LblTheatreName" runat="server" Text="Theatre Name"></asp:Label>
             </td>
             <td class="style15">
-                <asp:DropDownList ID="ComboTheatreName" runat="server" 
+                <asp:DropDownList ID="ComboTheatreName" runat="server" Width="300px" 
                     DataSourceID="obsTheatre" DataTextField="Name" DataValueField="ID">
                 </asp:DropDownList>
                 <asp:ObjectDataSource ID="obsTheatre" runat="server" SelectMethod="FindAll" 
@@ -82,9 +125,18 @@
                 <asp:Label ID="LblHallNAme" runat="server" Text="Hall Name"></asp:Label>
             </td>
             <td class="style15">
-                <asp:DropDownList ID="CombohallName" runat="server" 
+                <asp:DropDownList ID="CombohallName" runat="server" DataSourceID="Ods_Hall" Width="200px"
+                    DataTextField="HallName" DataValueField="ID" 
                     >
                 </asp:DropDownList>
+                <asp:ObjectDataSource ID="Ods_Hall" runat="server" 
+                    SelectMethod="FindByTheatreId" 
+                    TypeName="MovieBooking.BLL.Entities.HallRepository">
+                    <SelectParameters>
+                        <asp:ControlParameter ControlID="ComboTheatreName" DefaultValue="Select..." 
+                            Name="theatreId" PropertyName="SelectedValue" Type="Int32" />
+                    </SelectParameters>
+                </asp:ObjectDataSource>
             </td>
             <td class="style11">
                 &nbsp;</td>
@@ -109,7 +161,7 @@
                 <asp:Label ID="lblFromdate" runat="server" Text="From Date"></asp:Label>
             &nbsp;<asp:TextBox ID="TxtFromdate" runat="server" Width="97px"></asp:TextBox>
                <asp:ImageButton ID="ImageButton2" runat="server" Height="22px" 
-                    ImageUrl="images/calendar.png" onclick="ImageButton1_Click" />
+                    ImageUrl="Images/calendar.gif" onclick="ImageButton1_Click" />
                 <asp:Calendar ID="Calendar1" runat="server" 
                     onselectionchanged="Calendar1_SelectionChanged" Visible="False">
                 </asp:Calendar>
@@ -119,10 +171,10 @@
                 <asp:TextBox ID="TxtTodate" runat="server" style="margin-left: 13px" 
                     Width="96px"></asp:TextBox>
                 <asp:ImageButton ID="ImageButton1" runat="server" Height="16px" 
-                    ImageUrl="images/calendar.png" onclick="ImageButton2_Click" Width="16px" />
+                    ImageUrl="Images/calendar.gif" onclick="ImageButton2_Click" Width="16px" />
                 <asp:Calendar ID="Calendar2" runat="server" 
                     onselectionchanged="Calendar2_SelectionChanged" Visible="False" 
-                    style="margin-right: 11px" Width="232px">
+                    style="margin-right: 11px; margin-left: 6px;" Width="232px">
                 </asp:Calendar>
             </td>
             <td>
@@ -172,31 +224,31 @@
         </td>
         </tr>
         <tr>
-            <td class="style13">
+            <td class="style17">
                 <asp:Label ID="LblPrice" runat="server" Text="Price"></asp:Label>
             </td>
-            <td class="style15">
+            <td class="style18">
                 <asp:TextBox ID="TxtPrice" runat="server"></asp:TextBox>
             </td>
-            <td class="style11">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
+            <td class="style19">
+                </td>
+            <td class="style20">
+                </td>
         </tr>
         <tr>
-            <td class="style13">
+            <td class="style21">
                 <asp:Label ID="LblActive" runat="server" Text="Active"></asp:Label>
             </td>
-            <td class="style15">
+            <td class="style22">
                 <asp:DropDownList ID="ComboActive" runat="server">
                     <asp:ListItem>True</asp:ListItem>
                     <asp:ListItem>False</asp:ListItem>
                 </asp:DropDownList>
             </td>
-            <td class="style11">
-                &nbsp;</td>
-            <td>
-                &nbsp;</td>
+            <td class="style23">
+                </td>
+            <td class="style24">
+                </td>
         </tr>
         <tr>
             <td class="style13">
