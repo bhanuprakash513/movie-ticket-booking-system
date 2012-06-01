@@ -58,7 +58,11 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-
+<span class="failureNotification">
+    <asp:Literal ID="Literal1" runat="server"></asp:Literal>
+</span>
+<asp:ValidationSummary ID="RegisterUserValidationSummary" runat="server" CssClass="failureNotification" 
+        ValidationGroup="RegisterUserValidationGroup"/>
 <div class="accountInfo">
     <fieldset class="register">
         <legend>Movie Maintenance -> Update</legend>

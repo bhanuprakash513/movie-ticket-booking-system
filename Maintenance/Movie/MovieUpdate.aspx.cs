@@ -76,7 +76,7 @@ namespace MovieBooking.UI.Maintenance.Movie
             {
                 LangID = 2;
             }
-            if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
+            else if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
             {
                 LangID = 3;
             }
@@ -145,6 +145,7 @@ namespace MovieBooking.UI.Maintenance.Movie
 
             };
             newMovieItem.Update(movieItem2);
+            ErrorMessage.Text = "Updated Successfully";
 
         }
         private void ClearFields()
@@ -241,6 +242,7 @@ namespace MovieBooking.UI.Maintenance.Movie
             if (ret)
             {
                 ClearFields();
+                ErrorMessage.Text = "Deleted Successfully";
             }
         }
 
