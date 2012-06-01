@@ -33,7 +33,14 @@
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
                         <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
+                        <asp:MenuItem Text="Theatre">
                         <asp:MenuItem NavigateUrl="~/Theatre/AddTheatre.aspx" Text="Add Theatre"/>
+                        <asp:MenuItem NavigateUrl="~/Theatre/UpdateTheatre.aspx" Text="Update Theatre"/>
+                        </asp:MenuItem>
+                          <asp:MenuItem Text="Hall">
+                        <asp:MenuItem NavigateUrl="~/Hall/AddHall.aspx" Text="Add Hall"/>
+                        <asp:MenuItem NavigateUrl="~/Hall/UpdateHall.aspx" Text="Update Hall"/>
+                        </asp:MenuItem>
                         <asp:MenuItem Text="Movie">
                         <asp:MenuItem NavigateUrl="~/Movie/MovieMaintainence.aspx" Text="Add New Movie"/>
                          <asp:MenuItem NavigateUrl="~/Movie/MovieUpdate.aspx" Text="Movie update"/>
