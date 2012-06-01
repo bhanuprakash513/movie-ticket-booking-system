@@ -72,6 +72,7 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Hall\AddHall.aspx" />
     <Content Include="Hall\UpdateHall.aspx" />
+    <Content Include="Images\calendar.gif" />
     <Content Include="Movie\MovieUpdate.aspx" />
     <Content Include="Movie\MovieMaintainence.aspx" />
     <None Include="Service References\PaymentService\MovieBooking.BLL.Entities.xsd">
@@ -105,6 +106,8 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Schedule\MovieScheduleAdd.aspx" />
+    <Content Include="Schedule\MovieScheduleUpdate.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -198,6 +201,20 @@
       <DependentUpon>MovieMaintainence.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule\MovieScheduleAdd.aspx.cs">
+      <DependentUpon>MovieScheduleAdd.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Schedule\MovieScheduleAdd.aspx.designer.cs">
+      <DependentUpon>MovieScheduleAdd.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule\MovieScheduleUpdate.aspx.cs">
+      <DependentUpon>MovieScheduleUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Schedule\MovieScheduleUpdate.aspx.designer.cs">
+      <DependentUpon>MovieScheduleUpdate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Service References\PaymentService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,7 +249,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Schedule\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
