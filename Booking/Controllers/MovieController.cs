@@ -200,7 +200,43 @@ namespace MovieBooking.MVC.UI.Controllers
                     }
 
                     RegisteredUser user = repo3.FindById(new Guid(_user.ProviderUserKey.ToString()));
-                    Booking booking = bookingRepo.CreateBooking(schedule_id, selected_seats, payment, user);
+                    Booking booking = bookingRepo.CreateBooking(schedule_id, selected_seats, user);
+
+                    if (booking != null)
+                    {
+                        if (booking.ID > 0)
+                        {
+                            PaymentRepository paymentRepo = new PaymentRepository();
+                            payment.MovieBookingID = booking.ID;
+
+                            // Call payment Repository directly. Use this if the service is not available
+                            //int _status = paymentRepo.Insert(payment);
+
+                            //Tests to consume net.Tcp binding services                            
+                            using (Payment_Service.PaymentServiceClient client = new Payment_Service.PaymentServiceClient())
+                            {
+                                Payment_Service.Payment pay = new Payment_Service.Payment();
+
+                                pay.CardExpiry = payment.CardExpiry;
+                                pay.CardHolderName = payment.CardHolderName;
+                                pay.CCV = payment.CCV;
+                                pay.CreditCardNo = payment.CreditCardNo;
+                                pay.GSTPercent = payment.GSTPercent;
+                                pay.MovieBookingID = payment.MovieBookingID;
+                                pay.PaymentDate = payment.PaymentDate;
+                                pay.PaymentModeID = payment.PaymentModeID;
+                                pay.TotalAmount = payment.TotalAmount;
+                                int id = client.Insert(pay);
+                                //Save the transaction if the payment is successfull.
+                                if (id > 0)
+                                {
+                                    booking.payment = paymentRepo.FindById(id);
+                                }
+                            }                          
+
+                        }
+                         
+                    }
 
                     TempData["booking"] = booking;
                     return RedirectToAction("PrintTicket");
