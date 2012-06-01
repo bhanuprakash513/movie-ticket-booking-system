@@ -21,6 +21,74 @@ namespace MovieBooking.BLL.Entities
         [DataMember]
         public int ID { get; set; }
 
+        [DataMember]
+        public override int MovieBookingID
+        {
+            get { return _movieBookingID; }
+            set
+            {
+                if (_movieBookingID != value)
+                {
+                    if (mb_MovieBooking != null && mb_MovieBooking.ID != value)
+                    {
+                        mb_MovieBooking = null;
+                    }
+                    _movieBookingID = value;
+                }
+            }
+        }
+        private int _movieBookingID;
+
+        [DataMember]
+        public override string PaymentModeID
+        {
+            get;
+            set;
+        }
+
+         [DataMember]
+        public override System.DateTime PaymentDate
+        {
+            get;
+            set;
+        }
+
+         [DataMember]
+        public override string CreditCardNo
+        {
+            get;
+            set;
+        }
+
+         [DataMember]
+        public virtual string CardExpiry
+        {
+            get;
+            set;
+        }
+
+         [DataMember]
+        public override string CCV
+        {
+            get;
+            set;
+        }
+
+         [DataMember]
+        public override decimal TotalAmount
+        {
+            get;
+            set;
+        }
+
+         [DataMember]
+        public override double GSTPercent
+        {
+            get;
+            set;
+        }
+
+
         [NotNullValidator(MessageTemplate = "CardHolder Name - Cannot be null!")]
         [StringLengthValidator(5, RangeBoundaryType.Inclusive, 25, RangeBoundaryType.Inclusive, MessageTemplate = "CardHolder Name should be atleast 5 charachters long and not exceeding 25 characters")]
         public override string CardHolderName
@@ -83,6 +151,7 @@ namespace MovieBooking.BLL.Entities
         //Payment GetPayment(int id);
         //int CreatePayment(int movieBookingID, string paymentModeID, DateTime paymentDate, string cardNo, string cardExpiry, string cardHolderName, string ccv, float money, float gst);
         int CreatePayment(Payment pm);
+        int Insert(Payment pm);
     }
 
     public class PaymentRepository
@@ -93,7 +162,7 @@ namespace MovieBooking.BLL.Entities
 
         public PaymentRepository()
         {
-            cache = CacheFactory.GetCacheManager();
+            //cache = CacheFactory.GetCacheManager();
             // Resolve the default ExceptionManager object from the container.
             exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
@@ -134,17 +203,17 @@ namespace MovieBooking.BLL.Entities
             //pm.CCV = ccv;
             //pm.TotalAmount = totalAmount;
             //pm.GSTPercent = gst;
+              int status = -1;
             try
             {
                 mb_Payment mbPm = new mb_Payment();
                 pm.CopyTo(mbPm);
-                int status = -1;
+              
                 using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
                 {
                         mbRep.Add(mbPm);
                         mbRep.SaveChanges();
                         status = mbPm.ID;
-                        pm.ID = mbPm.ID;
                         
                 }
 
@@ -155,7 +224,7 @@ namespace MovieBooking.BLL.Entities
                 throw ex;
             }
 
-            return pm.ID;
+            return status;
         }
 
         //public int Update(Theatre theatre)
