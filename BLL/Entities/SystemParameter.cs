@@ -54,9 +54,9 @@ namespace MovieBooking.BLL.Entities
 
         public SystemParameterRepository()
         {
-            //cache = CacheFactory.GetCacheManager();
-            //// Resolve the default ExceptionManager object from the container.
-            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            cache = CacheFactory.GetCacheManager();
+            // Resolve the default ExceptionManager object from the container.
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         public IEnumerable<SystemParameter> GetSystemParameters(string category)
