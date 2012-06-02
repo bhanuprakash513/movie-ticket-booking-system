@@ -13,6 +13,8 @@ namespace MovieBooking.BLL.Entities
     public partial class Movie : mb_Movie
     {
         public int ID { get; set; }
+    
+
         public Movie()
         {
         }
@@ -26,9 +28,9 @@ namespace MovieBooking.BLL.Entities
             RunningDuration = MovieDet.RunningDuration;
             genre = MovieDet.genre;
             Active = MovieDet.Active;
-            CastDescription = MovieDet.CastDescription;            
-            //mb_Movie_Item = MovieDet.mb_Movie_Item;
-         
+            CastDescription = MovieDet.CastDescription;
+            mb_Movie_Item = MovieDet.mb_Movie_Item;
+
 
             //mb_Movie_Item = MovieDet.mb_Movie_Item;
             //mb_MovieSchedule = MovieDet.mb_MovieSchedule;
