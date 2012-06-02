@@ -19,7 +19,7 @@ namespace MovieBooking.BLL.Entities
     public partial class Payment : mb_Payment
     {
         [DataMember]
-        public int ID { get; set; }
+        public override int ID { get; set; }
 
         [DataMember]
         public override int MovieBookingID
@@ -61,7 +61,7 @@ namespace MovieBooking.BLL.Entities
         }
 
         [DataMember]
-        public virtual string CardExpiry
+        public override string CardExpiry
         {
             get;
             set;
