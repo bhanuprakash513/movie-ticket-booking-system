@@ -14,31 +14,41 @@ namespace MovieBooking.UI.Maintenance.Schedule
         {
 
         }
-        protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
+     
+        private bool Validation(int MovieID, int TheatreID, int HallID, DateTime StartDate)
         {
-            Calendar1.Visible = true;
-        }
+            bool val = false;
+            MovieScheduleRepository Moviesch = new MovieScheduleRepository();
 
-        protected void Calendar1_SelectionChanged(object sender, EventArgs e)
-        {
-            TxtFromdate.Text = Calendar1.SelectedDate.ToShortDateString();
-            Calendar1.Visible = false;
-        }
-        protected void ImageButton2_Click(object sender, ImageClickEventArgs e)
-        {
-            Calendar2.Visible = true;
-        }
+                bool ret = Moviesch.FindbyValues(MovieID, TheatreID, HallID, StartDate);
+                if (!ret)
+                {
+                    ErrorMessage.Text = "Update/Delete Cannot be done";
 
-        protected void Calendar2_SelectionChanged(object sender, EventArgs e)
+                }
+                else
+                {
+                     val=true;
+                }
+            return val;
+
+
+
+        }
+        private void ClearFields()
         {
-            TxtTodate.Text = Calendar2.SelectedDate.ToShortDateString();
-            Calendar2.Visible = false;
+            this.Combotime1.SelectedIndex = 0;
+            this.Combotime2.SelectedIndex = 0;
+            this.Combotime3.SelectedIndex = 0;
+            this.Combotime4.SelectedIndex = 0;
+            txtPrice.Text = string.Empty;
+            this.ComboActive.SelectedIndex = 0;
         }
         private List<DateTime> GetDateRange(DateTime StartingDate, DateTime EndingDate)
         {
             if (StartingDate > EndingDate)
             {
-                return null;
+                ErrorMessage.Text = "Start Date should be less than End Date";
             }
             List<DateTime> rv = new List<DateTime>();
             DateTime tmpDate = StartingDate;
@@ -50,136 +60,157 @@ namespace MovieBooking.UI.Maintenance.Schedule
             return rv;
         }
         protected void Btnupdate_Click(object sender, EventArgs e)
-        {
-            DateTime StartDate = Convert.ToDateTime(this.TxtFromdate.Text);
-            DateTime EndDate = Convert.ToDateTime(this.TxtTodate.Text);
-            List<DateTime> Dates = GetDateRange(StartDate, EndDate);
-            if (Dates == null)
+        { 
+            int MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue);
+            int TheatreID= Convert.ToInt32(this.ComboTheatreName.SelectedValue);
+            int HallId = Convert.ToInt32(this.ComboHallName.SelectedValue);           
+            bool Active = Convert.ToBoolean(this.ComboActive.SelectedValue);
+            DateTime schDate = Convert.ToDateTime(this.TxtSchDate.Text);
+            bool val = Validation(MovieID, TheatreID, HallId, schDate);
+            if (val)
             {
+                
 
+                        MovieScheduleRepository movieSchedule = new MovieScheduleRepository();
+                        int MovieId = Convert.ToInt32(this.ComboMovName.SelectedValue);
+                        int TheatreId = Convert.ToInt32(this.ComboTheatreName.SelectedValue);
+                        int HallID = Convert.ToInt32(this.ComboHallName.SelectedValue);
+                        int ScheduleId = movieSchedule.FindScheduleId(MovieId, TheatreId, HallID, schDate);
+                        MovieBooking.BLL.Entities.MovieSchedule movie = new MovieBooking.BLL.Entities.MovieSchedule()
+                        {
+                            ID = ScheduleId,
+                            MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue),
+                            TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue),
+                            HallID = Convert.ToInt32(this.ComboHallName.SelectedValue),
+                            Price = Convert.ToDecimal(txtPrice.Text),
+                            ScheduleDate = schDate,
+                            Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
+
+                        };
+                        MovieScheduleRepository newMovieSchedule = new MovieScheduleRepository();
+                        newMovieSchedule.Update(movie);
+                        MovieScheduleItemRepository newScheduleItem = new MovieScheduleItemRepository();
+                        var MovieSchItem = newScheduleItem.findIdbyTimeslot(ScheduleId);
+                        List<MovieBooking.BLL.Entities.MovieSchedule_Item> MovitemId = (List<MovieBooking.BLL.Entities.MovieSchedule_Item>)MovieSchItem;
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[0].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime1.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Update(movieScheduleItem);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem2 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[1].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime2.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Update(movieScheduleItem2);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem3 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[2].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime3.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Update(movieScheduleItem3);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem4 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[3].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime4.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Update(movieScheduleItem4);
+                        ErrorMessage.Text = "Updated Successfully";
+                    
+               
             }
             else
             {
-                for (int i = 0; i < Dates.Count(); i++)
-                {
-                    MovieScheduleRepository movieSchedule = new MovieScheduleRepository();
-                    int MovieId = Convert.ToInt32(this.ComboMovName.SelectedValue);
-                    int TheatreId = Convert.ToInt32(this.ComboTheatreName.SelectedValue);
-                    int HallID = Convert.ToInt32(this.ComboHallName.SelectedValue);
-                    int ScheduleId = movieSchedule.FindScheduleId(MovieId, TheatreId, HallID);
-                    MovieBooking.BLL.Entities.MovieSchedule movie = new MovieBooking.BLL.Entities.MovieSchedule()
-                    {
-                        ID = ScheduleId,
-                        MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue),
-                        TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue),
-                        HallID = Convert.ToInt32(this.ComboHallName.SelectedValue),
-                        Price = Convert.ToDecimal(txtPrice.Text),
-                        ScheduleDate = Dates[i],
-                        Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
-
-                    };
-                    MovieScheduleRepository newMovieSchedule = new MovieScheduleRepository();
-                    newMovieSchedule.Update(movie);
-                    MovieScheduleItemRepository newScheduleItem = new MovieScheduleItemRepository();
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime1.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Update(movieScheduleItem);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem2 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime2.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Update(movieScheduleItem2);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem3 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime3.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Update(movieScheduleItem3);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem4 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime4.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Update(movieScheduleItem4);
-                    ErrorMessage.Text = "Updated Successfully";
-                }
+                ErrorMessage.Text = "No Data Found. Cannot be Updated";
             }
 
         }
 
         protected void Btndelete_Click(object sender, EventArgs e)
         {
-            DateTime StartDate = Convert.ToDateTime(this.TxtFromdate.Text);
-            DateTime EndDate = Convert.ToDateTime(this.TxtTodate.Text);
-            List<DateTime> Dates = GetDateRange(StartDate, EndDate);
-            if (Dates == null)
+            int MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue);
+            int TheatreID= Convert.ToInt32(this.ComboTheatreName.SelectedValue);
+            int HallId = Convert.ToInt32(this.ComboHallName.SelectedValue);           
+            bool Active = Convert.ToBoolean(this.ComboActive.SelectedValue);
+            DateTime schDate = Convert.ToDateTime(this.TxtSchDate.Text);
+            bool val = Validation(MovieID, TheatreID, HallId, schDate);
+            
+            if (val)
             {
+              
+                        MovieScheduleRepository movieSchedule = new MovieScheduleRepository();
+                        int MovieId = Convert.ToInt32(this.ComboMovName.SelectedValue);
+                        int TheatreId = Convert.ToInt32(this.ComboTheatreName.SelectedValue);
+                        int HallID = Convert.ToInt32(this.ComboHallName.SelectedValue);
+                        int ScheduleId = movieSchedule.FindScheduleId(MovieId, TheatreId, HallID, schDate);
+                        MovieBooking.BLL.Entities.MovieSchedule movie = new MovieBooking.BLL.Entities.MovieSchedule()
+                        {
+                            ID = ScheduleId,
+                            MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue),
+                            TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue),
+                            HallID = Convert.ToInt32(this.ComboHallName.SelectedValue),
+                            Price = Convert.ToDecimal(txtPrice.Text),
+                            ScheduleDate = schDate,
+                            Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
 
+                        };
+                        MovieScheduleRepository newMovieSchedule = new MovieScheduleRepository();
+                        MovieScheduleItemRepository newScheduleItem = new MovieScheduleItemRepository();
+                        var MovieSchItem = newScheduleItem.findIdbyTimeslot(ScheduleId);
+                        List<MovieBooking.BLL.Entities.MovieSchedule_Item> MovitemId = (List<MovieBooking.BLL.Entities.MovieSchedule_Item>)MovieSchItem;
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[0].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime1.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Delete(movieScheduleItem);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem2 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[1].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime2.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Delete(movieScheduleItem2);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem3 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[2].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime3.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Delete(movieScheduleItem3);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem4 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            ID = MovitemId[3].ID,
+                            MovieScheduleID = ScheduleId,
+                            TimeSlotID = this.Combotime4.SelectedValue,
+                            Price = Convert.ToDecimal(txtPrice.Text)
+                        };
+                        newScheduleItem.Delete(movieScheduleItem4);
+                        bool ret = newMovieSchedule.Delete(movie);
+                        if (ret)
+                        {
+                            ErrorMessage.Text = "Deleted Successfully";
+                            ClearFields();
+                        }
+                    
+                
             }
             else
             {
-                for (int i = 0; i < Dates.Count(); i++)
-                {
-                    MovieScheduleRepository movieSchedule = new MovieScheduleRepository();
-                    int MovieId = Convert.ToInt32(this.ComboMovName.SelectedValue);
-                    int TheatreId = Convert.ToInt32(this.ComboTheatreName.SelectedValue);
-                    int HallID = Convert.ToInt32(this.ComboHallName.SelectedValue);
-                    int ScheduleId = movieSchedule.FindScheduleId(MovieId, TheatreId, HallID);
-                    MovieBooking.BLL.Entities.MovieSchedule movie = new MovieBooking.BLL.Entities.MovieSchedule()
-                    {
-                        ID = ScheduleId,
-                        MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue),
-                        TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue),
-                        HallID = Convert.ToInt32(this.ComboHallName.SelectedValue),
-                        Price = Convert.ToDecimal(txtPrice.Text),
-                        ScheduleDate = Dates[i],
-                        Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
-
-                    };
-                    MovieScheduleRepository newMovieSchedule = new MovieScheduleRepository();
-                    MovieScheduleItemRepository newScheduleItem = new MovieScheduleItemRepository();
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime1.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Delete(movieScheduleItem);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem2 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime2.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Delete(movieScheduleItem2);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem3 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime3.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Delete(movieScheduleItem3);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem4 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleId,
-                        TimeSlotID = this.Combotime4.SelectedValue,
-                        Price = Convert.ToDecimal(txtPrice.Text)
-                    };
-                    newScheduleItem.Delete(movieScheduleItem4);
-                    bool ret = newMovieSchedule.Delete(movie);
-                    if (ret)
-                    {
-                        ErrorMessage.Text = "Deleted Successfully";
-                    }
-                }
+                ErrorMessage.Text = "No Data Found";
             }
         }
 
@@ -188,16 +219,28 @@ namespace MovieBooking.UI.Maintenance.Schedule
             try
             {
                 MovieScheduleRepository movieSchedule = new MovieScheduleRepository();
+                MovieScheduleItemRepository movieScheduleItem = new MovieScheduleItemRepository();
                 int MovieId = Convert.ToInt32(this.ComboMovName.SelectedValue);
                 int TheatreId = Convert.ToInt32(this.ComboTheatreName.SelectedValue);
                 int HallID = Convert.ToInt32(this.ComboHallName.SelectedValue);
-                var MovieScheduleList = movieSchedule.FindMovieschedule(MovieId, TheatreId, HallID);
+                DateTime schDate = Convert.ToDateTime(this.TxtSchDate.Text);
+                var MovieScheduleList = movieSchedule.FindMovieschedule(MovieId, TheatreId, HallID, schDate);
                 if (MovieScheduleList != null)
                 {
-                    TxtFromdate.Text = MovieScheduleList.ScheduleDate.ToString();
-                    TxtTodate.Text = MovieScheduleList.ScheduleDate.ToString();
                     ComboActive.SelectedValue = MovieScheduleList.Active.ToString();
-                    txtPrice.Text = MovieScheduleList.Price.ToString();
+                    txtPrice.Text = Convert.ToInt32(MovieScheduleList.Price).ToString();
+                    var MovieSchItem = movieScheduleItem.FindbySchId(MovieScheduleList.ID);
+                    if (MovieSchItem != null)
+                    {
+                        List<MovieBooking.BLL.Entities.MovieSchedule_Item> Movsch = (List<MovieBooking.BLL.Entities.MovieSchedule_Item>)MovieSchItem;
+                        
+                        this.Combotime1.SelectedValue = Movsch[0].TimeSlotID;
+                        this.Combotime2.SelectedValue = Movsch[1].TimeSlotID;
+                        this.Combotime3.SelectedValue = Movsch[2].TimeSlotID;
+                        this.Combotime4.SelectedValue = Movsch[3].TimeSlotID;
+                      
+                        
+                    }
                 }
                 else
                 {
@@ -209,6 +252,17 @@ namespace MovieBooking.UI.Maintenance.Schedule
 
             }
 
+        }
+
+        protected void ImageButton3_Click(object sender, ImageClickEventArgs e)
+        {
+            Calendar3.Visible = true;
+        }
+
+        protected void Calendar3_SelectionChanged(object sender, EventArgs e)
+        {
+            TxtSchDate.Text = Calendar3.SelectedDate.ToShortDateString();
+            Calendar3.Visible = false;
         }
     }
 }

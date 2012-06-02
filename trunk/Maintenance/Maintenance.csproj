@@ -72,9 +72,12 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="Hall\AddHall.aspx" />
     <Content Include="Hall\UpdateHall.aspx" />
+    <Content Include="Images\backgrounddropdown.jpg" />
     <Content Include="Images\calendar.gif" />
+    <Content Include="Images\movieheader.jpg" />
     <Content Include="Movie\MovieUpdate.aspx" />
     <Content Include="Movie\MovieMaintainence.aspx" />
+    <Content Include="App_Themes\Theme1\Skin1.skin" />
     <None Include="Service References\PaymentService\MovieBooking.BLL.Entities.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -291,7 +294,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>49447</DevelopmentServerPort>
+          <DevelopmentServerPort>52422</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

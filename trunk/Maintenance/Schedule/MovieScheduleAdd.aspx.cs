@@ -12,6 +12,11 @@ namespace MovieBooking.UI.Maintenance.Schedule
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                TxtFromdate.Text = DateTime.Now.ToString("dd-MM-yyy");
+                TxtTodate.Text = DateTime.Now.ToString("dd-MM-yyy");
+            }
 
         }
         protected void ImageButton1_Click(object sender, ImageClickEventArgs e)
@@ -34,35 +39,10 @@ namespace MovieBooking.UI.Maintenance.Schedule
             TxtTodate.Text = Calendar2.SelectedDate.ToShortDateString();
             Calendar2.Visible = false;
         }
-        private void Validation(int MovieID,int TheatreID,int HallID,bool Active,DateTime StartDate,DateTime EndDate)
+        private bool Validation(int MovieID, int TheatreID, int HallID, DateTime StartDate, DateTime EndDate)
         {
+            bool val = true;
             MovieScheduleRepository Moviesch = new MovieScheduleRepository();
-
-        }
-        private List<DateTime> GetDateRange(DateTime StartingDate, DateTime EndingDate)
-        {
-            if (StartingDate > EndingDate)
-            {
-                return null;
-            }
-            List<DateTime> rv = new List<DateTime>();
-            DateTime tmpDate = StartingDate;
-            do
-            {
-                rv.Add(tmpDate);
-                tmpDate = tmpDate.AddDays(1);
-            } while (tmpDate <= EndingDate);
-            return rv;
-        }
-        protected void Btncreate_Click(object sender, EventArgs e)
-        {
-            int MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue);
-            int TheatreID= Convert.ToInt32(this.ComboTheatreName.SelectedValue);
-            int HallID = Convert.ToInt32(this.CombohallName.SelectedValue);           
-            bool Active = Convert.ToBoolean(this.ComboActive.SelectedValue);
-            DateTime StartDate = Convert.ToDateTime(this.TxtFromdate.Text);
-            DateTime EndDate = Convert.ToDateTime(this.TxtTodate.Text);
-            Validation(MovieID, TheatreID, HallID, Active, StartDate, EndDate);
             List<DateTime> Dates = GetDateRange(StartDate, EndDate);
             if (Dates == null)
             {
@@ -72,52 +52,124 @@ namespace MovieBooking.UI.Maintenance.Schedule
             {
                 for (int i = 0; i < Dates.Count(); i++)
                 {
-                    MovieBooking.BLL.Entities.MovieSchedule movie = new MovieBooking.BLL.Entities.MovieSchedule()
+                    bool ret = Moviesch.FindbyValues(MovieID, TheatreID, HallID, Dates[i]);
+                    if (ret)
                     {
-                        MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue),
-                        TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue),
-                        HallID = Convert.ToInt32(this.CombohallName.SelectedValue),
-                        Price = Convert.ToDecimal(TxtPrice.Text),
-                        ScheduleDate = Dates[i],
-                        Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
+                        ErrorMessage.Text = "Already Schedules for the Information";
 
-                    };
-                    MovieScheduleRepository newMovieSchedule = new MovieScheduleRepository();
-                    int ScheduleID = newMovieSchedule.Insert(movie);
-                    MovieScheduleItemRepository newScheduleItem = new MovieScheduleItemRepository();
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                    }
+                    else
                     {
-                        MovieScheduleID = ScheduleID,
-                        TimeSlotID = this.Combotime1.SelectedValue,
-                        Price = Convert.ToDecimal(TxtPrice.Text)
-                    };
-                    newScheduleItem.Insert(movieScheduleItem);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem2 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleID,
-                        TimeSlotID = this.Combotime2.SelectedValue,
-                        Price = Convert.ToDecimal(TxtPrice.Text)
-                    };
-                    newScheduleItem.Insert(movieScheduleItem2);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem3 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleID,
-                        TimeSlotID = this.Combotime3.SelectedValue,
-                        Price = Convert.ToDecimal(TxtPrice.Text)
-                    };
-                    newScheduleItem.Insert(movieScheduleItem3);
-                    MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem4 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
-                    {
-                        MovieScheduleID = ScheduleID,
-                        TimeSlotID = this.Combotime4.SelectedValue,
-                        Price = Convert.ToDecimal(TxtPrice.Text)
-                    };
-                    newScheduleItem.Insert(movieScheduleItem4);
-                    ErrorMessage.Text = "Inserted Successfully";
+                        val = false;
+                    }
                 }
+            }
+            return val;
+
+
+
+        }
+        private List<DateTime> GetDateRange(DateTime StartingDate, DateTime EndingDate)
+        {
+            List<DateTime> rv = new List<DateTime>();
+            if (StartingDate > DateTime.Now)
+            {
+                if (!StartingDate.Month.Equals(EndingDate.Month))
+                {
+                    ErrorMessage.Text = "Error !! Movie can be scheduled only for Current Month";
+                }
+                else
+                {
+                    if (StartingDate > EndingDate)
+                    {
+                        ErrorMessage.Text = "Error !!  Start Date should be less than End Date";
+                    }
+
+                    DateTime tmpDate = StartingDate;
+                    do
+                    {
+                        rv.Add(tmpDate);
+                        tmpDate = tmpDate.AddDays(1);
+                    } while (tmpDate <= EndingDate);
+                }
+            }
+            else
+            {
+                ErrorMessage.Text = "Error !! From date should be greater than Today's Date";
+            }
+            return rv;
+        }
+        protected void Btncreate_Click(object sender, EventArgs e)
+        {
+            int MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue);
+            int TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue);
+            int HallID = Convert.ToInt32(this.CombohallName.SelectedValue);
+            bool Active = Convert.ToBoolean(this.ComboActive.SelectedValue);
+            DateTime StartDate = Convert.ToDateTime(this.TxtFromdate.Text);
+            DateTime EndDate = Convert.ToDateTime(this.TxtTodate.Text);
+            bool val = Validation(MovieID, TheatreID, HallID, StartDate, EndDate);
+            List<DateTime> Dates = GetDateRange(StartDate, EndDate);
+            if (!val)
+            {
+                if (Dates == null)
+                {
+                    ErrorMessage.Text = "Error !! No Dates Retrieved";
+                }
+                else
+                {
+                    for (int i = 0; i < Dates.Count(); i++)
+                    {
+                        MovieBooking.BLL.Entities.MovieSchedule movie = new MovieBooking.BLL.Entities.MovieSchedule()
+                        {
+                            MovieID = Convert.ToInt32(this.ComboMovName.SelectedValue),
+                            TheatreID = Convert.ToInt32(this.ComboTheatreName.SelectedValue),
+                            HallID = Convert.ToInt32(this.CombohallName.SelectedValue),
+                            Price = Convert.ToDecimal(TxtPrice.Text),
+                            ScheduleDate = Dates[i],
+                            Active = Convert.ToBoolean(this.ComboActive.SelectedValue),
+
+                        };
+                        MovieScheduleRepository newMovieSchedule = new MovieScheduleRepository();
+                        int ScheduleID = newMovieSchedule.Insert(movie);
+                        MovieScheduleItemRepository newScheduleItem = new MovieScheduleItemRepository();
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            MovieScheduleID = ScheduleID,
+                            TimeSlotID = this.Combotime1.SelectedValue,
+                            Price = Convert.ToDecimal(TxtPrice.Text)
+                        };
+                        newScheduleItem.Insert(movieScheduleItem);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem2 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            MovieScheduleID = ScheduleID,
+                            TimeSlotID = this.Combotime2.SelectedValue,
+                            Price = Convert.ToDecimal(TxtPrice.Text)
+                        };
+                        newScheduleItem.Insert(movieScheduleItem2);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem3 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            MovieScheduleID = ScheduleID,
+                            TimeSlotID = this.Combotime3.SelectedValue,
+                            Price = Convert.ToDecimal(TxtPrice.Text)
+                        };
+                        newScheduleItem.Insert(movieScheduleItem3);
+                        MovieBooking.BLL.Entities.MovieSchedule_Item movieScheduleItem4 = new MovieBooking.BLL.Entities.MovieSchedule_Item()
+                        {
+                            MovieScheduleID = ScheduleID,
+                            TimeSlotID = this.Combotime4.SelectedValue,
+                            Price = Convert.ToDecimal(TxtPrice.Text)
+                        };
+                        newScheduleItem.Insert(movieScheduleItem4);
+                        ErrorMessage.Text = "Inserted Successfully";
+                    }
+                }
+            }
+            else
+            {
+                
             }
 
         }
-   
+
     }
 }

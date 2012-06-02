@@ -5,40 +5,21 @@
         {
             width: 100%;
         }
-        .style4
-        {
-            height: 21px;
-        }
         .style11
         {
             width: 264px;
         }
-        .style12
-        {
-            height: 21px;
-            width: 264px;
-        }
         .style13
         {
-            width: 116px;
-        }
-        .style14
-        {
-            height: 21px;
-            width: 116px;
+            width: 159px;
         }
         .style15
         {
             width: 312px;
         }
-        .style16
-        {
-            height: 21px;
-            width: 312px;
-        }
         .style17
         {
-            width: 116px;
+            width: 159px;
             height: 41px;
         }
         .style18
@@ -57,7 +38,7 @@
         }
         .style21
         {
-            width: 116px;
+            width: 159px;
             height: 40px;
         }
         .style22
@@ -74,10 +55,48 @@
         {
             height: 40px;
         }
+        .style25
+        {
+            width: 159px;
+            height: 179px;
+        }
+        .style26
+        {
+            width: 312px;
+            height: 179px;
+        }
+        .style27
+        {
+            width: 264px;
+            height: 179px;
+        }
+        .style28
+        {
+            height: 179px;
+        }
+        .style29
+        {
+            width: 159px;
+            height: 5px;
+        }
+        .style30
+        {
+            width: 312px;
+            height: 5px;
+        }
+        .style31
+        {
+            width: 264px;
+            height: 5px;
+        }
+        .style32
+        {
+            height: 5px;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<span class="failureNotification">
+    <span class="failureNotification">
     <asp:Literal ID="ErrorMessage" runat="server"></asp:Literal>
 </span>
 <asp:ValidationSummary ID="RegisterUserValidationSummary" runat="server" CssClass="failureNotification" 
@@ -88,7 +107,7 @@
     <table class="style1">
         <tr>
             <td class="style13">
-                <asp:Label ID="lblMovName" runat="server" Text="Movie Name"></asp:Label>
+                <asp:Label ID="lblMovName" runat="server" Text="Movie Name" Font-Bold="True"></asp:Label>
             </td>
             <td class="style15">
                 <asp:DropDownList ID="ComboMovName" runat="server" Width="300px" 
@@ -105,7 +124,8 @@
         </tr>
         <tr>
             <td class="style13">
-                <asp:Label ID="LblTheatreName" runat="server" Text="Theatre Name"></asp:Label>
+                <asp:Label ID="LblTheatreName" runat="server" Text="Theatre Name" 
+                    Font-Bold="True"></asp:Label>
             </td>
             <td class="style15">
                 <asp:DropDownList ID="ComboTheatreName" runat="server" Width="300px" 
@@ -122,7 +142,7 @@
         </tr>
         <tr>
             <td class="style13">
-                <asp:Label ID="LblHallNAme" runat="server" Text="Hall Name"></asp:Label>
+                <asp:Label ID="LblHallNAme" runat="server" Text="Hall Name" Font-Bold="True"></asp:Label>
             </td>
             <td class="style15">
                 <asp:DropDownList ID="CombohallName" runat="server" DataSourceID="Ods_Hall" Width="200px"
@@ -144,32 +164,22 @@
                 &nbsp;</td>
         </tr>
         <tr>
-            <td class="style14">
-                &nbsp;</td>
-            <td class="style16">
-                </td>
-            <td class="style12">
-                </td>
-            <td class="style4">
-                </td>
-        </tr>
-        <tr>
-             <td class="style13">
-                <asp:Label ID="LblSchedule" runat="server" Text="Schedule"></asp:Label>
+             <td class="style25">
+                <asp:Label ID="LblSchedule" runat="server" Text="Schedule" Font-Bold="True"></asp:Label>
              </td>
-            <td class="style15">
+            <td class="style26">
                 <asp:Label ID="lblFromdate" runat="server" Text="From Date"></asp:Label>
-            &nbsp;<asp:TextBox ID="TxtFromdate" runat="server" Width="97px"></asp:TextBox>
+            &nbsp;<asp:TextBox ID="TxtFromdate" runat="server" Width="104px"></asp:TextBox>
                <asp:ImageButton ID="ImageButton2" runat="server" Height="22px" 
                     ImageUrl="Images/calendar.gif" onclick="ImageButton1_Click" />
                 <asp:Calendar ID="Calendar1" runat="server" 
                     onselectionchanged="Calendar1_SelectionChanged" Visible="False">
                 </asp:Calendar>
             </td>
-            <td class="style11">
+            <td class="style27">
                 <asp:Label ID="LblTodate" runat="server" Text="To Date"></asp:Label>
                 <asp:TextBox ID="TxtTodate" runat="server" style="margin-left: 13px" 
-                    Width="96px"></asp:TextBox>
+                    Width="102px"></asp:TextBox>
                 <asp:ImageButton ID="ImageButton1" runat="server" Height="16px" 
                     ImageUrl="Images/calendar.gif" onclick="ImageButton2_Click" Width="16px" />
                 <asp:Calendar ID="Calendar2" runat="server" 
@@ -177,16 +187,18 @@
                     style="margin-right: 11px; margin-left: 6px;" Width="232px">
                 </asp:Calendar>
             </td>
-            <td>
-                &nbsp;</td>
+            <td class="style28">
+                </td>
        
         </tr>
         <tr>
         <td class="style13">
-            <asp:Label ID="LblTimeSlot" runat="server" Text="Show Time"></asp:Label>
+            <asp:Label ID="LblTimeSlot" runat="server" Text="Show Time" Font-Bold="True"></asp:Label>
         </td>
         <td class="style15">
+
             <asp:DropDownList ID="Combotime1" runat="server">
+                <asp:ListItem Value="0 ">Select..</asp:ListItem>
                 <asp:ListItem Value="10 ">10 am</asp:ListItem>
                 <asp:ListItem Value="1 ">1 pm</asp:ListItem>
                 <asp:ListItem Value="4 ">4 pm</asp:ListItem>
@@ -195,6 +207,7 @@
             </asp:DropDownList>
             &nbsp;&nbsp;
             <asp:DropDownList ID="Combotime2" runat="server">
+            <asp:ListItem Value="0 ">Select..</asp:ListItem>
                 <asp:ListItem Value="10 ">10 am</asp:ListItem>
                 <asp:ListItem Value="1 ">1 pm</asp:ListItem>
                 <asp:ListItem Value="4 ">4 pm</asp:ListItem>
@@ -203,6 +216,7 @@
             </asp:DropDownList>
             &nbsp;
             <asp:DropDownList ID="Combotime3" runat="server">
+            <asp:ListItem Value="0 ">Select..</asp:ListItem>
                 <asp:ListItem Value="10 ">10 am</asp:ListItem>
                 <asp:ListItem Value="1 ">1 pm</asp:ListItem>
                 <asp:ListItem Value="4 ">4 pm</asp:ListItem>
@@ -211,6 +225,7 @@
             </asp:DropDownList>
             &nbsp;&nbsp;
             <asp:DropDownList ID="Combotime4" runat="server">
+                <asp:ListItem Value="0 ">Select..</asp:ListItem>
                 <asp:ListItem Value="10 ">10 am</asp:ListItem>
                 <asp:ListItem Value="1 ">1 pm</asp:ListItem>
                 <asp:ListItem Value="4 ">4 pm</asp:ListItem>
@@ -225,22 +240,26 @@
         </tr>
         <tr>
             <td class="style17">
-                <asp:Label ID="LblPrice" runat="server" Text="Price"></asp:Label>
+                <asp:Label ID="LblPrice" runat="server" Text="Price" Font-Bold="True"></asp:Label>
             </td>
             <td class="style18">
                 <asp:TextBox ID="TxtPrice" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                    ControlToValidate="TxtPrice" ErrorMessage="RequiredFieldValidator" 
+                    ForeColor="Red">*</asp:RequiredFieldValidator>
             </td>
             <td class="style19">
                 </td>
             <td class="style20">
-                </td>
+                &nbsp;</td>
         </tr>
         <tr>
             <td class="style21">
-                <asp:Label ID="LblActive" runat="server" Text="Active"></asp:Label>
+                <asp:Label ID="LblActive" runat="server" Text="Active" Font-Bold="True"></asp:Label>
             </td>
             <td class="style22">
                 <asp:DropDownList ID="ComboActive" runat="server">
+                    <asp:ListItem Value="3 ">Select..</asp:ListItem>
                     <asp:ListItem>True</asp:ListItem>
                     <asp:ListItem>False</asp:ListItem>
                 </asp:DropDownList>
@@ -252,8 +271,9 @@
         </tr>
         <tr>
             <td class="style13">
-                &nbsp;</td>
+                &nbsp;&nbsp;&nbsp;&nbsp;</td>
             <td class="style15">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="Btncreate" runat="server" Text="Create" 
                     onclick="Btncreate_Click" />
             </td>
