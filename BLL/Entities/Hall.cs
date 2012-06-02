@@ -87,6 +87,20 @@ namespace MovieBooking.BLL.Entities
 
             return _hall as Hall;
         }
+
+        public IEnumerable<Hall> FindAll(int id)
+        {
+            IList<Hall> _hall = null;
+            using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
+            {
+                var ts = from t in mbRep.FetchAll().Where(c => c.TheatreID.Equals(id))
+                         select new Hall(t);
+                _hall = ts.ToList<Hall>();
+            }
+            return _hall.AsEnumerable<Hall>();
+
+        }
+
         public Hall GetHall(Int32 hallId)
         {
             Hall hall = null;
