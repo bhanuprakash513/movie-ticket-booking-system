@@ -29,7 +29,7 @@ Theatre Maintenance
         <asp:Label ID="TheatreAddressLabel" runat="server" AssociatedControlID="TheatreAddress">Address:</asp:Label>
         <asp:TextBox ID="TheatreAddress" runat="server" CssClass="textEntry" Width="400px" MaxLength="255" ></asp:TextBox>
         <asp:RequiredFieldValidator ID="TheatreAddressRequired" runat="server" ControlToValidate="TheatreAddress" 
-                CssClass="failureNotification" ErrorMessage="Theatre Name is required." ToolTip="Theatre Name is required." 
+                CssClass="failureNotification" ErrorMessage="Theatre Address is required." ToolTip="Theatre Address is required." 
                 ValidationGroup="TheatreValidationGroup">*</asp:RequiredFieldValidator>
         </p>
         <p>

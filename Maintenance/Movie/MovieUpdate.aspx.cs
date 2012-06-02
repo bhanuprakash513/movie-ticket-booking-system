@@ -18,48 +18,55 @@ namespace MovieBooking.UI.Maintenance.Movie
 
         protected void BtnRetrieve_Click(object sender, EventArgs e)
         {
-            MovieRepository MovieRep = new MovieRepository();
-            int MovieID = Convert.ToInt32(this.MovNameCombo.SelectedValue);
-            var Movie  = MovieRep.FindbyId(MovieID);
-            if (Movie.LanguageID.Equals("1"))
-            {
-                Movie.LanguageID = "English";
-            }
-            else if (Movie.LanguageID.Equals("2"))
-            {
-                Movie.LanguageID="Tamil";
-            }
-            else if (Movie.LanguageID.Equals("3"))
-            {
-                Movie.LanguageID="Chinese";
-            }
-            else
-            {
-                Movie.LanguageID="Malay";
-            }
-            LanguageCombo.SelectedValue = Movie.LanguageID;
-            txtDuration.Text = Movie.RunningDuration.ToString();
-            ActiveCombo.SelectedValue = Movie.Active.ToString();
-            if (!String.IsNullOrWhiteSpace(Movie.genre))
-            {
-                GenreCombo.SelectedValue = Movie.genre.ToString();
-            }
-            String[] Rate = Movie.RatingID.Split('/');
-            RatingCombo.SelectedValue = Rate[0];
-            txtmovDesc.Text = Movie.Description;
-            if (!String.IsNullOrWhiteSpace(Movie.CastDescription))
-            {
-                String[] ArrCast = Movie.CastDescription.Split(',');
-                String[] CastsDirector = ArrCast[0].Split('-');
-                String[] CastsStars = ArrCast[1].Split('-');
-                String[] CastsScreenPlay = ArrCast[2].Split('-');
-                CastCombo2.SelectedValue = CastsDirector[0];
-                CastCombo1.SelectedValue = CastsStars[0];
-                CastCombo3.SelectedValue = CastsScreenPlay[0];
-                txtCast1.Text = CastsDirector[1];
-                txtCast2.Text = CastsStars[1];
-                txtCast3.Text = CastsScreenPlay[1];
-            }
+
+            //MovieRepository MovieRep = new MovieRepository();
+            //int MovieID = Convert.ToInt32(this.MovNameCombo.SelectedValue);
+            //var Movie  = MovieRep.FindbyId(MovieID);
+
+            MovieDetService.MovieDetServiceClient MovDet = new MovieDetService.MovieDetServiceClient("BasicHttpBinding_IMovieDetService");
+            
+                var Movie = MovDet.GetMovieDetails(Convert.ToInt32(this.MovNameCombo.SelectedValue));
+
+                if (Movie.LanguageID.Equals("1"))
+                {
+                    Movie.LanguageID = "English";
+                }
+                else if (Movie.LanguageID.Equals("2"))
+                {
+                    Movie.LanguageID = "Tamil";
+                }
+                else if (Movie.LanguageID.Equals("3"))
+                {
+                    Movie.LanguageID = "Chinese";
+                }
+                else
+                {
+                    Movie.LanguageID = "Malay";
+                }
+                LanguageCombo.SelectedValue = Movie.LanguageID;
+                txtDuration.Text = Movie.RunningDuration.ToString();
+                ActiveCombo.SelectedValue = Movie.Active.ToString();
+                if (!String.IsNullOrWhiteSpace(Movie.genre))
+                {
+                    GenreCombo.SelectedValue = Movie.genre.ToString();
+                }
+                String[] Rate = Movie.RatingID.Split('/');
+                RatingCombo.SelectedValue = Rate[0];
+                txtmovDesc.Text = Movie.Description;
+                if (!String.IsNullOrWhiteSpace(Movie.CastDescription))
+                {
+                    String[] ArrCast = Movie.CastDescription.Split(',');
+                    String[] CastsDirector = ArrCast[0].Split('-');
+                    String[] CastsStars = ArrCast[1].Split('-');
+                    String[] CastsScreenPlay = ArrCast[2].Split('-');
+                    CastCombo2.SelectedValue = CastsDirector[0];
+                    CastCombo1.SelectedValue = CastsStars[0];
+                    CastCombo3.SelectedValue = CastsScreenPlay[0];
+                    txtCast1.Text = CastsDirector[1];
+                    txtCast2.Text = CastsStars[1];
+                    txtCast3.Text = CastsScreenPlay[1];
+                }
+            
 
          
         }

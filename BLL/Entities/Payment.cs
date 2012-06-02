@@ -164,7 +164,7 @@ namespace MovieBooking.BLL.Entities
         {
             //cache = CacheFactory.GetCacheManager();
             // Resolve the default ExceptionManager object from the container.
-            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            //exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
         }
 
         public Payment FindById(int id)
@@ -220,7 +220,7 @@ namespace MovieBooking.BLL.Entities
             }
             catch (Exception ex)
             {
-                exManager.HandleException(ex, "MovieBookingExceptionType");
+                //exManager.HandleException(ex, "MovieBookingExceptionType");
                 throw ex;
             }
 

@@ -78,6 +78,44 @@
     <Content Include="Movie\MovieUpdate.aspx" />
     <Content Include="Movie\MovieMaintainence.aspx" />
     <Content Include="App_Themes\Theme1\Skin1.skin" />
+    <None Include="Service References\HallListService\HallListService.wsdl" />
+    <None Include="Service References\HallListService\HallListService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HallListService\HallListService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HallListService\HallListService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HallListService\HallListService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HallListService\HallListService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\HallListService\MovieBooking.UI.Maintenance.HallListService.Hall.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MovieDetService\MovieBooking.UI.Maintenance.MovieDetService.Movie.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MovieDetService\MovieDetailService.wsdl" />
+    <None Include="Service References\MovieDetService\MovieDetailService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieDetService\MovieDetailService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieDetService\MovieDetailService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieDetService\MovieDetailService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieDetService\MovieDetailService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\PaymentService\MovieBooking.BLL.Entities.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -111,6 +149,18 @@
     </None>
     <Content Include="Schedule\MovieScheduleAdd.aspx" />
     <Content Include="Schedule\MovieScheduleUpdate.aspx" />
+    <None Include="Service References\MovieDetService\configuration91.svcinfo" />
+    <None Include="Service References\MovieDetService\configuration.svcinfo" />
+    <None Include="Service References\MovieDetService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\HallListService\configuration91.svcinfo" />
+    <None Include="Service References\HallListService\configuration.svcinfo" />
+    <None Include="Service References\HallListService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -218,6 +268,16 @@
     <Compile Include="Schedule\MovieScheduleUpdate.aspx.designer.cs">
       <DependentUpon>MovieScheduleUpdate.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Service References\HallListService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MovieDetService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\PaymentService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -271,6 +331,8 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\HallListService\" />
+    <WCFMetadataStorage Include="Service References\MovieDetService\" />
     <WCFMetadataStorage Include="Service References\PaymentService\" />
     <WCFMetadataStorage Include="Service References\StockService\" />
   </ItemGroup>
@@ -294,7 +356,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52422</DevelopmentServerPort>
+          <DevelopmentServerPort>1989</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

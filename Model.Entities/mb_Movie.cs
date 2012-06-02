@@ -12,73 +12,77 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Runtime.Serialization;
 
 namespace MovieBooking.Model.Entities
 {
+    [DataContract]
     public partial class mb_Movie
     {
         #region Primitive Properties
     
+        [DataMember]
         public virtual int ID
         {
             get;
             set;
         }
-    
+
+        [DataMember]
         public virtual string MovieName
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual string LanguageID
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual string Description
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual string RatingID
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual Nullable<short> RunningDuration
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual bool Active
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual string trailer_url
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual string genre
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual string ImageMoviePath
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual string CastDescription
         {
             get;

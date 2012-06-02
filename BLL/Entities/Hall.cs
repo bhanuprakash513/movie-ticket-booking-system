@@ -8,9 +8,11 @@ using MovieBooking.DLL.Entities;
 using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Microsoft.Practices.EnterpriseLibrary.Caching;
 using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using System.Runtime.Serialization;
 
 namespace MovieBooking.BLL.Entities
 {
+    [DataContract]
     public partial class Hall : mb_Hall
     {
         public Hall(mb_Hall _hall)

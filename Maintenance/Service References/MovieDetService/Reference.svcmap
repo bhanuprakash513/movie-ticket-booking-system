@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="139209ca-69fc-45f6-9af0-ecec68c6ac6f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/MovieBooking.SI.Web/MovieDetailService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MovieDetailService.xsd" MetadataType="Schema" ID="c05794ea-d810-4e35-9601-1ef1327c9296" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/MovieDetailService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MovieDetailService1.xsd" MetadataType="Schema" ID="e7bd16d5-9ede-49c0-8d2e-146d7bfa238a" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/MovieDetailService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MovieDetailService2.xsd" MetadataType="Schema" ID="f2a7805a-e9ae-4cae-9839-24280fef9fbc" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/MovieDetailService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MovieDetailService.wsdl" MetadataType="Wsdl" ID="544bbb28-b8d0-41bc-a435-80bde9e75ed6" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/MovieDetailService.svc?wsdl" />
+    <MetadataFile FileName="MovieDetailService3.xsd" MetadataType="Schema" ID="d5225f05-e1a5-4c05-99d3-cb8207abbd85" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/MovieDetailService.svc?xsd=xsd4" />
+    <MetadataFile FileName="MovieDetailService4.xsd" MetadataType="Schema" ID="9e71cd99-e6a3-4575-b9a5-c24f4b4b2822" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/MovieDetailService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
