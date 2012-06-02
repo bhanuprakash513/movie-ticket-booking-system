@@ -12,12 +12,12 @@
     <form runat="server">
     <div class="page">
         <div class="header">
-            <div class="title">
+            <div class="title" style="background-image: url('../images/movieheader.jpg'); height: 200px; width: 960px">
                 <h1>
-                    S06 Movie Booking - Maintenance
+                   Movie Booking - Maintenance
                 </h1>
             </div>
-            <div class="loginDisplay">
+            <div class="loginDisplay" style="background-color: #990000">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                     <AnonymousTemplate>
                         [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Log In</a> ]
@@ -28,7 +28,7 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
             </div>
-            <div class="clear hideSkiplink">
+            <div class="clear hideSkiplink" style="background-image: url('../images/backgrounddropdown.jpg'); height: 50px; width: 960px">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>

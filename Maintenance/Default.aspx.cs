@@ -13,12 +13,12 @@ namespace MovieBooking.UI.Maintenance
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string encrypted;
-            string message = "Hello World!";
-            encrypted = Cryptographer.EncryptSymmetric("crpMB", message);
+            //string encrypted;
+            //string message = "Hello World!";
+            //encrypted = Cryptographer.EncryptSymmetric("crpMB", message);
             //lbl1.Text = encrypted;
-            string plainText;
-            plainText = Cryptographer.DecryptSymmetric("crpMB", encrypted);
+            //string plainText;
+            //plainText = Cryptographer.DecryptSymmetric("crpMB", encrypted);
             //lbl2.Text = plainText;
         }
     }

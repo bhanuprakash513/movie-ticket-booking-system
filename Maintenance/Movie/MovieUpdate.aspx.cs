@@ -76,7 +76,7 @@ namespace MovieBooking.UI.Maintenance.Movie
             {
                 LangID = 2;
             }
-            else if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
+            if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
             {
                 LangID = 3;
             }

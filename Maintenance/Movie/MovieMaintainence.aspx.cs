@@ -98,11 +98,6 @@ namespace MovieBooking.UI.Maintenance.Movie
            };
             newMovieItem.Insert(movieItem2);
             ErrorMessage.Text = "Inserted Successfully";
-            //string StrScript = ("<script>alert('Updated successfully')</script>");
-            //if (!Page.IsStartupScriptRegistered("clientScript"))
-            //{
-            //    Page.RegisterStartupScript("clientScript", StrScript);
-            //}
         }
     }
 }
