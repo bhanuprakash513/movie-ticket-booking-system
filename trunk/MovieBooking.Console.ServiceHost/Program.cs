@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ServiceModel;
+using Microsoft.Practices.EnterpriseLibrary.Caching;
+using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using MovieBooking.SvcLib;
 
 /* -----------------------------------------------------------------
@@ -22,6 +21,15 @@ namespace MovieBooking.Console.ServiceHost
     {
         static void Main(string[] args)
         {
+           
+            // Global variable to store the ExceptionManager instance. 
+            ExceptionManager exManager;
+            ICacheManager cache = null;
+
+            cache = CacheFactory.GetCacheManager();
+            // Resolve the default ExceptionManager object from the container.
+            exManager = EnterpriseLibraryContainer.Current.GetInstance<ExceptionManager>();
+            
             try
             {
                 System.ServiceModel.ServiceHost host = new System.ServiceModel.ServiceHost(typeof(PaymentService));

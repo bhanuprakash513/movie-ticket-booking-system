@@ -187,6 +187,7 @@ namespace MovieBooking.MVC.UI.Controllers
                     payment.PaymentDate = DateTime.Now;
                     payment.TotalAmount = Decimal.Parse(total) * Decimal.Parse(price);
                     payment.GSTPercent = float.Parse(gst);
+                    payment.PaymentModeID = "01"; //VISA
                     payment.CCV = cvv;
 
 

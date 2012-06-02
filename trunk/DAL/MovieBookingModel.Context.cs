@@ -169,12 +169,6 @@ namespace MovieBooking.DAL
         }
         private ObjectSet<mb_Hall> _mb_Hall;
     
-        public ObjectSet<sysdiagram> sysdiagrams
-        {
-            get { return _sysdiagrams  ?? (_sysdiagrams = CreateObjectSet<sysdiagram>("sysdiagrams")); }
-        }
-        private ObjectSet<sysdiagram> _sysdiagrams;
-    
         public ObjectSet<mb_MovieSchedule> mb_MovieSchedule
         {
             get { return _mb_MovieSchedule  ?? (_mb_MovieSchedule = CreateObjectSet<mb_MovieSchedule>("mb_MovieSchedule")); }
