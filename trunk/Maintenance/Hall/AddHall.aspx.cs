@@ -59,13 +59,26 @@ namespace MovieBooking.UI.Maintenance.Hall
             hallRep.Insert(hall);
             ErrorMessage.Text = "Updated Successfully";
             ClearAll();
+            DispAll();
         }
 
         protected void ClearAll()
         {
-            cmbTheatreName.SelectedIndex = 0;
+            //cmbTheatreName.SelectedIndex = 0;
             HallName.Text = string.Empty;
             TotalSeats.Text = string.Empty;
+        }
+
+        protected void cmbTheatreName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DispAll();
+        }
+
+        protected void DispAll()
+        {
+            HallRepository hallRep = new HallRepository();
+            gvHall.DataSource = hallRep.FindAll(Convert.ToInt32(cmbTheatreName.SelectedValue));
+            gvHall.DataBind();
         }
     }
 }

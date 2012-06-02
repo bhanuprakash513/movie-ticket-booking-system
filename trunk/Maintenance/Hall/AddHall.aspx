@@ -18,7 +18,8 @@ Hall Maintenance
         <p>
         <asp:Label ID="TheatreNameLabel" runat="server" AssociatedControlID="cmbTheatreName">Theatre Name:</asp:Label>
         <asp:DropDownList ID="cmbTheatreName" CssClass="title" Width="400px" runat="server" 
-                 DataTextField="Name" DataValueField="ID" AutoPostBack="true" >
+                 DataTextField="Name" DataValueField="ID" AutoPostBack="true" 
+                onselectedindexchanged="cmbTheatreName_SelectedIndexChanged" >
         </asp:DropDownList>
        
             <br />
@@ -59,6 +60,17 @@ Hall Maintenance
             <asp:Button ID="btnAdd" runat="server" Text="Add" CausesValidation="true" 
                 ValidationGroup="HallValidationGroup" onclick="btnAdd_Click" />
         </p>
+        <br />
+           <p>
+        <asp:GridView ID="gvHall" runat="server" AutoGenerateColumns="false" Width="99%">
+        <Columns>
+        <asp:BoundField DataField="HallName" HeaderText="Hall Name" />
+        <asp:BoundField DataField="TotalSeats" HeaderText="Total Seats" />
+        <asp:BoundField DataField="Active" HeaderText="Active" />
+        </Columns>
+        </asp:GridView>
+    
+         </p>
     </fieldset>
 </div>
 </asp:Content>
