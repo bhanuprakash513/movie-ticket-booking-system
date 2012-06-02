@@ -86,16 +86,18 @@ namespace MovieBooking.BLL.Entities
             }
         }
 
-        public mb_Movie FindbyId(int Id)
+        public Movie FindbyId(int Id)
         {
             try
             {
                 mb_Movie th = new mb_Movie();
+                Movie movie;
                 using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
                 {
                     th = mbRep.Single(u => u.ID == Id) as mb_Movie;
                 }
-                return th;
+                movie = new Movie(th);
+                return movie;
             }
             catch (Exception ex)
             {
