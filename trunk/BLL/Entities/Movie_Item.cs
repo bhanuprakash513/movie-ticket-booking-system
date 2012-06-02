@@ -61,14 +61,16 @@ namespace MovieBooking.BLL.Entities
             return _movies.AsEnumerable<Movie_Item>();
         }
 
-        public mb_Movie_Item FindbyId(int Id)
+        public Movie_Item FindbyId(int Id)
         {
             mb_Movie_Item th = new mb_Movie_Item();
+            Movie_Item movItem;
             using (IRepository<mb_Movie_Item> mbRep = new MovieBookingRepository<mb_Movie_Item>())
             {
                 th = mbRep.Single(u => u.ID == Id) as mb_Movie_Item;
             }
-            return th;
+            movItem = new Movie_Item(th);
+            return movItem;
         }
 
         public int FindbyIdCast(int Id,string Cast)
