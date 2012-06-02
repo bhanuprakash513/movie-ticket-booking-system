@@ -7,6 +7,8 @@ using MovieBooking.BLL.Entities;
 using MovieBooking.Model.Entities;
 using System.Web.Security;
 using MovieBooking.MVC.UI.Models;
+using Microsoft.Practices.EnterpriseLibrary.Security.Cryptography;
+using MovieBooking.MVC.Helpers;
 
 namespace MovieBooking.MVC.UI.Controllers
 {
@@ -98,10 +100,21 @@ namespace MovieBooking.MVC.UI.Controllers
            mb_Movie movie = TempData["movie"] as mb_Movie;
            Theatre theatre = TempData["theatre"] as Theatre;
            string day_select = TempData["day_select"].ToString();
+
+           MovieRepository movieRepo = new MovieRepository();
+           IEnumerable<Movie> allMovies = movieRepo.FindAll();
+           List<string> movieImages = new List<string>();
+
+           foreach (Movie _movie in allMovies)
+           {
+               movieImages.Add(_movie.ImageMoviePath);
+           }
+
            if (movie != null && theatre != null)
            {
                ViewBag.movie = movie;
                ViewBag.theatre = theatre;
+               ViewBag.movieImages = movieImages;
            }
 
             if ( scheduleList != null && movie != null && theatre !=null)
@@ -143,11 +156,27 @@ namespace MovieBooking.MVC.UI.Controllers
             BookingRepository repo = new BookingRepository();
             List<BookingItem> items = repo.GetMovieBookingsForSchedule(Int32.Parse(id));
             ViewBag.selected_seats = items;
+
+            SystemParameterRepository sysRepo = new SystemParameterRepository();
+            IEnumerable<SystemParameter> paymentModes = sysRepo.GetSystemParameters("PaymentMode");
+
+            List<SelectListItem> parameterList = new List<SelectListItem>();
+            foreach (SystemParameter pm in paymentModes)
+            {
+                parameterList.Add(new SelectListItem()
+                {
+                    Value = pm.ItemName,
+                    Text = pm.ItemValue,
+                });
+            }
+            ViewBag.parameterList = parameterList;
+            
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult SelectSeats(PaymentModel model)
+        public ActionResult SelectSeats(PaymentModel model, string payment_mode_select)
         {
             if (ModelState.IsValid)
             {
@@ -181,7 +210,8 @@ namespace MovieBooking.MVC.UI.Controllers
                     string gst = "7.00";
 
                     Payment payment = new Payment();
-                    payment.PaymentModeID = "CreditCard"; // Can not be more than 10 characters
+                    payment.PaymentModeID = payment_mode_select; // Can not be more than 10 characters
+                    //payment.CreditCardNo = Cryptographer.EncryptSymmetric("crpMB", creditCardNum);
                     payment.CreditCardNo = creditCardNum;
                     payment.CardExpiry = creditCardExpiry;
                     payment.CardHolderName = nameAsInCard;
@@ -214,35 +244,64 @@ namespace MovieBooking.MVC.UI.Controllers
                             payment.MovieBookingID = booking.ID;
 
                             // Call payment Repository directly. Use this if the service is not available
-                            ////int _status = paymentRepo.Insert(payment);
-                            //booking.payment = paymentRepo.FindById(_status);
+                            int _status = paymentRepo.Insert(payment);
+                            booking.payment = paymentRepo.FindById(_status);
 
                             //Tests to consume net.Tcp binding services                            
-                            using (PaymentService_ws.PaymentServiceClient client = new PaymentService_ws.PaymentServiceClient("WSHttpBinding_IPaymentService"))
-                            {
-                                PaymentService_ws.Payment pay = new PaymentService_ws.Payment();
+                            //using (Payment_Service.PaymentServiceClient client = new Payment_Service.PaymentServiceClient())
+                            //{
+                            //    Payment_Service.Payment pay = new Payment_Service.Payment();
 
-                                pay.CardExpiry = payment.CardExpiry;
-                                pay.CardHolderName = payment.CardHolderName;
-                                pay.CCV = payment.CCV;
-                                pay.CreditCardNo = payment.CreditCardNo;
-                                pay.GSTPercent = payment.GSTPercent;
-                                pay.MovieBookingID = payment.MovieBookingID;
-                                pay.PaymentDate = payment.PaymentDate;
-                                pay.PaymentModeID = payment.PaymentModeID;
-                                pay.TotalAmount = payment.TotalAmount;
-                                int id = client.Insert(pay);
-                                //Save the transaction if the payment is successfull.
-                                if (id > 0)
+                            //    pay.CardExpiry = payment.CardExpiry;
+                            //    pay.CardHolderName = payment.CardHolderName;
+                            //    pay.CCV = payment.CCV;
+                            //    pay.CreditCardNo = payment.CreditCardNo;
+                            //    pay.GSTPercent = payment.GSTPercent;
+                            //    pay.MovieBookingID = payment.MovieBookingID;
+                            //    pay.PaymentDate = payment.PaymentDate;
+                            //    pay.PaymentModeID = payment.PaymentModeID;
+                            //    pay.TotalAmount = payment.TotalAmount;
+                            //    int id = client.Insert(pay);
+                            //    //Save the transaction if the payment is successfull.
+                            //    if (id > 0)
+                            //    {
+                            //        booking.payment = paymentRepo.FindById(id);
+                            //    }
+                            //}                          
+
+                            string body = "";
+                            body += "<b> Movie Booking Confirmation </b> <hr/>";
+                            MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
+                            MovieScheduleRepository scheduleRepo = new MovieScheduleRepository();
+                            MovieSchedule_Item item = itemRepo.FindbyId(schedule_id);
+
+                            if(item != null){
+                                MovieSchedule schedule = scheduleRepo.FindbyId((int)item.MovieScheduleID);
+                                MovieRepository movieRepo = new MovieRepository();
+                                TheatreRepository theatreRepo = new TheatreRepository();
+                                IHallRepository hallRepo = new HallRepository();
+                                Movie movie = movieRepo.FindbyId(schedule.MovieID);
+                                Theatre theatre = theatreRepo.FindById(schedule.TheatreID);
+                                Hall hall = hallRepo.GetHall(schedule.HallID);
+
+                                body += "Movie Name :" + movie.MovieName + "<br>";
+                                body += "Theatre name : " + theatre.Name + "<br>";
+                                body += "Hall Name :" + hall.HallName + "<br>";
+                                body += "Seat number : ";
+                                foreach (string seat in selected_seats)
                                 {
-                                    booking.payment = paymentRepo.FindById(id);
+                                    body += seat + ", ";
                                 }
-                            }                          
+                                MailHelper.Send("smoneyan@gmail.com", "smoneyan@gmail.com", "Movie Booking Confirmation", body, "lynx.iss.nus.edu.sg");
 
+                            }
+
+                            
+                            
                         }
                          
                     }
-
+                    
                     TempData["booking"] = booking;
                     return RedirectToAction("PrintTicket");
                 }
@@ -252,10 +311,25 @@ namespace MovieBooking.MVC.UI.Controllers
                 //TempData["schedule_id"] = id;
                 //TempData["day_select"] = date;
                 //ViewBag.day_select = date;
+                //Need to populate the data again, if the model is not valid
                 int schedule_id = Int32.Parse(Request["schedule_id"].ToString());
                 ViewBag.schedule_id = schedule_id;
                 string date = Request["day_select"].ToString();
                 ViewBag.day_select = date;
+
+                SystemParameterRepository sysRepo = new SystemParameterRepository();
+                IEnumerable<SystemParameter> paymentModes = sysRepo.GetSystemParameters("PaymentMode");
+
+                List<SelectListItem> parameterList = new List<SelectListItem>();
+                foreach (SystemParameter pm in paymentModes)
+                {
+                    parameterList.Add(new SelectListItem()
+                    {
+                        Value = pm.ItemName,
+                        Text = pm.ItemValue,
+                    });
+                }
+                ViewBag.parameterList = parameterList;
 
                 
 

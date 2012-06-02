@@ -1,9 +1,8 @@
 ﻿@model MovieBooking.MVC.UI.Models.PaymentModel
-
 @{
     ViewBag.Title = "SelectSeats";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
     var day_select = ViewBag.day_select;
     var schedule_id = ViewBag.schedule_id;
     var selected_seats = ViewBag.selected_seats as List<MovieBooking.BLL.Entities.BookingItem>;
@@ -75,12 +74,15 @@
     });
 </script>
 <div class="page-header">
-  <h1>Choose seats</h1>
+    <h1>
+        Choose seats</h1>
 </div>
-    
 @using (Html.BeginForm())
 {
+    
+@Html.ValidationSummary(true, "Booking failed. Please enter valid credit card details")
 
+ 
     <input type='hidden' name='day_select' value=@day_select />
     <input type='hidden' name='schedule_id' value=@schedule_id />
     
@@ -95,11 +97,10 @@
                     seat_name = @row + "-" + @col;
                                                       
                     <td valign="top" nowrap>
-                       @if (col == 0)
-                       {
-                             @row 
-                       }
-                      
+                        @if (col == 0)
+                        {
+                            @row 
+                        }
                         @if (col == 10 || col == 20 || col == 30)
                         {    
                             <img src=@Url.Content("~/images/seats/empty_space.gif") /> 
@@ -118,11 +119,11 @@
 
                             if (@selected.Equals(false))
                             {
-                                  <img src=@Url.Content("~/images/seats/seat_available.gif") class="seat seat-available" name=@seat_name /> 
+                            <img src=@Url.Content("~/images/seats/seat_available.gif") class="seat seat-available" name=@seat_name /> 
                             }
                             else
                             {
-                             <img src=@Url.Content("~/images/seats/seat_taken.gif") class="seat seat-taken" name=@seat_name /> 
+                            <img src=@Url.Content("~/images/seats/seat_taken.gif") class="seat seat-taken" name=@seat_name /> 
                             }
 
                         }
@@ -133,61 +134,80 @@
         }
     </table>
     <div class='selected-hidden'>
-      
     </div>
     
-   <div class='clearfix'> </div>
+    <div class='clearfix'>
+    </div>
     <p>
     </p>
     
     
     
     <div class='well'>
+        <div class="editor-label">
+          Card Type
+        </div>
 
-             <div class="editor-label">
-                @Html.LabelFor(m => m.CreditCardNum)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.CreditCardNum)
-                @Html.ValidationMessageFor(m => m.CreditCardNum)
-            </div>
+        <div class="editor-field">
+         @Html.DropDownList("payment_mode_select", (IEnumerable<SelectListItem>)ViewBag.parameterList)
+        </div>
+       
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CreditCardNum)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.CreditCardNum)
 
-            <div class="editor-label">
-                @Html.LabelFor(m => m.CreditCardExpiry)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.CreditCardExpiry)
-                @Html.ValidationMessageFor(m => m.CreditCardExpiry)
-            </div>
+            @Html.ValidationMessageFor(m => m.CreditCardNum)
+       </div>
 
-             <div class="editor-label">
-                @Html.LabelFor(m => m.CreditCardName)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.CreditCardName)
-                @Html.ValidationMessageFor(m => m.CreditCardName)
-            </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CreditCardExpiry)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.CreditCardExpiry)
 
-             <div class="editor-label">
-                @Html.LabelFor(m => m.CVV)
-            </div>
-            <div class="editor-field">
-                @Html.TextBoxFor(m => m.CVV)
-                @Html.ValidationMessageFor(m => m.CVV)
-            </div>
+            @Html.ValidationMessageFor(m => m.CreditCardExpiry)
+           
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CreditCardName)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.CreditCardName)
 
-   @*    Credit Card Number :  <input type="text" name='credit-card-num' /> <br />
+            @Html.ValidationMessageFor(m => m.CreditCardName)
+            
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(m => m.CVV)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(m => m.CVV)
+
+            @Html.ValidationMessageFor(m => m.CVV)
+           
+        </div>
+        @*    Credit Card Number :  <input type="text" name='credit-card-num' /> <br />
        Expiry Date (MM/YY) : <input type="text" name='credit-card-expiry' /> <br />
        Name as in Card : <input type="text" name='credit-card-name' /> <br />
-       CVV : <input type="text" name='credit-card-cvv' /> <br />*@
-       Selected Seats : <input type="text" name='selected-seats' id='selected-seats-tb' readonly/> <br />
-       Total Price : <input type="text" name='total-price' id='total-price-tb' disabled/> <br />    
-       <input type="hidden" name='price-per-ticket' id='price-per-ticket' value='10' />
+       CVV : <input type="text" name='credit-card-cvv' /> <br />*@ 
+
+      Selected Seats :
+        <input type="text" name='selected-seats' id='selected-seats-tb' readonly />
+        <br />
+        Total Price :
+        <input type="text" name='total-price' id='total-price-tb' disabled />
+        <br />
+        <input type="hidden" name='price-per-ticket' id='price-per-ticket' value='10' />
+    
     </div>
 
-         <div class='clearfix'> </div>
+
+    <div class='clearfix'>
+    </div>
     
-      <input type="submit" value="Book" class='btn btn-primary large' />
+    <input type="submit" value="Book" class='btn btn-primary large' />
  
 
 }
