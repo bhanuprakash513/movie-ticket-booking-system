@@ -39,6 +39,7 @@ namespace MovieBooking.BLL.Entities
     public interface IHallRepository
     {
         Hall GetHall(int hallId);
+        IEnumerable<Hall> FindByTheatreId(int theatreId);
 
     }
 
