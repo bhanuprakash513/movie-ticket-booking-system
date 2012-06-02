@@ -46,49 +46,49 @@ namespace MovieBooking.BLL.Entities
             set;
         }
 
-         [DataMember]
+        [DataMember]
         public override System.DateTime PaymentDate
         {
             get;
             set;
         }
 
-         [DataMember]
+        [DataMember]
         public override string CreditCardNo
         {
             get;
             set;
         }
 
-         [DataMember]
+        [DataMember]
         public virtual string CardExpiry
         {
             get;
             set;
         }
 
-         [DataMember]
+        [DataMember]
         public override string CCV
         {
             get;
             set;
         }
 
-         [DataMember]
+        [DataMember]
         public override decimal TotalAmount
         {
             get;
             set;
         }
 
-         [DataMember]
+        [DataMember]
         public override double GSTPercent
         {
             get;
             set;
         }
 
-
+        [DataMember]
         [NotNullValidator(MessageTemplate = "CardHolder Name - Cannot be null!")]
         [StringLengthValidator(5, RangeBoundaryType.Inclusive, 25, RangeBoundaryType.Inclusive, MessageTemplate = "CardHolder Name should be atleast 5 charachters long and not exceeding 25 characters")]
         public override string CardHolderName

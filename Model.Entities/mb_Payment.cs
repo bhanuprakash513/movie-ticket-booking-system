@@ -20,7 +20,7 @@ namespace MovieBooking.Model.Entities
     public partial class mb_Payment
     {
         #region Primitive Properties
-    
+
         [DataMember]
         public virtual int ID
         {
