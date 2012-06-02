@@ -40,6 +40,7 @@ namespace MovieBooking.MVC.UI.Controllers
             //Get Theatre list and set it in ViewBag
             TheatreRepository theatreRepo = new TheatreRepository();
             IEnumerable<Theatre> theatreList = theatreRepo.FindAll();
+           
 
             List<SelectListItem> theatreListSelect = new List<SelectListItem>();
             foreach (Theatre th in theatreList)
@@ -195,9 +196,11 @@ namespace MovieBooking.MVC.UI.Controllers
                     RegisteredUserRepository repo3 = new RegisteredUserRepository();
                     MembershipUser _user = Membership.GetUser(true);
 
+                    
                     if (_user == null)
                     {
-                        return RedirectToAction("LogOn", "Account");
+                        // For non-members user id would be set as user2
+                        _user = Membership.GetUser("user2"); // Non member
                     }
 
                     RegisteredUser user = repo3.FindById(new Guid(_user.ProviderUserKey.ToString()));
@@ -211,29 +214,30 @@ namespace MovieBooking.MVC.UI.Controllers
                             payment.MovieBookingID = booking.ID;
 
                             // Call payment Repository directly. Use this if the service is not available
-                            //int _status = paymentRepo.Insert(payment);
+                            int _status = paymentRepo.Insert(payment);
+                            booking.payment = paymentRepo.FindById(_status);
 
                             //Tests to consume net.Tcp binding services                            
-                            using (Payment_Service.PaymentServiceClient client = new Payment_Service.PaymentServiceClient())
-                            {
-                                Payment_Service.Payment pay = new Payment_Service.Payment();
+                            //using (Payment_Service.PaymentServiceClient client = new Payment_Service.PaymentServiceClient())
+                            //{
+                            //    Payment_Service.Payment pay = new Payment_Service.Payment();
 
-                                pay.CardExpiry = payment.CardExpiry;
-                                pay.CardHolderName = payment.CardHolderName;
-                                pay.CCV = payment.CCV;
-                                pay.CreditCardNo = payment.CreditCardNo;
-                                pay.GSTPercent = payment.GSTPercent;
-                                pay.MovieBookingID = payment.MovieBookingID;
-                                pay.PaymentDate = payment.PaymentDate;
-                                pay.PaymentModeID = payment.PaymentModeID;
-                                pay.TotalAmount = payment.TotalAmount;
-                                int id = client.Insert(pay);
-                                //Save the transaction if the payment is successfull.
-                                if (id > 0)
-                                {
-                                    booking.payment = paymentRepo.FindById(id);
-                                }
-                            }                          
+                            //    pay.CardExpiry = payment.CardExpiry;
+                            //    pay.CardHolderName = payment.CardHolderName;
+                            //    pay.CCV = payment.CCV;
+                            //    pay.CreditCardNo = payment.CreditCardNo;
+                            //    pay.GSTPercent = payment.GSTPercent;
+                            //    pay.MovieBookingID = payment.MovieBookingID;
+                            //    pay.PaymentDate = payment.PaymentDate;
+                            //    pay.PaymentModeID = payment.PaymentModeID;
+                            //    pay.TotalAmount = payment.TotalAmount;
+                            //    int id = client.Insert(pay);
+                            //    //Save the transaction if the payment is successfull.
+                            //    if (id > 0)
+                            //    {
+                            //        booking.payment = paymentRepo.FindById(id);
+                            //    }
+                            //}                          
 
                         }
                          
