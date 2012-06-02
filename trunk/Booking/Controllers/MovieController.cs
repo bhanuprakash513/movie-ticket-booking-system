@@ -218,9 +218,9 @@ namespace MovieBooking.MVC.UI.Controllers
                             //booking.payment = paymentRepo.FindById(_status);
 
                             //Tests to consume net.Tcp binding services                            
-                            using (Payment_Service.PaymentServiceClient client = new Payment_Service.PaymentServiceClient())
+                            using (PaymentService_ws.PaymentServiceClient client = new PaymentService_ws.PaymentServiceClient("WSHttpBinding_IPaymentService"))
                             {
-                                Payment_Service.Payment pay = new Payment_Service.Payment();
+                                PaymentService_ws.Payment pay = new PaymentService_ws.Payment();
 
                                 pay.CardExpiry = payment.CardExpiry;
                                 pay.CardHolderName = payment.CardHolderName;

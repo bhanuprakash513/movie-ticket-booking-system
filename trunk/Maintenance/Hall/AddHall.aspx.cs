@@ -77,7 +77,9 @@ namespace MovieBooking.UI.Maintenance.Hall
         protected void DispAll()
         {
             HallRepository hallRep = new HallRepository();
-            gvHall.DataSource = hallRep.FindAll(Convert.ToInt32(cmbTheatreName.SelectedValue));
+            HallListService.HallListServiceClient HallList = new HallListService.HallListServiceClient("BasicHttpBinding_IHallListService");
+            gvHall.DataSource = HallList.GetHallList(Convert.ToInt32(cmbTheatreName.SelectedValue));
+            //gvHall.DataSource = hallRep.FindAll(Convert.ToInt32(cmbTheatreName.SelectedValue));
             gvHall.DataBind();
         }
     }

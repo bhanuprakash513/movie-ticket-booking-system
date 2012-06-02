@@ -91,6 +91,11 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\MovieBookingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\PaymentService_ws\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\Payment_Service\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -360,9 +365,31 @@
     <Content Include="Scripts\modernizr-1.7.js" />
     <Content Include="Scripts\modernizr-1.7.min.js" />
     <Content Include="Scripts\moviebooking\selectseats.js" />
+    <None Include="Service References\PaymentService_ws\PaymentService.wsdl" />
+    <None Include="Service References\PaymentService_ws\PaymentService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PaymentService_ws\PaymentService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PaymentService_ws\PaymentService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PaymentService_ws\PaymentService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\PaymentService_ws\PaymentService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\Payment_Service\configuration91.svcinfo" />
     <None Include="Service References\Payment_Service\configuration.svcinfo" />
     <None Include="Service References\Payment_Service\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\PaymentService_ws\configuration91.svcinfo" />
+    <None Include="Service References\PaymentService_ws\configuration.svcinfo" />
+    <None Include="Service References\PaymentService_ws\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -582,6 +609,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\PaymentService_ws\" />
     <WCFMetadataStorage Include="Service References\Payment_Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -601,7 +629,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>16656</DevelopmentServerPort>
+          <DevelopmentServerPort>1992</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

@@ -12,19 +12,22 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Runtime.Serialization;
 
 namespace MovieBooking.Model.Entities
 {
+    [DataContract]
     public partial class mb_Hall
     {
         #region Primitive Properties
     
+        [DataMember]
         public virtual int ID
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual int TheatreID
         {
             get { return _theatreID; }
@@ -40,20 +43,22 @@ namespace MovieBooking.Model.Entities
                 }
             }
         }
+
+        [DataMember]
         private int _theatreID;
-    
+        [DataMember]
         public virtual string HallName
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual int TotalSeats
         {
             get;
             set;
         }
-    
+        [DataMember]
         public virtual bool Active
         {
             get;
