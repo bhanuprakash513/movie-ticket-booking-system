@@ -44,14 +44,14 @@ Theatre Maintenance
         </p>
         <p>
         <asp:Label ID="TheatrePhoneNoLabel" runat="server" AssociatedControlID="TheatrePhoneNo">Phone No:</asp:Label>
-        <asp:TextBox ID="TheatrePhoneNo" runat="server" CssClass="textEntry" MaxLength="50"></asp:TextBox>
+        <asp:TextBox ID="TheatrePhoneNo" runat="server" CssClass="textEntry" MaxLength="20"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TheatrePhoneNo" 
                 CssClass="failureNotification" ErrorMessage="Theatre Phone No. is required." ToolTip="Theatre Phone No. is required." 
                 ValidationGroup="TheatreValidationGroup">*</asp:RequiredFieldValidator>
         </p>
         <p>
         <asp:Label ID="TheatreFaxNoLabel" runat="server" AssociatedControlID="TheatreFaxNo">Fax No.:</asp:Label>
-        <asp:TextBox ID="TheatreFaxNo" runat="server" CssClass="textEntry" MaxLength="50"></asp:TextBox>
+        <asp:TextBox ID="TheatreFaxNo" runat="server" CssClass="textEntry" MaxLength="20"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TheatreFaxNo" 
                 CssClass="failureNotification" ErrorMessage="Theatre Fax No. is required." ToolTip="Theatre Fax No. is required." 
                 ValidationGroup="TheatreValidationGroup">*</asp:RequiredFieldValidator>
@@ -75,11 +75,28 @@ Theatre Maintenance
                 CssClass="failureNotification" ErrorMessage="Theatre WebSite is required." ToolTip="Theatre WebSite is required." 
                 ValidationGroup="TheatreValidationGroup">*</asp:RequiredFieldValidator>
         </p>
-
+        
         <p>
             <asp:Button ID="btnAdd" runat="server" Text="Add" onclick="btnAdd_Click" CausesValidation="true" ValidationGroup="TheatreValidationGroup" />
         </p>
         <br />
+
+         <p>
+        <asp:GridView ID="gvTheatre" runat="server" AutoGenerateColumns="false" Width="99%">
+        <Columns>
+        <asp:BoundField DataField="Name" HeaderText="Theatre Name"  />
+        <asp:BoundField DataField="Address" HeaderText="Address"  />
+        <asp:BoundField DataField="PostalCode" HeaderText="Postal Code"  />
+        <asp:BoundField DataField="PhoneNo" HeaderText="Phone No"  />
+        <asp:BoundField DataField="FaxNo" HeaderText="Fax No"  />
+        <asp:BoundField DataField="Email" HeaderText="Email"  />
+        <asp:BoundField DataField="WebSite" HeaderText="Web Site"  />
+        </Columns>
+        </asp:GridView>
+    
+         </p>
     </fieldset>
+
+   
 </div>
 </asp:Content>

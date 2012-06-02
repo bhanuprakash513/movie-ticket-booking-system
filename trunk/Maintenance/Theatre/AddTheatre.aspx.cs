@@ -12,7 +12,10 @@ namespace MovieBooking.UI.Maintenance.Theatre
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                DispAll();
+            }
         }
 
         protected void btnAdd_Click(object sender, EventArgs e)
@@ -33,7 +36,7 @@ namespace MovieBooking.UI.Maintenance.Theatre
             theatreRep.Insert(theatre);
             ErrorMessage.Text = "Updated Successfully";
             ClearAll();
-            //theatre.InsertTheatre();
+            DispAll();
         }
 
         protected void ClearAll()
@@ -47,6 +50,12 @@ namespace MovieBooking.UI.Maintenance.Theatre
             TheatreWebSiteAddress.Text = string.Empty;
         }
 
+        protected void DispAll()
+        {
+            TheatreRepository theatreRep = new TheatreRepository();
+            gvTheatre.DataSource = theatreRep.FindAll();
+            gvTheatre.DataBind();
+        }
         
     }
 }
