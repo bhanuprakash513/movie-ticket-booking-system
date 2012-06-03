@@ -18,5 +18,15 @@ namespace MovieBooking.MVC.UI.Controllers
         {
             return View();
         }
+
+        public ActionResult ContactUs()
+        {
+            return View();
+        }
+
+        public ActionResult Trailer()
+        {
+            return View();
+        }
     }
 }

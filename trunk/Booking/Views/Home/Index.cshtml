@@ -10,11 +10,11 @@
 <tr>
 @*<td><img  onclick="javascript:alert('New User');" src="../../images/Register.png" alt="New User" style="width="100px"; height="100px" /></td>
 <td></td>*@
-<td><img  onclick="javascript:alert('Trailer');" src="../../images/video_film.png" alt="Trailer" style="width:100px; height:100px" /></td>
+<td><a href="@Url.Action("Trailer", "Home")"><img src="../../images/video_film.png" alt="Trailer" style="width:100px; height:100px" /> </a> </td>
 <td></td>
 <td><a href="@Url.Action("Search", "Movie")"><img src="../../images/tickets-icon.png" alt="Buy Tickets" style="width:100px; height:100px" /></a></td>
 <td></td>
-<td><img onclick="javascript:alert('Contact us');" src="../../images/people-icon.png" alt="Contact Us" style="width:100px; height:100px" /></td>
+<td><a href="@Url.Action("ContactUs", "Home")"><img src="../../images/people-icon.png" alt="Contact Us" style="width:100px; height:100px" /></a></td>
 </tr>
 <tr>
 @*<td><p >Member Registration</p></td>

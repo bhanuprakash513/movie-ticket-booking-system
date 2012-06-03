@@ -409,6 +409,8 @@
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\Home\ContactUs.cshtml" />
+    <Content Include="Views\Home\Trailer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
