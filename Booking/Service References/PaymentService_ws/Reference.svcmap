@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d0ec5ce2-e050-47d0-8464-c0e560b2d750" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/MovieBooking.SI.Web/PaymentService.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PaymentService.xsd" MetadataType="Schema" ID="6c21d93f-4e7b-4892-a4c4-977aac834ac4" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/PaymentService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PaymentService1.xsd" MetadataType="Schema" ID="61371a8d-d9f8-4363-a97c-d3e4e1bd6208" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/PaymentService.svc?xsd=xsd4" />
+    <MetadataFile FileName="PaymentService2.xsd" MetadataType="Schema" ID="32dfff02-34c5-48f5-aaa0-5f648955d6bb" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/PaymentService.svc?xsd=xsd3" />
+    <MetadataFile FileName="PaymentService3.xsd" MetadataType="Schema" ID="8cd6848f-95bf-4903-b81f-0d984173c5ef" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/PaymentService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PaymentService4.xsd" MetadataType="Schema" ID="6f1c5108-a026-4c53-9be2-bd96f802bc22" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/PaymentService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PaymentService.wsdl" MetadataType="Wsdl" ID="09876940-a1e4-4494-b5b4-20df01b6d048" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/PaymentService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
