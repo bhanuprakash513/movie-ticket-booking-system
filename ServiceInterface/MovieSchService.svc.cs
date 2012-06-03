@@ -8,25 +8,25 @@ using System.Collections.Generic;
  * REVISION HISTORY
  * -----------------------------------------------------------------
  * DATE           AUTHOR          REVISION		DESCRIPTION
- * 20 May 2012    Mansoor M I     0.1			Intial version
+ * 20 May 2012    Sujatha I     0.1			Intial version
  * 													
  * 																									
  * 													
  * 
  */
 
-namespace MovieBooking.SvcLib
+namespace MovieBooking.SI.Web
 {
     public class MovieSchService : IMovieScheduleService
     {
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<MovieSchedule> GetMovies()
         {
-            List<Movie> Movies = new List<Movie>();
+            List<MovieSchedule> Movies = new List<MovieSchedule>();
             MovieRepository Movrep = new MovieRepository();
             IEnumerable<MovieBooking.BLL.Entities.Movie> MovieEntity = Movrep.FindAll();
             foreach(MovieBooking.BLL.Entities.Movie movie in MovieEntity)
             {
-                Movie Mov = new Movie();
+                MovieSchedule Mov = new MovieSchedule();
                 Mov.MovieName = movie.MovieName;
                 Mov.Description = movie.Description;
                 Mov.CastDescription = movie.CastDescription;

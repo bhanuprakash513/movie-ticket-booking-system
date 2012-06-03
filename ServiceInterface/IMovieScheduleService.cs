@@ -5,14 +5,17 @@ using System.Text;
 using System.ServiceModel;
 using MovieBooking.BLL.Entities;
 
-namespace MovieBooking.SvcLib
+namespace MovieBooking.SI.Web
 {
     [ServiceContract]
     public interface IMovieScheduleService
     {
-        IEnumerable<Movie> GetMovies();
+        [OperationContract]
+        IEnumerable<MovieSchedule> GetMovies();
     }
-    public class Movie : MovieBooking.BLL.Entities.Movie
+
+  
+    public class MovieSchedule : MovieBooking.BLL.Entities.Movie
     {
     }
 }
