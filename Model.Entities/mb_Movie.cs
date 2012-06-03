@@ -20,14 +20,12 @@ namespace MovieBooking.Model.Entities
     public partial class mb_Movie
     {
         #region Primitive Properties
-    
         [DataMember]
         public virtual int ID
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual string MovieName
         {
@@ -81,7 +79,7 @@ namespace MovieBooking.Model.Entities
         {
             get;
             set;
-        }
+          }
         [DataMember]
         public virtual string CastDescription
         {

@@ -20,15 +20,13 @@ namespace MovieBooking.Model.Entities
     public partial class mb_Payment
     {
         #region Primitive Properties
-
-        [DataMember]
+       [DataMember]
         public virtual int ID
         {
             get;
             set;
         }
-
-        [DataMember]
+    [DataMember]  
         public virtual int MovieBookingID
         {
             get { return _movieBookingID; }
@@ -45,56 +43,48 @@ namespace MovieBooking.Model.Entities
             }
         }
         private int _movieBookingID;
-
         [DataMember]
         public virtual string PaymentModeID
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual System.DateTime PaymentDate
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual string CreditCardNo
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual string CardExpiry
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual string CardHolderName
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual string CCV
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual decimal TotalAmount
         {
             get;
             set;
         }
-
         [DataMember]
         public virtual double GSTPercent
         {

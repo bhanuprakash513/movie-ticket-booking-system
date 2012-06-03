@@ -20,7 +20,7 @@ namespace MovieBooking.Model.Entities
     public partial class mb_Hall
     {
         #region Primitive Properties
-    
+      
         [DataMember]
         public virtual int ID
         {
@@ -43,22 +43,20 @@ namespace MovieBooking.Model.Entities
                 }
             }
         }
-
-        [DataMember]
         private int _theatreID;
-        [DataMember]
+        [DataMember]    
         public virtual string HallName
         {
             get;
             set;
         }
-        [DataMember]
+        [DataMember]  
         public virtual int TotalSeats
         {
             get;
             set;
         }
-        [DataMember]
+        [DataMember]  
         public virtual bool Active
         {
             get;
