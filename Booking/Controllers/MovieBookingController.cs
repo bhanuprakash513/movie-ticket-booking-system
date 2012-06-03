@@ -7,6 +7,7 @@ using MovieBooking.BLL.Entities;
 using MovieBooking.Model.Entities;
 using System.Web.Security;
 
+
 namespace MovieBooking.MVC.UI.Controllers
 {
     public class MovieBookingController : Controller
