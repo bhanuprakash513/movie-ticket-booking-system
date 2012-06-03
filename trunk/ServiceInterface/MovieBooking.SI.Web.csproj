@@ -72,6 +72,7 @@
   <ItemGroup>
     <Content Include="HallListService.svc" />
     <Content Include="MovieDetailService.svc" />
+    <Content Include="MovieSchService.svc" />
     <Content Include="PaymentService.svc" />
     <Content Include="StockService.svc" />
     <Content Include="Web.config">
@@ -90,9 +91,13 @@
     </Compile>
     <Compile Include="IHallListService.cs" />
     <Compile Include="IMovieDetService.cs" />
+    <Compile Include="IMovieScheduleService.cs" />
     <Compile Include="IPaymentService.cs" />
     <Compile Include="MovieDetailService.svc.cs">
       <DependentUpon>MovieDetailService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="MovieSchService.svc.cs">
+      <DependentUpon>MovieSchService.svc</DependentUpon>
     </Compile>
     <Compile Include="PaymentService.svc.cs">
       <DependentUpon>PaymentService.svc</DependentUpon>
