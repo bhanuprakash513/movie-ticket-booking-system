@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/MovieBooking.Model.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/MovieBooking.Model.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="mb_Movie">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Active" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CastDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:int" />
+      <xs:element minOccurs="0" name="ImageMoviePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LanguageID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MovieName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RatingID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RunningDuration" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="genre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="trailer_url" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="mb_Movie" nillable="true" type="tns:mb_Movie" />
+</xs:schema>
