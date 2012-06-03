@@ -13,7 +13,13 @@ namespace MovieBooking.UI.Maintenance.Movie
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                MovieRepository hallRep = new MovieRepository();
+                MovieScheduleService.MovieScheduleServiceClient MovSch = new MovieScheduleService.MovieScheduleServiceClient("BasicHttpBinding_IMovieScheduleService");
+                gvMovie.DataSource = MovSch.GetMovies();
+                gvMovie.DataBind();
+            }
         }
 
         private void ClearFields()

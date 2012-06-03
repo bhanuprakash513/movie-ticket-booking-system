@@ -116,6 +116,25 @@
     <None Include="Service References\MovieDetService\MovieDetailService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\MovieScheduleService\MovieBooking.UI.Maintenance.MovieScheduleService.MovieSchedule.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MovieScheduleService\MovieSchService.wsdl" />
+    <None Include="Service References\MovieScheduleService\MovieSchService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieScheduleService\MovieSchService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieScheduleService\MovieSchService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieScheduleService\MovieSchService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\MovieScheduleService\MovieSchService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\PaymentService\MovieBooking.BLL.Entities.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -158,6 +177,12 @@
     <None Include="Service References\HallListService\configuration91.svcinfo" />
     <None Include="Service References\HallListService\configuration.svcinfo" />
     <None Include="Service References\HallListService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\MovieScheduleService\configuration91.svcinfo" />
+    <None Include="Service References\MovieScheduleService\configuration.svcinfo" />
+    <None Include="Service References\MovieScheduleService\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -278,6 +303,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\MovieScheduleService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\PaymentService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -333,6 +363,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HallListService\" />
     <WCFMetadataStorage Include="Service References\MovieDetService\" />
+    <WCFMetadataStorage Include="Service References\MovieScheduleService\" />
     <WCFMetadataStorage Include="Service References\PaymentService\" />
     <WCFMetadataStorage Include="Service References\StockService\" />
   </ItemGroup>
