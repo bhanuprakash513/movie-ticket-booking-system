@@ -57,7 +57,7 @@ namespace MovieBooking.UI.Maintenance.Hall
             };
             HallRepository hallRep = new HallRepository();
             hallRep.Insert(hall);
-            ErrorMessage.Text = "Updated Successfully";
+            ErrorMessage.Text = "Added Successfully";
             ClearAll();
             DispAll();
         }

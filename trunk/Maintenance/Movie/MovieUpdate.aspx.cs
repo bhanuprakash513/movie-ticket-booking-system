@@ -73,90 +73,100 @@ namespace MovieBooking.UI.Maintenance.Movie
 
         protected void BtnUpdate_Click(object sender, EventArgs e)
         {
-            int LangID = 0;
-            bool Act = Convert.ToBoolean(this.ActiveCombo.SelectedValue);
-            if (this.LanguageCombo.SelectedValue.Equals("English"))
+             MovieRepository moviedet = new MovieRepository();
+             int id = moviedet.FindIdbyName(this.MovNameCombo.SelectedItem.ToString());
+            if (id != 0)
             {
-                LangID = 1;
-            }
-            else if (this.LanguageCombo.SelectedValue.Equals("Tamil"))
-            {
-                LangID = 2;
-            }
-            if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
-            {
-                LangID = 3;
+                int LangID = 0;
+                bool Act = Convert.ToBoolean(this.ActiveCombo.SelectedValue);
+                if (this.LanguageCombo.SelectedValue.Equals("English"))
+                {
+                    LangID = 1;
+                }
+                else if (this.LanguageCombo.SelectedValue.Equals("Tamil"))
+                {
+                    LangID = 2;
+                }
+                if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
+                {
+                    LangID = 3;
+                }
+                else
+                {
+                    LangID = 4;
+                }
+
+                MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
+                {
+                    ID = Convert.ToInt32(this.MovNameCombo.SelectedValue),
+                    MovieName = this.MovNameCombo.SelectedItem.ToString(),
+                    Description = this.txtmovDesc.Text.ToString(),
+                    RatingID = this.RatingCombo.SelectedValue.ToString(),
+                    LanguageID = LangID.ToString(),
+                    RunningDuration = Convert.ToInt16(this.txtDuration.Text),
+                    Active = Act,
+                    genre = this.GenreCombo.SelectedValue.ToString(),
+                    CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
+                    (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
+
+                };
+                MovieRepository newMovie = new MovieRepository();
+                MovieItemRepository newMovieItem = new MovieItemRepository();
+                newMovie.Update(movie);
+                int MovieID = newMovie.FindIdbyName(movie.MovieName);
+                int movieItemId1 = newMovieItem.FindbyIdCast(MovieID, "0");
+                int movieItemId2 = newMovieItem.FindbyIdCast(MovieID, "1");
+                int movieItemId3 = newMovieItem.FindbyIdCast(MovieID, "2");
+                MovieBooking.BLL.Entities.Movie_Item movieItem;
+                MovieBooking.BLL.Entities.Movie_Item movieItem1;
+                MovieBooking.BLL.Entities.Movie_Item movieItem2;
+
+                movieItem = new MovieBooking.BLL.Entities.Movie_Item()
+                {
+                    ID = movieItemId1,
+                    MovieID = MovieID,
+                    CastID = 0.ToString(),
+                    CastName = this.CastCombo2.SelectedValue,
+                    Description = this.txtCast1.Text
+                };
+                newMovieItem.Update(movieItem);
+
+
+                movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
+                {
+                    ID = movieItemId2,
+                    MovieID = MovieID,
+                    CastID = 1.ToString(),
+                    CastName = this.CastCombo1.SelectedValue,
+                    Description = this.txtCast2.Text
+
+
+                };
+                newMovieItem.Update(movieItem1);
+
+
+                movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
+                {
+                    ID = movieItemId3,
+                    MovieID = MovieID,
+                    CastID = 2.ToString(),
+                    CastName = this.CastCombo3.SelectedValue,
+                    Description = this.txtCast3.Text
+
+
+                };
+                newMovieItem.Update(movieItem2);
+                ErrorMessage.Text = "Updated Successfully";
             }
             else
             {
-                LangID = 4;
+                ErrorMessage.Text = "Movie not exist";
             }
-
-            MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
-            {
-                ID=Convert.ToInt32(this.MovNameCombo.SelectedValue),
-                MovieName = this.MovNameCombo.SelectedItem.ToString(),
-                Description = this.txtmovDesc.Text.ToString(),
-                RatingID = this.RatingCombo.SelectedValue.ToString(),
-                LanguageID = LangID.ToString(),
-                RunningDuration = Convert.ToInt16(this.txtDuration.Text),
-                Active = Act,
-                genre = this.GenreCombo.SelectedValue.ToString(),
-                CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
-                (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
-
-            };
-            MovieRepository newMovie = new MovieRepository();
-            MovieItemRepository newMovieItem = new MovieItemRepository();
-            newMovie.Update(movie);
-            int MovieID = newMovie.FindIdbyName(movie.MovieName);
-            int movieItemId1=newMovieItem.FindbyIdCast(MovieID,"0");
-            int movieItemId2=newMovieItem.FindbyIdCast(MovieID,"1");
-            int movieItemId3 = newMovieItem.FindbyIdCast(MovieID, "2");
-            MovieBooking.BLL.Entities.Movie_Item movieItem;
-            MovieBooking.BLL.Entities.Movie_Item movieItem1;
-            MovieBooking.BLL.Entities.Movie_Item movieItem2;
-
-            movieItem = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                ID=movieItemId1,
-                MovieID = MovieID,
-                CastID = 0.ToString(),
-                CastName = this.CastCombo2.SelectedValue,
-                Description = this.txtCast1.Text
-            };
-            newMovieItem.Update(movieItem);
-
-
-            movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                ID = movieItemId2,
-                MovieID = MovieID,
-                CastID = 1.ToString(),
-                CastName = this.CastCombo1.SelectedValue,
-                Description = this.txtCast2.Text
-
-
-            };
-            newMovieItem.Update(movieItem1);
-
-
-            movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                ID = movieItemId3,
-                MovieID = MovieID,
-                CastID = 2.ToString(),
-                CastName = this.CastCombo3.SelectedValue,
-                Description = this.txtCast3.Text
-
-
-            };
-            newMovieItem.Update(movieItem2);
-            ErrorMessage.Text = "Updated Successfully";
 
         }
         private void ClearFields()
         {
+           
             txtmovDesc.Text = string.Empty;
             txtDuration.Text = string.Empty;
             txtCast1.Text = string.Empty;
@@ -166,91 +176,100 @@ namespace MovieBooking.UI.Maintenance.Movie
         }
         protected void BtnDelete_Click(object sender, EventArgs e)
         {
-            int LangID = 0;
-            bool Act = Convert.ToBoolean(this.ActiveCombo.SelectedValue);
-            if (this.LanguageCombo.SelectedValue.Equals("English"))
-            {
-                LangID = 1;
-            }
-            else if (this.LanguageCombo.SelectedValue.Equals("Tamil"))
-            {
-                LangID = 2;
-            }
-            if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
-            {
-                LangID = 3;
-            }
-            else
-            {
-                LangID = 4;
-            }
+             MovieRepository moviedet = new MovieRepository();
+             int id = moviedet.FindIdbyName(this.MovNameCombo.SelectedItem.ToString());
+             if (id != 0)
+             {
+                 int LangID = 0;
+                 bool Act = Convert.ToBoolean(this.ActiveCombo.SelectedValue);
+                 if (this.LanguageCombo.SelectedValue.Equals("English"))
+                 {
+                     LangID = 1;
+                 }
+                 else if (this.LanguageCombo.SelectedValue.Equals("Tamil"))
+                 {
+                     LangID = 2;
+                 }
+                 if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
+                 {
+                     LangID = 3;
+                 }
+                 else
+                 {
+                     LangID = 4;
+                 }
 
-            MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
-            {
-                ID = Convert.ToInt32(this.MovNameCombo.SelectedValue),
-                MovieName = this.MovNameCombo.SelectedItem.ToString(),
-                Description = this.txtmovDesc.Text.ToString(),
-                RatingID = this.RatingCombo.SelectedValue.ToString(),
-                LanguageID = LangID.ToString(),
-                RunningDuration = Convert.ToInt16(this.txtDuration.Text),
-                Active = Act,
-                genre = this.GenreCombo.SelectedValue.ToString(),
-                CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
-                (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
+                 MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
+                 {
+                     ID = Convert.ToInt32(this.MovNameCombo.SelectedValue),
+                     MovieName = this.MovNameCombo.SelectedItem.ToString(),
+                     Description = this.txtmovDesc.Text.ToString(),
+                     RatingID = this.RatingCombo.SelectedValue.ToString(),
+                     LanguageID = LangID.ToString(),
+                     RunningDuration = Convert.ToInt16(this.txtDuration.Text),
+                     Active = Act,
+                     genre = this.GenreCombo.SelectedValue.ToString(),
+                     CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
+                     (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
 
-            };
-            MovieRepository newMovie = new MovieRepository();          
-            MovieItemRepository newMovieItem = new MovieItemRepository();
-            int MovieID = newMovie.FindIdbyName(movie.MovieName);
-            int movieItemId1 = newMovieItem.FindbyIdCast(MovieID, "0");
-            int movieItemId2 = newMovieItem.FindbyIdCast(MovieID, "1");
-            int movieItemId3 = newMovieItem.FindbyIdCast(MovieID, "2");
-            MovieBooking.BLL.Entities.Movie_Item movieItem;
-            MovieBooking.BLL.Entities.Movie_Item movieItem1;
-            MovieBooking.BLL.Entities.Movie_Item movieItem2;
+                 };
+                 MovieRepository newMovie = new MovieRepository();
+                 MovieItemRepository newMovieItem = new MovieItemRepository();
+                 int MovieID = newMovie.FindIdbyName(movie.MovieName);
+                 int movieItemId1 = newMovieItem.FindbyIdCast(MovieID, "0");
+                 int movieItemId2 = newMovieItem.FindbyIdCast(MovieID, "1");
+                 int movieItemId3 = newMovieItem.FindbyIdCast(MovieID, "2");
+                 MovieBooking.BLL.Entities.Movie_Item movieItem;
+                 MovieBooking.BLL.Entities.Movie_Item movieItem1;
+                 MovieBooking.BLL.Entities.Movie_Item movieItem2;
 
-            movieItem = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                ID = movieItemId1,
-                MovieID = MovieID,
-                CastID = 0.ToString(),
-                CastName = this.CastCombo2.SelectedValue,
-                Description = this.txtCast1.Text
-            };
-            newMovieItem.Delete(movieItem);
-
-
-            movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                ID = movieItemId2,
-                MovieID = MovieID,
-                CastID = 1.ToString(),
-                CastName = this.CastCombo1.SelectedValue,
-                Description = this.txtCast2.Text
+                 movieItem = new MovieBooking.BLL.Entities.Movie_Item()
+                 {
+                     ID = movieItemId1,
+                     MovieID = MovieID,
+                     CastID = 0.ToString(),
+                     CastName = this.CastCombo2.SelectedValue,
+                     Description = this.txtCast1.Text
+                 };
+                 newMovieItem.Delete(movieItem);
 
 
-            };
-            newMovieItem.Delete(movieItem1);
+                 movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
+                 {
+                     ID = movieItemId2,
+                     MovieID = MovieID,
+                     CastID = 1.ToString(),
+                     CastName = this.CastCombo1.SelectedValue,
+                     Description = this.txtCast2.Text
 
 
-            movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                ID = movieItemId3,
-                MovieID = MovieID,
-                CastID = 2.ToString(),
-                CastName = this.CastCombo3.SelectedValue,
-                Description = this.txtCast3.Text
+                 };
+                 newMovieItem.Delete(movieItem1);
 
 
-            };
-            newMovieItem.Delete(movieItem2);
+                 movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
+                 {
+                     ID = movieItemId3,
+                     MovieID = MovieID,
+                     CastID = 2.ToString(),
+                     CastName = this.CastCombo3.SelectedValue,
+                     Description = this.txtCast3.Text
 
-            bool ret = newMovie.Delete(movie);
-            if (ret)
-            {
-                ClearFields();
-                ErrorMessage.Text = "Deleted Successfully";
-            }
+
+                 };
+                 newMovieItem.Delete(movieItem2);
+
+                 bool ret = newMovie.Delete(movie);
+                 if (ret)
+                 {
+                     ClearFields();
+                     ErrorMessage.Text = "Deleted Successfully";
+                 }
+             }
+             else
+             {
+                 ErrorMessage.Text = "Movie not exist";
+             }
         }
 
       

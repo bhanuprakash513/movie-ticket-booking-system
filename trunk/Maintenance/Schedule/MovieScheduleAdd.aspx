@@ -171,7 +171,7 @@
                 <asp:Label ID="lblFromdate" runat="server" Text="From Date"></asp:Label>
             &nbsp;<asp:TextBox ID="TxtFromdate" runat="server" Width="104px"></asp:TextBox>
                <asp:ImageButton ID="ImageButton2" runat="server" Height="22px" 
-                    ImageUrl="Images/calendar.gif" onclick="ImageButton1_Click" />
+                    ImageUrl="../Images/calendar.gif" onclick="ImageButton1_Click" />
                 <asp:Calendar ID="Calendar1" runat="server" 
                     onselectionchanged="Calendar1_SelectionChanged" Visible="False">
                 </asp:Calendar>
@@ -181,7 +181,7 @@
                 <asp:TextBox ID="TxtTodate" runat="server" style="margin-left: 13px" 
                     Width="102px"></asp:TextBox>
                 <asp:ImageButton ID="ImageButton1" runat="server" Height="16px" 
-                    ImageUrl="Images/calendar.gif" onclick="ImageButton2_Click" Width="16px" />
+                    ImageUrl="../Images/calendar.gif" onclick="ImageButton2_Click" Width="16px" />
                 <asp:Calendar ID="Calendar2" runat="server" 
                     onselectionchanged="Calendar2_SelectionChanged" Visible="False" 
                     style="margin-right: 11px; margin-left: 6px;" Width="232px">

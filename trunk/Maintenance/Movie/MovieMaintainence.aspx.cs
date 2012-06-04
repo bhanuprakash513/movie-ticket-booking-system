@@ -35,75 +35,83 @@ namespace MovieBooking.UI.Maintenance.Movie
 
         protected void BtnCreate_Click(object sender, EventArgs e)
         {
-            int LangID = 0;
-            bool Act = Convert.ToBoolean(this.ActiveCombo.SelectedValue);
-            if (this.LanguageCombo.SelectedValue.Equals("English"))
-            {
-                LangID = 1;
-            }
-            else if (this.LanguageCombo.SelectedValue.Equals("Tamil"))
-            {
-                LangID = 2;
-            }
-            else if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
-            {
-                LangID = 3;
-            }
-            else
-            {
-                LangID = 4;
-            }
 
-            MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
-            {
-                MovieName = this.TxtMovName.Text.ToString(),
-                Description = this.txtmovDesc.Text.ToString(),
-                RatingID = this.RatingCombo.SelectedValue.ToString(),
-                LanguageID = LangID.ToString(),
-                RunningDuration = Convert.ToInt16(this.txtDuration.Text),
-                Active = Act,
-                genre = this.GenreCombo.SelectedValue.ToString(),
-                CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
-                (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
+                int LangID = 0;
+                bool Act = Convert.ToBoolean(this.ActiveCombo.SelectedValue);
+                if (this.LanguageCombo.SelectedValue.Equals("English"))
+                {
+                    LangID = 1;
+                }
+                else if (this.LanguageCombo.SelectedValue.Equals("Tamil"))
+                {
+                    LangID = 2;
+                }
+                else if (this.LanguageCombo.SelectedValue.Equals("Chinese"))
+                {
+                    LangID = 3;
+                }
+                else
+                {
+                    LangID = 4;
+                }
 
-            };
-            MovieRepository newMovie = new MovieRepository();
-            MovieItemRepository newMovieItem = new MovieItemRepository();
-            newMovie.Insert(movie);
-            int MovieID = newMovie.FindIdbyName(movie.MovieName);
-            MovieBooking.BLL.Entities.Movie_Item movieItem;
-            MovieBooking.BLL.Entities.Movie_Item movieItem1;
-            MovieBooking.BLL.Entities.Movie_Item movieItem2;
+                MovieBooking.BLL.Entities.Movie movie = new MovieBooking.BLL.Entities.Movie()
+                {
+                    MovieName = this.TxtMovName.Text.ToString(),
+                    Description = this.txtmovDesc.Text.ToString(),
+                    RatingID = this.RatingCombo.SelectedValue.ToString(),
+                    LanguageID = LangID.ToString(),
+                    RunningDuration = Convert.ToInt16(this.txtDuration.Text),
+                    Active = Act,
+                    genre = this.GenreCombo.SelectedValue.ToString(),
+                    CastDescription = ((this.CastCombo2.SelectedValue + "-" + this.txtCast1.Text) + "," +
+                    (this.CastCombo1.SelectedValue + "-" + this.txtCast2.Text) + "," + (this.CastCombo3.SelectedValue + "-" + this.txtCast3.Text)).ToString()
 
-            movieItem = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                MovieID = MovieID,
-                CastID = 0.ToString(),
-                CastName = this.CastCombo2.SelectedValue,
-                Description = this.txtCast1.Text
-            };
-            newMovieItem.Insert(movieItem);
+                };
+                MovieRepository newMovie = new MovieRepository();
+                MovieItemRepository newMovieItem = new MovieItemRepository();
+                newMovie.Insert(movie);
+                int MovieID = newMovie.FindIdbyName(movie.MovieName);
+                MovieBooking.BLL.Entities.Movie_Item movieItem;
+                MovieBooking.BLL.Entities.Movie_Item movieItem1;
+                MovieBooking.BLL.Entities.Movie_Item movieItem2;
 
-
-            movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
-            {
-                MovieID = MovieID,
-                CastID = 1.ToString(),
-                CastName = this.CastCombo1.SelectedValue,
-                Description = this.txtCast2.Text
-            };
-            newMovieItem.Insert(movieItem1);
+                movieItem = new MovieBooking.BLL.Entities.Movie_Item()
+                {
+                    MovieID = MovieID,
+                    CastID = 0.ToString(),
+                    CastName = this.CastCombo2.SelectedValue,
+                    Description = this.txtCast1.Text
+                };
+                newMovieItem.Insert(movieItem);
 
 
-            movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
-           {
-               MovieID = MovieID,
-               CastID = 2.ToString(),
-               CastName = this.CastCombo3.SelectedValue,
-               Description = this.txtCast3.Text
-           };
-            newMovieItem.Insert(movieItem2);
-            ErrorMessage.Text = "Inserted Successfully";
+                movieItem1 = new MovieBooking.BLL.Entities.Movie_Item()
+                {
+                    MovieID = MovieID,
+                    CastID = 1.ToString(),
+                    CastName = this.CastCombo1.SelectedValue,
+                    Description = this.txtCast2.Text
+                };
+                newMovieItem.Insert(movieItem1);
+
+
+                movieItem2 = new MovieBooking.BLL.Entities.Movie_Item()
+               {
+                   MovieID = MovieID,
+                   CastID = 2.ToString(),
+                   CastName = this.CastCombo3.SelectedValue,
+                   Description = this.txtCast3.Text
+               };
+                newMovieItem.Insert(movieItem2);
+                ErrorMessage.Text = "Inserted Successfully";
+                ClearFields();
+        
+               
+            
+
+               
+
         }
     }
 }
