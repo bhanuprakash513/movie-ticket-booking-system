@@ -100,7 +100,7 @@
 
 <span class="failureNotification">
                 <asp:Button ID="BtnRetrieve" runat="server" onclick="BtnRetrieve_Click" 
-                    Text="Retrieve" />
+                    Text="Retrieve" CausesValidation="false"/>
 </span>
 
 
@@ -156,7 +156,14 @@
             </td>
             <td>
 
-                &nbsp;</td>
+<span class="failureNotification">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" 
+                    ControlToValidate="CastCombo2" ErrorMessage="RequiredFieldValidator">*</asp:RequiredFieldValidator>
+</span>
+
+
+
+            </td>
             <td>
                 &nbsp;</td>
         </tr>
@@ -176,7 +183,14 @@
             </td>
             <td class="style12">
 
-                &nbsp;</td>
+<span class="failureNotification">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" 
+                    ControlToValidate="CastCombo1" ErrorMessage="RequiredFieldValidator">*</asp:RequiredFieldValidator>
+</span>
+
+
+
+            </td>
             <td class="style12">
                 </td>
         </tr>
@@ -196,7 +210,14 @@
             </td>
             <td>
 
-                &nbsp;</td>
+<span class="failureNotification">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" 
+                    ControlToValidate="CastCombo3" ErrorMessage="RequiredFieldValidator">*</asp:RequiredFieldValidator>
+</span>
+
+
+
+            </td>
             <td>
                 &nbsp;</td>
         </tr>
@@ -241,7 +262,15 @@
 </span>
             </td>
             <td>
-                &nbsp;</td>
+
+<span class="failureNotification">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" 
+                    ControlToValidate="txtmovDesc" ErrorMessage="RequiredFieldValidator">*</asp:RequiredFieldValidator>
+</span>
+
+
+
+            </td>
             <td>
                 &nbsp;</td>
         </tr>
@@ -292,7 +321,14 @@
             </td>
             <td>
 
-                &nbsp;</td>
+<span class="failureNotification">
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" 
+                    ControlToValidate="txtDuration" ErrorMessage="RequiredFieldValidator">*</asp:RequiredFieldValidator>
+</span>
+
+
+
+            </td>
             <td>
                 &nbsp;</td>
         </tr>

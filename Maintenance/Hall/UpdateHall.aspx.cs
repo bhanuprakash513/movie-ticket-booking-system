@@ -46,7 +46,7 @@ namespace MovieBooking.UI.Maintenance.Hall
         protected void btnAdd_Click(object sender, EventArgs e)
         {
             HallRepository hallRep = new HallRepository();
-            var hal = hallRep.FindById(Convert.ToInt16(cmbTheatreName.SelectedValue));
+            var hal = hallRep.FindById(Convert.ToInt16(cmbHallName.SelectedValue));
 
             hal.HallName = this.HallName.Text.ToString();
             hal.TotalSeats = Convert.ToInt32(this.TotalSeats.Text.ToString());
