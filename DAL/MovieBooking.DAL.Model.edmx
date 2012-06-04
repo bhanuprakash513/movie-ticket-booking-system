@@ -1341,7 +1341,7 @@
           <Property Name="MovieBookingID" Type="Int32" Nullable="false" />
           <Property Name="PaymentModeID" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="PaymentDate" Type="DateTime" Nullable="false" />
-          <Property Name="CreditCardNo" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CreditCardNo" Type="String" Nullable="false" MaxLength="500" Unicode="true" FixedLength="false" />
           <Property Name="CardExpiry" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
           <Property Name="CardHolderName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
           <Property Name="CCV" Type="String" Nullable="false" MaxLength="5" Unicode="true" FixedLength="false" />
