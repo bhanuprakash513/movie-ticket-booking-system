@@ -76,10 +76,12 @@ namespace MovieBooking.MVC.UI.Controllers
         [HttpPost]
         public ActionResult Search(String theatre_select, String movie_select , String day_select)
         {
+            string[] dateformat = day_select.Split('/');
+            DateTime date = new DateTime(Int32.Parse(dateformat[2]), Int32.Parse(dateformat[0]), Int32.Parse(dateformat[1]));
             MovieScheduleRepository scheduleRepo = new MovieScheduleRepository();
             MovieRepository movieRepo = new MovieRepository();
             TheatreRepository theatreRepo = new TheatreRepository();
-            List<MovieSchedule> schedules =  scheduleRepo.GetScheduleForMovie(int.Parse(theatre_select), int.Parse(movie_select), DateTime.Parse(day_select));
+            List<MovieSchedule> schedules =  scheduleRepo.GetScheduleForMovie(int.Parse(movie_select),int.Parse(theatre_select), date);
           
             //return theatre_select + "  " + movie_select + "  " + day_select;
             //ViewBag.scheduleList = schedules;
@@ -99,51 +101,57 @@ namespace MovieBooking.MVC.UI.Controllers
            List<MovieSchedule> scheduleList = TempData["scheduleList"] as List<MovieSchedule>;
            mb_Movie movie = TempData["movie"] as mb_Movie;
            Theatre theatre = TempData["theatre"] as Theatre;
-           string day_select = TempData["day_select"].ToString();
+           string day_select = "";
+           day_select = TempData["day_select"].ToString();
 
-           MovieRepository movieRepo = new MovieRepository();
-           IEnumerable<Movie> allMovies = movieRepo.FindAll();
-           List<string> movieImages = new List<string>();
 
-           foreach (Movie _movie in allMovies)
-           {
-               movieImages.Add(_movie.ImageMoviePath);
+               MovieRepository movieRepo = new MovieRepository();
+               IEnumerable<Movie> allMovies = movieRepo.FindAll();
+               List<string> movieImages = new List<string>();
+
+               foreach (Movie _movie in allMovies)
+               {
+                   movieImages.Add(_movie.ImageMoviePath);
+               }
+
+               if (movie != null && theatre != null)
+               {
+                   ViewBag.movie = movie;
+                   ViewBag.theatre = theatre;
+                   ViewBag.movieImages = movieImages;
+               }
+
+               if (scheduleList != null && movie != null && theatre != null)
+               {
+                   ViewBag.movie = movie;
+                   ViewBag.theatre = theatre;
+                   ViewBag.scheduleList = scheduleList;
+                   ViewBag.day_select = day_select;
+                   Dictionary<string, List<MovieSchedule>> schedulesByHall = new Dictionary<string, List<MovieSchedule>>();
+
+                   foreach (MovieSchedule schedule in scheduleList)
+                   {
+                       string hallName = schedule.hall.HallName;
+                       if (schedulesByHall.ContainsKey(hallName))
+                       {
+                           schedulesByHall[hallName].Add(schedule);
+                       }
+                       else
+                       {
+                           schedulesByHall[hallName] = new List<MovieSchedule>();
+                           schedulesByHall[hallName].Add(schedule);
+                       }
+                   }
+                   ViewBag.schedulesByHall = schedulesByHall;
+
+                   TempData["movie"] = TempData["movie"];
+                   TempData["theatre"] = TempData["theatre"];
+                   TempData["day_select"] = TempData["day_select"];
+                   TempData["scheduleList"] = TempData["scheduleList"];
+               // ...
+              
            }
-
-           if (movie != null && theatre != null)
-           {
-               ViewBag.movie = movie;
-               ViewBag.theatre = theatre;
-               ViewBag.movieImages = movieImages;
-           }
-
-            if ( scheduleList != null && movie != null && theatre !=null)
-            {
-                ViewBag.movie = movie;
-                ViewBag.theatre = theatre;
-                ViewBag.scheduleList = scheduleList;
-                ViewBag.day_select = day_select;
-                Dictionary<string, List<MovieSchedule>> schedulesByHall = new Dictionary<string, List<MovieSchedule>>();
-                    
-            foreach (MovieSchedule schedule in scheduleList)
-            {
-                string hallName = schedule.hall.HallName;
-                if (schedulesByHall.ContainsKey(hallName))
-                {
-                    schedulesByHall[hallName].Add(schedule);
-                }
-                else
-                {
-                    schedulesByHall[hallName] = new List<MovieSchedule>();
-                    schedulesByHall[hallName].Add(schedule);
-                }
-            }
-            ViewBag.schedulesByHall = schedulesByHall;
-            }
-
-           
-            // ...
-            return View();
+          return View();
         }
 
 
@@ -211,8 +219,8 @@ namespace MovieBooking.MVC.UI.Controllers
 
                     Payment payment = new Payment();
                     payment.PaymentModeID = payment_mode_select; // Can not be more than 10 characters
-                    //payment.CreditCardNo = Cryptographer.EncryptSymmetric("crpMB", creditCardNum);
-                    payment.CreditCardNo = creditCardNum;
+                    payment.CreditCardNo = Cryptographer.EncryptSymmetric("crpMB", creditCardNum);
+                    //payment.CreditCardNo = creditCardNum;
                     payment.CardExpiry = creditCardExpiry;
                     payment.CardHolderName = nameAsInCard;
                     payment.PaymentDate = DateTime.Now;
