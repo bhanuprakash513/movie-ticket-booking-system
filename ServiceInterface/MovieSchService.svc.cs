@@ -33,6 +33,7 @@ namespace MovieBooking.SI.Web
                 Mov.Active = movie.Active;
                 Mov.genre = movie.genre;
                 Mov.LanguageID = movie.LanguageID;
+                Mov.RunningDuration = movie.RunningDuration;
                 Movies.Add(Mov);
             }
             return Movies;
