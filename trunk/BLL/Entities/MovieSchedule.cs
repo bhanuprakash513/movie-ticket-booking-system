@@ -88,7 +88,7 @@ namespace MovieBooking.BLL.Entities
                 select new MovieSchedule(t);
                 _movies = th.ToList<MovieSchedule>();
             }
-            if (_movies == null)
+            if (_movies.Count == 0)
             {
                 ret=false;
             }

@@ -51,7 +51,6 @@ namespace MovieBooking.BLL.Entities
             PhoneNo = mbTh.PhoneNo;
             PostalCode = mbTh.PostalCode;
             WebSite = mbTh.WebSite;
-            mb_MovieSchedule = mbTh.mb_MovieSchedule;
         }
 
         public void CopyTo(mb_Theatre mbTh)
@@ -65,7 +64,6 @@ namespace MovieBooking.BLL.Entities
             mbTh.PhoneNo = PhoneNo;
             mbTh.PostalCode = PostalCode;
             mbTh.WebSite = WebSite;
-            mbTh.mb_MovieSchedule = mb_MovieSchedule;
         }
 
         #endregion

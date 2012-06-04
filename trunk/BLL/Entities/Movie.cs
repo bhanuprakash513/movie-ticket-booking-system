@@ -109,13 +109,19 @@ namespace MovieBooking.BLL.Entities
         }
         public int FindIdbyName(string MovieName)
         {
+            int id = 0;
 
             mb_Movie th = new mb_Movie();
             using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
             {
                 th = mbRep.Single(u => u.MovieName == MovieName) as mb_Movie;
             }
-            return th.ID;
+            if (th != null)
+            {
+                id= th.ID;
+            }
+            return id;
+            
         }
 
 
