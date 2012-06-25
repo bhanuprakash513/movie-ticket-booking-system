@@ -243,5 +243,48 @@ namespace MovieBooking.BLL.Entities
         //{
         //    throw new NotImplementedException();
         //}
+
+        //Start: Added 23-Jun-2012 for services          
+        public Payment GetPaymentByBookingId(int bookingId)
+        {
+            Payment pay = null;
+
+            try
+            {
+                using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
+                {
+                    var pm = mbRep.First(p => p.MovieBookingID == bookingId);
+                    pay = new Payment(pm);
+                }
+                return pay;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retreiving payment" + ex.Message);
+            }
+        }
+
+        public List<int> GetBookingIdByPaymentDate(DateTime mydate)
+        {
+            List<int> bookingIdList = new List<int>();
+            DateTime tmpDate = mydate.AddDays(1);
+
+            try
+            {
+                using (IRepository<mb_Payment> mbRep = new MovieBookingRepository<mb_Payment>())
+                {
+                    var pay = mbRep.First(p => p.PaymentDate >= mydate && p.PaymentDate < tmpDate);
+
+                    if (pay != null)
+                        bookingIdList.Add(pay.MovieBookingID);
+                }
+                return bookingIdList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retreiving payment booking id" + ex.Message);
+            }
+        }
+        //End: Added 23-Jun-2012 for services
     }
 }
