@@ -42,7 +42,7 @@ namespace MovieBooking.SI.Web
             TheatreRepository theatreRepo = new TheatreRepository();
             HallRepository hallRepo = new HallRepository();
             
-            mySvcMovie = MovieBusinessToService(movieRepo.GetMovieById(value.MovieID));
+            mySvcMovie = MovieBusinessToService(movieRepo.FindbyId(value.MovieID));
             mySvcMovieSchedule.svcMovie = mySvcMovie;
             mySvcMovieSchedule.ScheduleDate = value.ScheduleDate;
             mySvcMovieSchedule.hall = hallRepo.FindById(value.HallID).HallName;
