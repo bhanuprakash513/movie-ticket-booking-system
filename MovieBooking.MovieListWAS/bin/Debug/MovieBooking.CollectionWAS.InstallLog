@@ -1,0 +1,75 @@
+﻿Installing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Rolling back assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Installing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Rolling back assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+An exception occurred during the Rollback phase of the System.ServiceProcess.ServiceProcessInstaller installer.
+System.NullReferenceException: Object reference not set to an instance of an object.
+An exception occurred during the Rollback phase of the installation. This exception will be ignored and the rollback will continue. However, the machine might not fully revert to its initial state after the rollback is complete.
+Installing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Installing service MBCollectionService...
+Creating EventLog source MBCollectionService in log Application...
+Rolling back assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Restoring event log to previous state for source MBCollectionService.
+Installing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Installing service MBCollectionService...
+Service MBCollectionService has been successfully installed.
+Creating EventLog source MBCollectionService in log Application...
+Committing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Installing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Installing service MBCollectionService...
+Service MBCollectionService has been successfully installed.
+Creating EventLog source MBCollectionService in log Application...
+Committing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Installing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
+Installing service MBCollectionService...
+Service MBCollectionService has been successfully installed.
+Creating EventLog source MBCollectionService in log Application...
+Committing assembly 'D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe'.
+Affected parameters are:
+   logtoconsole = 
+   logfile = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.InstallLog
+   assemblypath = D:\Personal Folder\DOTNET\MovieBooking.CollectionWAS\bin\Debug\MovieBooking.CollectionWAS.exe
