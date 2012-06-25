@@ -118,4 +118,16 @@ namespace MovieBooking.SI.Web
         [DataMember]
         public string TimeSlotID { get; set; }
     }
+
+    [DataContract]
+    public class ServiceFault
+    {
+        [DataMember]
+        public string issue { get; set; }
+
+        public ServiceFault(string msg)
+        {
+            this.issue = msg;
+        }
+    }
 }
