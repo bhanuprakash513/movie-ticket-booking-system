@@ -37,6 +37,16 @@ namespace MovieBooking.BLL.Entities
                         
         }
 
+        //Start: Added 23-Jun-2012 for services
+        public Booking()
+        {
+            bookingItems = new List<BookingItem>();
+            payment = new Payment();
+            movie = new Movie();
+            theatre = new Theatre();
+            hall = new Hall();
+        }
+        //End: Added 23-Jun-2012 for services
 
     }
 
@@ -419,7 +429,72 @@ namespace MovieBooking.BLL.Entities
             }
         }
 
+        //Start: Added 23-Jun-2012 for services
+        public List<Booking> GetPaidBookingListByDate(DateTime startDate)
+        {
+            List<Booking> bList = null;
 
+            try
+            {
+                using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+                {
+
+                    DateTime tmpDate = startDate.AddDays(1);
+
+                    var ts = from t in mbRep.FetchAll().Where(b => b.BookingDate >= startDate && b.BookingDate < tmpDate && b.StatusID.Equals("2"))
+                             select new Booking(t);
+                    bList = ts.ToList();
+
+                    if (bList != null)
+                    {
+                        BookingItemRepository itemRepo = new BookingItemRepository();
+                        PaymentRepository payRepo = new PaymentRepository();
+
+                        foreach (Booking booking in bList)
+                        {
+                            booking.bookingItems = itemRepo.GetMovieBookingItems(booking);
+                            booking.payment = payRepo.GetPaymentByBookingId(booking.ID);
+                        }
+                    }
+                }
+                return bList;
+            }
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+        }
+
+        public Booking GetBookingByBookingId(int bookingId)
+        {
+            Booking b = new Booking();
+
+            try
+            {
+                using (IRepository<mb_MovieBooking> mbRep = new MovieBookingRepository<mb_MovieBooking>())
+                {
+
+                    var pm = mbRep.First(p => p.ID == bookingId);
+                    b = new Booking(pm);
+
+                    if (b != null)
+                    {
+                        BookingItemRepository itemRepo = new BookingItemRepository();
+                        PaymentRepository payRepo = new PaymentRepository();
+                        b.bookingItems = itemRepo.GetMovieBookingItems(b);
+                        b.payment = payRepo.GetPaymentByBookingId(b.ID);
+                    }
+                }
+                return b;
+            }
+            catch (Exception ex)
+            {
+                exManager.HandleException(ex, "MovieBookingExceptionType");
+                throw ex;
+            }
+        }
+        //End: Added 23-Jun-2012 for services
         }
 
 }
