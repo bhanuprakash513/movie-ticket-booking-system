@@ -284,6 +284,71 @@ namespace MovieBooking.BLL.Entities
                 throw new Exception("Error occured while getting Movie schedule " + ex.Message);
             }
         }
+
+        //Start: Added 23-Jun-2012 for services
+        public List<MovieSchedule> GetMovieScheduleListByDate(DateTime dt)
+        {
+            List<MovieSchedule> movieScheduleList = null;
+
+            try
+            {
+                using (IRepository<mb_MovieSchedule> mbRep = new MovieBookingRepository<mb_MovieSchedule>())
+                {
+                    var ts = from t in mbRep.FetchAll().Where(b => b.ScheduleDate == dt)
+                             select new MovieSchedule(t);
+                    movieScheduleList = ts.ToList();
+
+                    MovieScheduleItemRepository itemRepo = new MovieScheduleItemRepository();
+
+                    foreach (MovieSchedule schedule in movieScheduleList)
+                    {
+                        List<MovieSchedule_Item> scheduleItems = itemRepo.GetMovieScheduleItem(schedule);
+                        schedule.items = scheduleItems;
+                    }
+                }
+                return movieScheduleList;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retreiving Movie Schedule " + ex.Message);
+            }
+        }
+
+        public MovieSchedule GetMovieScheduleBySchItemId(int schItemId)
+        {
+            MovieSchedule ms = null;
+            MovieSchedule_Item msi = null;
+
+            try
+            {
+                using (IRepository<mb_MovieSchedule_Item> mbRep = new MovieBookingRepository<mb_MovieSchedule_Item>())
+                {
+                    var s = mbRep.First(p => p.ID == schItemId);
+                    msi = new MovieSchedule_Item(s);
+
+                    if (msi != null)
+                    {
+                        using (IRepository<mb_MovieSchedule> mbRep2 = new MovieBookingRepository<mb_MovieSchedule>())
+                        {
+                            var si = mbRep2.Single(p => p.ID == msi.MovieScheduleID);
+                            ms = new MovieSchedule(si);
+                        }
+
+                        if (ms != null)
+                        {
+                            ms.items.Add(msi);
+                        }
+                    }
+                }
+
+                return ms;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retreiving Movie Schedule " + ex.Message);
+            }
+        }
+        //End: Added 23-Jun-2012 for services
     }
 
 
