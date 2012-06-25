@@ -187,5 +187,27 @@ namespace MovieBooking.BLL.Entities
             
 
         }
+
+        //Start: Added 23-Jun-2012 for services
+        public Movie GetMovieByName(string movieName)
+        {
+            Movie myMovie = null;
+
+            try
+            {
+                using (IRepository<mb_Movie> mbRep = new MovieBookingRepository<mb_Movie>())
+                {
+                    var ts = mbRep.Single(u => u.MovieName.Equals(movieName));
+                    myMovie = new Movie(ts);
+                }
+
+                return myMovie;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while retreiving movie" + ex.Message);
+            }
+        }
+        //End: Added 23-Jun-2012 for services
     }
 }
