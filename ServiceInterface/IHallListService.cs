@@ -11,12 +11,18 @@ namespace MovieBooking.SI.Web
     public interface IHallListService
     {
         [OperationContract]
-        IEnumerable<Hall> GetHallList(int Id);
+        [TransactionFlow(TransactionFlowOption.NotAllowed)]
+        IEnumerable<MovieBooking.BLL.Entities.Hall> GetHallList(int Id);
 
-    }
-    [DataContract]
-    public class Hall : MovieBooking.BLL.Entities.Hall
-    {
+        //Start: Added on 28-Jun-2012
+        [OperationContract]
+        [TransactionFlow(TransactionFlowOption.Allowed)]
+        bool updateHall(MovieBooking.BLL.Entities.Hall myHall);
 
+        [OperationContract]
+        [TransactionFlow(TransactionFlowOption.Allowed)]
+        bool addHall(MovieBooking.BLL.Entities.Hall myHall);
+        //End: Added on 28-Jun-2012
     }
+
 }
