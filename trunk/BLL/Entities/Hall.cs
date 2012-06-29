@@ -122,7 +122,7 @@ namespace MovieBooking.BLL.Entities
             using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
             {
                 mbRep.Add(ha);
-                //mbRep.SaveChanges(); //Commented on 28-Jun-2012
+                mbRep.SaveChanges();
             }
             return ha.ID;
         }
@@ -134,7 +134,7 @@ namespace MovieBooking.BLL.Entities
             {
                 ha = mbRep.First(u => u.ID == hall.ID) as mb_Hall;
                 hall.CopyTo(ha);
-                //mbRep.SaveChanges(); //Commented on 28-Jun-2012
+                mbRep.SaveChanges();
             }
             return ha.ID;
         }
