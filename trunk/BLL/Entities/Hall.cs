@@ -122,7 +122,7 @@ namespace MovieBooking.BLL.Entities
             using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
             {
                 mbRep.Add(ha);
-                mbRep.SaveChanges();
+                //mbRep.SaveChanges(); //Commented on 28-Jun-2012
             }
             return ha.ID;
         }
@@ -134,9 +134,32 @@ namespace MovieBooking.BLL.Entities
             {
                 ha = mbRep.First(u => u.ID == hall.ID) as mb_Hall;
                 hall.CopyTo(ha);
-                mbRep.SaveChanges();
+                //mbRep.SaveChanges(); //Commented on 28-Jun-2012
             }
             return ha.ID;
         }
+
+        //Start: Added on 28-Jun-2012
+        public Hall FindHallByTheatreIdHallName(int theatreId, string hallName)
+        {
+            Hall _Hall = new Hall();
+
+            try
+            {
+                using (IRepository<mb_Hall> mbRep = new MovieBookingRepository<mb_Hall>())
+                {
+                    var ts = from t in mbRep.Find(h => h.TheatreID == theatreId && h.HallName == hallName)
+                             select new Hall(t);
+                    _Hall = ts.FirstOrDefault();
+
+                    return _Hall;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while find hall exist" + ex.Message);
+            }
+        }
+        //End: Added on 28-Jun-2012
     }
 }
