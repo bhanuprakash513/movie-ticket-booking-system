@@ -51,9 +51,24 @@ namespace MovieBooking.UI.Maintenance.Hall
             hal.HallName = this.HallName.Text.ToString();
             hal.TotalSeats = Convert.ToInt32(this.TotalSeats.Text.ToString());
             hal.Active = bool.Parse(this.cmbHallStatus.SelectedValue.ToString());
-            hallRep.Update(hal);
+
+            //Start: Added on 28-Jun-2012
+            //hallRep.Update(hal);
+
+            HallListService.HallListServiceClient myHallSvc = new HallListService.HallListServiceClient("BasicHttpBinding_IHallListService");
+
+            try
+            {
+                myHallSvc.updateHall(hal);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while update hall" + ex.Message);
+            }
+
             ErrorMessage.Text = "Updated Successfully";
             ClearAll();
+            //End: Added on 28-Jun-2012
         }
 
         protected void ClearAll()
