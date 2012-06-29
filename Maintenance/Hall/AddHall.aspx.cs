@@ -55,11 +55,38 @@ namespace MovieBooking.UI.Maintenance.Hall
                 TotalSeats= Convert.ToInt32(this.TotalSeats.Text),
                 Active= bool.Parse(this.cmbHallStatus.SelectedValue.ToString())
             };
-            HallRepository hallRep = new HallRepository();
-            hallRep.Insert(hall);
-            ErrorMessage.Text = "Added Successfully";
-            ClearAll();
-            DispAll();
+            
+            //Start: Added on 28-Jun-2012
+            /*HallRepository hallRep = new HallRepository();
+            hallRep.Insert(hall);*/
+
+            HallListService.HallListServiceClient myHallSvc = new HallListService.HallListServiceClient("BasicHttpBinding_IHallListService");
+            bool addFlag = false;
+
+            try
+            {
+                addFlag = myHallSvc.addHall(hall);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error occured while add hall" + ex.Message);
+            }
+
+            if (addFlag == true)
+            {
+                ErrorMessage.Text = "Added Successfully";
+                ClearAll();
+                //DispAll();
+            }
+            else
+            {
+                Server.Transfer("UpdateHall.aspx", true);
+            }
+
+            //ErrorMessage.Text = "Added Successfully";
+            //ClearAll();
+            //DispAll();
+            //End: Added on 28-Jun-2012
         }
 
         protected void ClearAll()
