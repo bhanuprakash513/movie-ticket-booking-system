@@ -12,7 +12,7 @@
     <form runat="server">
     <div class="page">
         <div class="header">
-            <div class="title" style="background-image: url('../images/movieheader.jpg'); height: 200px; width: 960px">
+            <div class="title" style="background-image: url('~/images/movieheader.jpg'); height: 200px; width: 960px">
                 <h1>
                    Movie Booking - Maintenance
                 </h1>
@@ -28,7 +28,7 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
             </div>
-            <div class="clear hideSkiplink" style="background-image: url('../images/backgrounddropdown.jpg'); height: 50px; width: 960px">
+            <div class="clear hideSkiplink" style="background-image: url('~/images/backgrounddropdown.jpg'); height: 50px; width: 960px">
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
