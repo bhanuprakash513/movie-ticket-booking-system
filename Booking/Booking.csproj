@@ -99,6 +99,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MovieBooking.mdf" />
+    <Content Include="App_Data\MovieBooking_log.ldf">
+      <DependentUpon>MovieBooking.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap\css\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
@@ -413,7 +417,6 @@
     <Content Include="Views\Home\Trailer.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
