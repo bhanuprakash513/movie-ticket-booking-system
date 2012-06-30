@@ -23,7 +23,6 @@
   <Metadata>
     <MetadataFile FileName="HallListService.xsd" MetadataType="Schema" ID="81aadf29-6870-4c68-9a19-0c9afb36c41e" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/HallListService.svc?xsd=xsd3" />
     <MetadataFile FileName="HallListService.wsdl" MetadataType="Wsdl" ID="47ded178-a531-49b9-bb07-9b2ae515642b" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/HallListService.svc?wsdl" />
-    <MetadataFile FileName="HallListService1.xsd" MetadataType="Schema" ID="b6cde93d-cb1a-4b84-b0fe-0e51da38f2d3" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/HallListService.svc?xsd=xsd4" />
     <MetadataFile FileName="HallListService2.xsd" MetadataType="Schema" ID="fbc72430-f090-443b-9523-1f4938c4a864" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/HallListService.svc?xsd=xsd0" />
     <MetadataFile FileName="HallListService3.xsd" MetadataType="Schema" ID="96e6eb25-cb24-4caa-a188-91d465016ed5" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/HallListService.svc?xsd=xsd1" />
     <MetadataFile FileName="HallListService4.xsd" MetadataType="Schema" ID="d51ed517-3397-484a-8311-29ac23daf05b" SourceId="1" SourceUrl="http://localhost/MovieBooking.SI.Web/HallListService.svc?xsd=xsd2" />

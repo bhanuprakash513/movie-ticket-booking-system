@@ -9,45 +9,20 @@
 //------------------------------------------------------------------------------
 
 namespace MovieBooking.UI.Maintenance.HallListService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Hall", Namespace="http://schemas.datacontract.org/2004/07/MovieBooking.SI.Web")]
-    [System.SerializableAttribute()]
-    public partial class Hall : MovieBooking.BLL.Entities.Hall, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="HallListService.IHallListService")]
     public interface IHallListService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHallListService/GetHallList", ReplyAction="http://tempuri.org/IHallListService/GetHallListResponse")]
-        MovieBooking.UI.Maintenance.HallListService.Hall[] GetHallList(int Id);
+        MovieBooking.BLL.Entities.Hall[] GetHallList(int Id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHallListService/updateHall", ReplyAction="http://tempuri.org/IHallListService/updateHallResponse")]
+        bool updateHall(MovieBooking.BLL.Entities.Hall myHall);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IHallListService/addHall", ReplyAction="http://tempuri.org/IHallListService/addHallResponse")]
+        bool addHall(MovieBooking.BLL.Entities.Hall myHall);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -77,8 +52,16 @@ namespace MovieBooking.UI.Maintenance.HallListService {
                 base(binding, remoteAddress) {
         }
         
-        public MovieBooking.UI.Maintenance.HallListService.Hall[] GetHallList(int Id) {
+        public MovieBooking.BLL.Entities.Hall[] GetHallList(int Id) {
             return base.Channel.GetHallList(Id);
+        }
+        
+        public bool updateHall(MovieBooking.BLL.Entities.Hall myHall) {
+            return base.Channel.updateHall(myHall);
+        }
+        
+        public bool addHall(MovieBooking.BLL.Entities.Hall myHall) {
+            return base.Channel.addHall(myHall);
         }
     }
 }

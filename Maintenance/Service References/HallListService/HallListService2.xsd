@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/MovieBooking.SI.Web/HallListService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MovieBooking.SI.Web" />
+  <xs:import schemaLocation="http://localhost/MovieBooking.SI.Web/HallListService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/MovieBooking.BLL.Entities" />
   <xs:element name="GetHallList">
     <xs:complexType>
       <xs:sequence>
@@ -11,7 +11,35 @@
   <xs:element name="GetHallListResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MovieBooking.SI.Web" minOccurs="0" name="GetHallListResult" nillable="true" type="q1:ArrayOfHall" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/MovieBooking.BLL.Entities" minOccurs="0" name="GetHallListResult" nillable="true" type="q1:ArrayOfHall" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="updateHall">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/MovieBooking.BLL.Entities" minOccurs="0" name="myHall" nillable="true" type="q2:Hall" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="updateHallResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="updateHallResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addHall">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/MovieBooking.BLL.Entities" minOccurs="0" name="myHall" nillable="true" type="q3:Hall" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addHallResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="addHallResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
