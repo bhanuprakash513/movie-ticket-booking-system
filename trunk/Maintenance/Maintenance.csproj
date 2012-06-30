@@ -70,6 +70,10 @@
     <Content Include="Account\ChangePasswordSuccess.aspx" />
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
+    <Content Include="App_Data\MovieBooking.mdf" />
+    <Content Include="App_Data\MovieBooking_log.ldf">
+      <DependentUpon>MovieBooking.mdf</DependentUpon>
+    </Content>
     <Content Include="Hall\AddHall.aspx" />
     <Content Include="Hall\UpdateHall.aspx" />
     <Content Include="Images\backgrounddropdown.jpg" />
@@ -335,9 +339,7 @@
       <DependentUpon>UpdateTheatre.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Account\Web.config" />
     <Content Include="Site.Master" />
