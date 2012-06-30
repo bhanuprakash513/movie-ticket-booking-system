@@ -9,10 +9,11 @@ using Microsoft.Practices.EnterpriseLibrary.ExceptionHandling;
 using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 using Microsoft.Practices.EnterpriseLibrary.Caching;
 using Microsoft.Practices.EnterpriseLibrary.Common.Configuration;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieBooking.BLL.Entities
 {
-
+    [MetadataType(typeof(Theatre))]
     public partial class Theatre : mb_Theatre
     {
 
@@ -21,7 +22,8 @@ namespace MovieBooking.BLL.Entities
 
         public int ID { get; private set; }
 
-        [NotNullValidator(MessageTemplate = "Theatre Name - Cannot be null!")]
+        [NotNullValidator(ErrorMessage = "Theatre Name - Cannot be null!")]
+        [Required(ErrorMessage="Theatre name is required")]
         public override string Name { get; set;}
 
         public override string Address { get; set; }
@@ -51,6 +53,7 @@ namespace MovieBooking.BLL.Entities
             PhoneNo = mbTh.PhoneNo;
             PostalCode = mbTh.PostalCode;
             WebSite = mbTh.WebSite;
+            mb_MovieSchedule = mbTh.mb_MovieSchedule;
         }
 
         public void CopyTo(mb_Theatre mbTh)
@@ -64,6 +67,7 @@ namespace MovieBooking.BLL.Entities
             mbTh.PhoneNo = PhoneNo;
             mbTh.PostalCode = PostalCode;
             mbTh.WebSite = WebSite;
+            mbTh.mb_MovieSchedule = mb_MovieSchedule;
         }
 
         #endregion
