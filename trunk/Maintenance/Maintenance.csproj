@@ -78,11 +78,9 @@
     <Content Include="Movie\MovieUpdate.aspx" />
     <Content Include="Movie\MovieMaintainence.aspx" />
     <Content Include="App_Themes\Theme1\Skin1.skin" />
+    <None Include="Properties\DataSources\MovieBooking.BLL.Entities.Hall.datasource" />
     <None Include="Service References\HallListService\HallListService.wsdl" />
     <None Include="Service References\HallListService\HallListService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HallListService\HallListService1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\HallListService\HallListService2.xsd">
@@ -93,9 +91,6 @@
     </None>
     <None Include="Service References\HallListService\HallListService4.xsd">
       <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\HallListService\MovieBooking.UI.Maintenance.HallListService.Hall.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\MovieDetService\MovieBooking.UI.Maintenance.MovieDetService.Movie.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

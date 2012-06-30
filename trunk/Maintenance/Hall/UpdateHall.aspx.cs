@@ -66,6 +66,7 @@ namespace MovieBooking.UI.Maintenance.Hall
                 throw new Exception("Error occured while update hall" + ex.Message);
             }
 
+            //hallRep.Update(hal);
             ErrorMessage.Text = "Updated Successfully";
             ClearAll();
             //End: Added on 28-Jun-2012
